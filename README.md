@@ -13,5 +13,19 @@ Repositorio para alojar todos los proyectos que se desarrollen a lo largo de la 
         - Crear una clase `Producto` con atributos `nombre`, `precio`, y `stock`. Implementa un método `aplicarDescuento` que reciba un porcentaje y disminuya el precio en ese porcentaje. 
         - Crear una clase `Banco` que tenga una lista de objetos `CuentaBancaria`. Añade métodos para agregar cuentas a la lista y mostrar el saldo total del banco. 
         - Crear una clase `Empleado` con atributos `nombre`, `sueldoBase`, y `antigüedad`. Implementa un método `calcularSueldo` que aumente el sueldo base un 10% por cada año de antigüedad.
+1. **TP1 | Gestión de Tareas**:
+    - **Objetivo**: Desarrollar una aplicación de consola en Java para gestionar tareas personales, donde los usuarios puedan registrarse y realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre sus tareas.
+    - **Requerimientos**:
+        1. **Registro de Usuarios**:
+            - Los usuarios deben poder registrarse proporcionando un nombre de usuario y una contraseña.
+            - No se permiten nombres de usuario duplicados.
+            - La aplicación debe almacenar temporalmente los usuarios registrados en memoria.
+        1. **Gestión de Tareas**:
+            - **Crear Tarea**: Los usuarios deben poder crear nuevas tareas proporcionando un título, una descripción y asignando un estado inicial (Nuevo, Pendiente, Finalizado).
+            - **Ver Tareas**: Los usuarios deben poder ver la lista de todas sus tareas con su ID, título, descripción y estado.
+            - **Actualizar Tarea**: Los usuarios deben poder actualizar el título, la descripción y el estado de una tarea específica, identificándola por su ID.
+            - **Eliminar Tarea**: Los usuarios deben poder eliminar una tarea específica, identificándola por su ID.
+        1. **Cerrar sesión**:
+            - Los usuarios deben poder cerrar sesión y regresar al menú principal.
 ---
 *Videla Guliotti Tobías Uriel*
