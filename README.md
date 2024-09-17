@@ -53,7 +53,7 @@ Repositorio para alojar todos los proyectos que se desarrollen a lo largo de la 
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 titulo VARCHAR(255) NOT NULL,
                 descripcion TEXT,
-                estado ENUM('Nuevo', 'Pendiente', 'Finalizado') NOT NULL
+                estado ENUM('Nuevo', 'Pendiente', 'Finalizado') NOT NULL,
                 idUsuario INT,
                 FOREIGN KEY (idUsuario) REFERENCES usuarios(id)
             );
