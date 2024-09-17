@@ -64,8 +64,6 @@ Repositorio para alojar todos los proyectos que se desarrollen a lo largo de la 
             ![](https://kaizen-software.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F480959ae-2a3f-4d71-9285-c829eb239c67%2F3976fb3a-bb70-4878-9669-2e3ce0522c0a%2Fimage.png?table=block&id=fff240b2-54df-806b-99dc-d45338419b91&spaceId=480959ae-2a3f-4d71-9285-c829eb239c67&width=1020&userId=&cache=v2)
             1. Luego iremos a la opción de “libreriasˮ y seleccionaremos `Classpath` y agregaremos el .jar de la librería que descargamos.
             ![](https://kaizen-software.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F480959ae-2a3f-4d71-9285-c829eb239c67%2Ff0c35cab-f3df-431a-b420-e38695bbc321%2Fimage.png?table=block&id=e7f55689-79fa-42e3-a7e9-17384cb49224&spaceId=480959ae-2a3f-4d71-9285-c829eb239c67&width=1360&userId=&cache=v2)
-            1. Nos debería quedar agregado de la siguiente manera:
-            ![](https://kaizen-software.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F480959ae-2a3f-4d71-9285-c829eb239c67%2F28128f1c-d3e1-42d2-ab2c-48a804887777%2Fimage.png?table=block&id=ba29a2c1-e2cf-44f2-b31e-f5f619dd6d2b&spaceId=480959ae-2a3f-4d71-9285-c829eb239c67&width=1360&userId=&cache=v2)
         1. Dentro del proyecto java en netbeans vamos a crear una clase util para configurar la conexión a la base de datos o podemos crearla en misma clase principal.
             ``` java
             package gestiontareasconsola;
