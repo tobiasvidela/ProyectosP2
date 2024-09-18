@@ -16,7 +16,7 @@ public class Main {
         // Intentar conectar a la base de datos
         try (Connection conn = Util.getConnection()) {
             if (conn != null) {
-                System.out.println("Conexion exitosa a la base de datos!");
+                System.out.println("Conexión exitosa a la base de datos!");
             }
         } catch (SQLException e) {
             System.out.println("Error al conectar a la base de datos: " + e.getMessage());
@@ -36,24 +36,24 @@ public class Main {
         System.out.println("\n--- Menú Principal ---");
         System.out.println("1. Registrarse");
         System.out.println("2. Iniciar sesión");
-        System.out.println("3. Salir");
+        System.out.println("3. Ver todos los usuarios registrados");
+        System.out.println("4. Eliminar usuario");
+        System.out.println("5. Salir");
         System.out.print("Seleccione una opción: ");
 
         int opcion = scanner.nextInt();
         scanner.nextLine(); // Consumir el salto de línea
-
+        
         switch (opcion) {
-            case 1:
-                registrarUsuario();
-                break;
-            case 2:
-                iniciarSesion();
-                break;
-            case 3:
+            case 1 -> registrarUsuario();
+            case 2 -> iniciarSesion();
+            case 3 -> verTodosLosUsuarios();
+            case 4 -> eliminarUsuario();
+            case 5 -> {
                 System.out.println("¡Hasta luego!");
                 System.exit(0);
-            default:
-                System.out.println("Opción no válida. Intente de nuevo.");
+            }
+            default -> System.out.println("Opción no válida. Intente de nuevo.");
         }
     }
 
@@ -63,18 +63,22 @@ public class Main {
         System.out.println("2. Ver tareas");
         System.out.println("3. Actualizar tarea");
         System.out.println("4. Eliminar tarea");
-        System.out.println("5. Cerrar sesión");
+        System.out.println("5. Actualizar perfil");
+        System.out.println("6. Cerrar sesión");
         System.out.print("Seleccione una opción: ");
 
         int opcion = scanner.nextInt();
         scanner.nextLine(); // Consumir el salto de línea
+        
+        int idUsuarioActual = usuarioService.obtenerUsuarioPorUsername(usuarioActual).getId();
 
         switch (opcion) {
-            case 1 -> crearTarea();
-            case 2 -> verTareas();
-            case 3 -> actualizarTarea();
-            case 4 -> eliminarTarea();
-            case 5 -> cerrarSesion();
+            case 1 -> crearTarea(idUsuarioActual);
+            case 2 -> verTareas(idUsuarioActual);
+            case 3 -> actualizarTarea(idUsuarioActual);
+            case 4 -> eliminarTarea(idUsuarioActual);
+            case 5 -> actualizarPerfil();
+            case 6 -> cerrarSesion();
             default -> System.out.println("Opción no válida. Intente de nuevo.");
         }
     }
@@ -95,22 +99,63 @@ public class Main {
             System.out.println("El nombre de usuario ya existe. Intente con otro.");
         }
     }
+    
+    private static void verTodosLosUsuarios() {
+        List<Usuario> usuarios = usuarioService.obtenerTodosUsuarios();
+        if (usuarios.isEmpty()) {
+            System.out.println("No hay usuarios registrados.");
+        } else {
+            System.out.println("Usuarios registrados:");
+
+            // Definir el formato de la tabla
+            String formato = "| %-4s | %-23s | %-23s | %-18s |%n";
+
+            // Imprimir el encabezado de la tabla
+            System.out.println("+------+-------------------------+-------------------------+--------------------+");
+            System.out.printf(formato, "ID", "Nombre", "Apellido", "Username");
+            System.out.println("+------+-------------------------+-------------------------+--------------------+");
+
+            // Imprimir los datos de cada usuario
+            for (Usuario usuario : usuarios) {
+                System.out.printf(formato, 
+                                  usuario.getId(), 
+                                  usuario.getNombre(), 
+                                  usuario.getApellido(), 
+                                  usuario.getUsername());
+            }
+
+            // Imprimir el pie de la tabla
+            System.out.println("+------+-------------------------+-------------------------+--------------------+");
+        }
+    }
+
+    private static void eliminarUsuario() {
+        System.out.print("Ingrese el ID del usuario a eliminar: ");
+        int id = scanner.nextInt();
+        scanner.nextLine(); // Consumir el salto de línea
+
+        if (usuarioService.eliminarUsuario(id)) {
+            System.out.println("Usuario eliminado con éxito.");
+        } else {
+            System.out.println("No se pudo eliminar el usuario. Verifique el ID.");
+        }
+    }
 
     private static void iniciarSesion() {
         System.out.print("Ingrese nombre de usuario: ");
-        String nombreUsuario = scanner.nextLine();
+        String username = scanner.nextLine();
         System.out.print("Ingrese contraseña: ");
         String contrasena = scanner.nextLine();
 
-        if (usuarioService.autenticarUsuario(nombreUsuario, contrasena)) {
-            usuarioActual = nombreUsuario;
+        if (usuarioService.autenticarUsuario(username, contrasena)) {
+            usuarioActual = username;
             System.out.println("Sesión iniciada con éxito.");
         } else {
             System.out.println("Nombre de usuario o contraseña incorrectos.");
         }
     }
 
-    private static void crearTarea() {
+    private static void crearTarea(int idUsuarioActual) {
         System.out.print("Ingrese título de la tarea: ");
         String titulo = scanner.nextLine();
         System.out.print("Ingrese descripción de la tarea: ");
@@ -118,52 +163,159 @@ public class Main {
         System.out.print("Ingrese estado de la tarea (Nuevo/Pendiente/Finalizado): ");
         String estado = scanner.nextLine();
 
-        Tarea nuevaTarea = tareaService.crearTarea(usuarioActual, titulo, descripcion, estado);
-        System.out.println("Tarea creada con éxito. ID: " + nuevaTarea.getId());
+        if(tareaService.crearTarea(titulo, descripcion, estado, idUsuarioActual)){
+            System.out.println("Tarea creada con éxito.");
+        } else {
+            System.out.println("Hubo un problema con la creación de la tarea.");
+        }
     }
 
-    private static void verTareas() {
-        List<Tarea> tareas = tareaService.obtenerTareas(usuarioActual);
+    private static void verTareas(int idUsuarioActual) {
+        List<Tarea> tareas = tareaService.obtenerTareasPorUsuario(idUsuarioActual);
         if (tareas.isEmpty()) {
             System.out.println("No hay tareas para mostrar.");
         } else {
+            System.out.println(" Sus tareas:");
+            // Definir el formato de la tabla
+            String formato = "| %12s | %-75s |%n";
+
             for (Tarea tarea : tareas) {
-                System.out.println(tarea);
+                System.out.printf(formato, tarea.getId(), tarea.getTitulo());
+                System.out.printf(formato, "Descripcion", tarea.getDescripcion());
+                System.out.printf(formato, "Estado", tarea.getEstado());
+                System.out.println("+--------------+-----------------------------------------------------------------------------+");
             }
         }
     }
 
-    private static void actualizarTarea() {
+    private static void actualizarTarea(int idUsuarioActual) {
+        verTareas(idUsuarioActual);
+
         System.out.print("Ingrese ID de la tarea a actualizar: ");
         int id = scanner.nextInt();
         scanner.nextLine(); // Consumir el salto de línea
+        
+        // Veirificar si existe la tarea
+        if (tareaService.obtenerTareaPorId(id) == null) {
+            System.out.println("Prueba con otro ID."); //Avisar al usuario que intente otro ID
+            return;
+        }
 
-        System.out.print("Ingrese nuevo título (o presione Enter para mantener el actual): ");
-        String nuevoTitulo = scanner.nextLine();
-        System.out.print("Ingrese nueva descripción (o presione Enter para mantener la actual): ");
-        String nuevaDescripcion = scanner.nextLine();
-        System.out.print("Ingrese nuevo estado (Nuevo/Pendiente/Finalizado) (o presione Enter para mantener el actual): ");
-        String nuevoEstado = scanner.nextLine();
-
-        if (tareaService.actualizarTarea(usuarioActual, id, nuevoTitulo, nuevaDescripcion, nuevoEstado)) {
-            System.out.println("Tarea actualizada con éxito.");
+        if (tareaService.obtenerTareaPorId(id).getIdUsuario() != idUsuarioActual) {
+            System.out.println("La tarea seleccionada no te pertenece.");
         } else {
-            System.out.println("No se pudo actualizar la tarea. Verifique el ID.");
+            Tarea tareaActualizarObj = tareaService.obtenerTareaPorId(id);
+
+            if (tareaActualizarObj == null) {
+                System.out.println("No se encontró la tarea.");
+                return;
+            }
+
+            System.out.println("\n--- Actualizar tarea ---");
+            System.out.println("\n(Presiona Enter para no modificar el campo)\n");
+
+            System.out.print("Nuevo título (actual: " + tareaActualizarObj.getTitulo() + "): ");
+            String nuevoTitulo = scanner.nextLine();
+            if (nuevoTitulo.isEmpty()) {
+                nuevoTitulo = tareaActualizarObj.getTitulo();
+            }
+
+            System.out.print("Nueva descripción: ");
+            String nuevaDescripcion = scanner.nextLine();
+            if (nuevaDescripcion.isEmpty()) {
+                nuevaDescripcion = tareaActualizarObj.getDescripcion();
+            }
+
+            System.out.print("Nuevo estado (Nuevo/Pendiente/Finalizado): ");
+            String nuevoEstado = scanner.nextLine();
+            if (nuevoEstado.isEmpty()) {
+                nuevoEstado = tareaActualizarObj.getEstado();
+            }
+
+            Tarea nuevaTarea = new Tarea(id, nuevoTitulo, nuevaDescripcion, nuevoEstado, idUsuarioActual);
+            
+            tareaActualizarObj = nuevaTarea;
+
+            if (tareaService.actualizarTarea(tareaActualizarObj)) {
+                System.out.println("Tarea actualizada con éxito.");
+            } else {
+                System.out.println("No se pudo actualizar la tarea. Verifique el ID.");
+            }
         }
     }
 
-    private static void eliminarTarea() {
+    private static void eliminarTarea(int idUsuarioActual) {
+        verTareas(idUsuarioActual);
         System.out.print("Ingrese ID de la tarea a eliminar: ");
         int id = scanner.nextInt();
         scanner.nextLine(); // Consumir el salto de línea
-
-        if (tareaService.eliminarTarea(usuarioActual, id)) {
-            System.out.println("Tarea eliminada con éxito.");
+        
+        // Veirificar si existe la tarea
+        if (tareaService.obtenerTareaPorId(id) == null) {
+            System.out.println("Prueba con otro ID."); //Avisar al usuario que intente otro ID
+            return;
+        }
+        
+        if (tareaService.obtenerTareaPorId(id).getIdUsuario() != idUsuarioActual) {
+            System.out.println("La tarea seleccionada no te pertenece.");
         } else {
-            System.out.println("No se pudo eliminar la tarea. Verifique el ID.");
+            if (tareaService.eliminarTarea(id)) {
+                System.out.println("Tarea eliminada con éxito.");
+            } else {
+                System.out.println("No se pudo eliminar la tarea. Verifique el ID.");
+            }
         }
     }
 
+    private static void actualizarPerfil() {
+        Usuario usuarioActualObj = usuarioService.obtenerUsuarioPorUsername(usuarioActual);
+
+        if (usuarioActualObj == null) {
+            System.out.println("No se encontró el usuario actual.");
+            return;
+        }
+
+        System.out.println("\n--- Actualizar perfil ---");
+        System.out.println("\n(Presiona Enter para no modificar el campo)\n");
+
+        System.out.print("Nuevo nombre (actual: " + usuarioActualObj.getNombre() + "): ");
+        String nuevoNombre = scanner.nextLine();
+        if (nuevoNombre.isEmpty()) {
+            nuevoNombre = usuarioActualObj.getNombre();  // Si se presiona Enter, mantiene el valor actual
+        }
+
+        System.out.print("Nuevo apellido (actual: " + usuarioActualObj.getApellido() + "): ");
+        String nuevoApellido = scanner.nextLine();
+        if (nuevoApellido.isEmpty()) {
+            nuevoApellido = usuarioActualObj.getApellido();  // Si se presiona Enter, mantiene el valor actual
+        }
+
+        System.out.print("Nuevo nombre de usuario (actual: " + usuarioActualObj.getUsername() + "): ");
+        String nuevoUsername = scanner.nextLine();
+        if (nuevoUsername.isEmpty()) {
+            nuevoUsername = usuarioActualObj.getUsername();  // Si se presiona Enter, mantiene el valor actual
+        }
+
+        System.out.print("Nueva contraseña: ");
+        String nuevaContrasena = scanner.nextLine();
+        if (nuevaContrasena.isEmpty()) {
+            nuevaContrasena = usuarioActualObj.getContrasena();  // Si se presiona Enter, mantiene el valor actual
+        }
+
+        Usuario usuarioActualizado = new Usuario(
+                usuarioActualObj.getId(), 
+                nuevoNombre, 
+                nuevoApellido, 
+                nuevoUsername, 
+                nuevaContrasena
+        );
+
+        // Actualizamos en el servicio y la base de datos
+        usuarioService.actualizarUsuario(usuarioActualizado);
+        System.out.println("Perfil actualizado con éxito.");
+    }
+
+    
     private static void cerrarSesion() {
         usuarioActual = null;
         System.out.println("Sesión cerrada.");

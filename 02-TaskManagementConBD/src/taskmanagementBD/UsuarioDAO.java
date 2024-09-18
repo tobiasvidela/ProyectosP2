@@ -46,6 +46,31 @@ public class UsuarioDAO {
         return null;
     }
     
+    public Usuario obtenerUsuarioPorUsername(String username) {
+        String sql = "SELECT * FROM usuarios WHERE usuario = ?";
+        try (Connection conn = Util.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, username);
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new Usuario(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("apellido"),
+                        rs.getString("usuario"),
+                        rs.getString("contraseña")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al obtener usuario por username: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
     public List<Usuario> obtenerTodosUsuarios() {
         List<Usuario> usuarios = new ArrayList<>();
         String sql = "SELECT * FROM usuarios";
@@ -71,7 +96,7 @@ public class UsuarioDAO {
     public void actualizarUsuario(Usuario usuario) {
         String sql = "UPDATE usuarios SET nombre = ?, apellido = ?, usuario = ?, contraseña = ? WHERE id = ?";
         try (Connection conn = Util.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, usuario.getNombre());
             stmt.setString(2, usuario.getApellido());
             stmt.setString(3, usuario.getUsername());
@@ -86,7 +111,7 @@ public class UsuarioDAO {
     public void eliminarUsuario(int id) {
         String sql = "DELETE FROM usuarios WHERE id = ?";
         try (Connection conn = Util.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
