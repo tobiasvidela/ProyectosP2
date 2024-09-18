@@ -6,28 +6,41 @@ package taskmanagementBD;
  */
 
 public class Usuario {
-    private String nombreUsuario;
+    private String nombre;
+    private String apellido;
+    private String username;
     private String contrasena;
 
-    public Usuario(String nombreUsuario, String contrasena) {
-        this.nombreUsuario = nombreUsuario;
+    public Usuario(String nombre, String apellido, String usuario, String contrasena) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.username = usuario;
         this.contrasena = contrasena;
     }
+    /*
+    public Usuario(int id, String nombre, String apellido, String username, String contrasena) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.username = username;
+        this.contrasena = contrasena;
+    }*/
 
-    // Getters y setters
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    // Getters
+
+    public String getNombre() {
+        return this.nombre;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public String getApellido() {
+        return this.apellido;
+    }
+
+    public String getUsername() {
+        return this.username;
     }
 
     public String getContrasena() {
-        return contrasena;
+        return this.contrasena;
     }
-
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
+    
 }

@@ -2,6 +2,8 @@ package taskmanagementBD;
 
 import java.util.List;
 import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
@@ -10,6 +12,17 @@ public class Main {
     private static String usuarioActual = null;
 
     public static void main(String[] args) {
+        
+        // Intentar conectar a la base de datos
+        try (Connection conn = Util.getConnection()) {
+            if (conn != null) {
+                System.out.println("Conexion exitosa a la base de datos!");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al conectar a la base de datos: " + e.getMessage());
+        }
+        
+        // Iniciar sistema
         while (true) {
             if (usuarioActual == null) {
                 mostrarMenuPrincipal();
@@ -67,12 +80,16 @@ public class Main {
     }
 
     private static void registrarUsuario() {
-        System.out.print("Ingrese nombre de usuario: ");
-        String nombreUsuario = scanner.nextLine();
-        System.out.print("Ingrese contraseña: ");
+        System.out.print("Nombre: ");
+        String nombre = scanner.nextLine();
+        System.out.print("Apellido: ");
+        String apellido = scanner.nextLine();
+        System.out.print("Usuario: ");
+        String username = scanner.nextLine();
+        System.out.print("Contraseña: ");
         String contrasena = scanner.nextLine();
 
-        if (usuarioService.registrarUsuario(nombreUsuario, contrasena)) {
+        if (usuarioService.registrarUsuario(nombre, apellido, username, contrasena)) {
             System.out.println("Usuario registrado con éxito.");
         } else {
             System.out.println("El nombre de usuario ya existe. Intente con otro.");
