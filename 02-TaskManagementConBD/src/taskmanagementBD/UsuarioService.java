@@ -57,8 +57,9 @@ public class UsuarioService {
 
     public boolean eliminarUsuario(int id) {
         try {
-            usuarios.remove(usuarioDAO.obtenerUsuarioPorId(id).getUsername());
+            String usernameAEliminar = usuarioDAO.obtenerUsuarioPorId(id).getUsername();
             usuarioDAO.eliminarUsuario(id);
+            usuarios.remove(usernameAEliminar);
             return true;
         } catch (Exception e) {
             System.err.println("Error al eliminar usuario: " + e.getMessage());

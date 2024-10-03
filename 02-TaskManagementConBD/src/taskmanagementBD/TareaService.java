@@ -54,8 +54,8 @@ public class TareaService {
 
     public boolean eliminarTarea(int id) {
         try {
-            tareas.remove(id);
             tareaDAO.eliminarTarea(id);
+            tareas.remove(id);
             return true;
         } catch (Exception e) {
             System.err.println("Error al eliminar tarea: " + e.getMessage());
