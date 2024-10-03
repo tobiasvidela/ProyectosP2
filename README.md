@@ -1,7 +1,7 @@
 # Proyectos Programación 2
 Repositorio para alojar todos los proyectos que se desarrollen a lo largo de la materia **Programación 2**.
 ## Proyectos
-1. **Práctica POO**:
+1. ### **Práctica POO**:
     - **Crear un proyecto en NetBeans**:
         - Crear una clase llamada `Libro`. La clase debe tener atributos como `titulo`, `autor`, y `numeroDePaginas` . Define un método `mostrarDetalles` que imprima los detalles del libro.
         - Crear una clase `Persona` con atributos `nombre` y `edad`. Agrega un método `esMayorDeEdad` que devuelva `true` si la persona tiene 18 años o más.
@@ -13,7 +13,7 @@ Repositorio para alojar todos los proyectos que se desarrollen a lo largo de la 
         - Crear una clase `Producto` con atributos `nombre`, `precio`, y `stock`. Implementa un método `aplicarDescuento` que reciba un porcentaje y disminuya el precio en ese porcentaje. 
         - Crear una clase `Banco` que tenga una lista de objetos `CuentaBancaria`. Añade métodos para agregar cuentas a la lista y mostrar el saldo total del banco. 
         - Crear una clase `Empleado` con atributos `nombre`, `sueldoBase`, y `antigüedad`. Implementa un método `calcularSueldo` que aumente el sueldo base un 10% por cada año de antigüedad.
-1. **TP1 | Gestión de Tareas**:
+1. ### **TP1 | Gestión de Tareas**:
     - **Objetivo**: Desarrollar una aplicación de consola en Java para gestionar tareas personales, donde los usuarios puedan registrarse y realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre sus tareas.
     - **Requerimientos**:
         1. **Registro de Usuarios**:
@@ -27,7 +27,7 @@ Repositorio para alojar todos los proyectos que se desarrollen a lo largo de la 
             - **Eliminar Tarea**: Los usuarios deben poder eliminar una tarea específica, identificándola por su ID.
         1. **Cerrar sesión**:
             - Los usuarios deben poder cerrar sesión y regresar al menú principal.
-1. **TP 2 | Gestión de tareas integración con base de datos**:
+1. ### **TP 2 | Gestión de tareas integración con base de datos**:
     - **Objetivo**: Integrar la gestión de tareas con una base de datos relacional.
     - **Configuración de la Base de Datos**
         1. **Inicia `XAMPP`** y asegúrate de que los módulos de Apache y MySQL estén en ejecución.
@@ -242,5 +242,54 @@ Repositorio para alojar todos los proyectos que se desarrollen a lo largo de la 
         }
         ```
         **Ejercicio**: Implementar la lógica necesaria para finalizar la persistencia de datos del gestor de tareas.
+1. ### **TP3 | Interfaz Gráfica (GUI)**:
+    - **Objetivo**: **Desarrollar un proyecto de gestión de tareas con interfaz gráfica en Java utilizando NetBeans y la biblioteca Swing**. Swing es un conjunto de componentes gráficos que permite crear interfaces de usuario en aplicaciones de escritorio en Java, como ventanas, botones, y campos de texto (por ejemplo, `JFrame`, `JButton`, `JTextField`, etc.).
+    - **Primer acercamiento a Swing**:
+        1. **Abrir el proyecto GestionDeTareas y Organizar Paquetes**
+            - Abre NetBeans y carga el proyecto **GestionDeTareas**.
+            - Es recomendable crear paquetes separados para organizar tu código. Por ejemplo:
+                - Crea un paquete para la lógica de negocio llamado ``gestionDeTareas.logica``, donde agregarás clases que gestionen las tareas y operaciones CRUD.
+                - Crea otro paquete para la interfaz gráfica llamado ``gestionDeTareas.gui``, donde agregarás clases relacionadas con ``JFrame`` y otros componentes visuales.
+            - Si aún no has creado el proyecto, sigue estos pasos:
+                - Ve a **Archivo** > **Nuevo Proyecto**.
+                - En el diálogo, selecciona **Java** en las categorías y luego **Java Application**.
+                - Haz click en **Siguiente**.
+                - Asigna el nombre **GestionDeTareas** al proyecto y asegúrate de que la casilla "Crear clase principal" esté marcada.
+                - Haz clic en **Finalizar**.
+        1. **Agregar un JFrame al Proyecto**
+            - En el explorador de proyectos, haz clic derecho en el paquete ``gestionDeTareas.gui`` (o el paquete donde quieras agregarlo).
+            - Selecciona **Nuevo** > **JFrame Form**.
+            - Asigna un nombre a tu ``JFrame`` (por ejemplo, "MenuPrincipal") y haz clic en **Finalizar**.
+        1. **Diseñar la Interfaz Gráfica**
+            - NetBeans abrirá el editor visual del ``JFrame``. Aquí puedes arrastrar y soltar componentes gráficos desde la paleta que aparece a la derecha (botones, etiquetas, campos de texto, etc.).
+            - Por ejemplo, para agregar un botón, busca el componente ``JButton`` en la paleta, haz clic en él y arrástralo al área del ``JFrame``.
+        1. **Agregar Eventos a los Componentes**
+            - Haz doble clic en el botón u otro componente que hayas agregado. Esto te llevará al código donde puedes agregar la funcionalidad.
+            - Puedes escribir el código que quieres que se ejecute cuando el usuario haga clic en el botón. Por ejemplo, mostrar un mensaje:
+                ``` java
+                    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+                        // Acción al hacer clic en el botón
+                        System.out.println("Botón presionado!");
+                    }
+                ```
+        1. **Ejecutar el Proyecto**
+            - Para probar tu aplicación, haz clic derecho en el archivo ``JFrame`` en el explorador de proyectos y selecciona **Ejecutar archivo**.
+            - Se abrirá una ventana con tu interfaz gráfica.
+        1. **Modificar el Método “main”**
+            - Si quieres que tu ``JFrame`` sea la ventana principal que se abre cuando inicias la aplicación, ve a la clase ``Main`` que se creó por defecto (o la clase que tenga el ``main``).
+            - En el método ``main``, agrega el código para hacer visible tu ``JFrame``:
+                ``` java
+                    public static void main(String args[]) {
+                        // Ejecutar el JFrame en el hilo de eventos
+                            java.awt.EventQueue.invokeLater(new Runnable() {
+                                public void run() {
+                                gestionDeTareas.GUI.MenuPrincipal menu = new gestionDeTareas.GUI.MenuPrincipal();
+                                menu.setExtendedState(JFrame.MAXIMIZED_BOTH); // Establecemos el tamaño de la ventana
+                                menu.setLocationRelativeTo(null); // Centra la ventana
+                                menu.setVisible(true); // Hace visible el JFrame
+                                }
+                            });
+                    }
+                ```
 ---
 *Videla Guliotti Tobías Uriel*
