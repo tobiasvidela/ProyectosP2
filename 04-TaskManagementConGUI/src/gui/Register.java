@@ -161,7 +161,7 @@ public class Register extends javax.swing.JFrame {
         String username = txt_username_signup.getText();
         String password = txt_password_signup.getText();
         if (name != null && lastname != null && username != null && password != null
-                && name.equals("") && lastname.equals("") && username.equals("") && password.equals("")) {
+                && !name.equals("") && !lastname.equals("") && !username.equals("") && !password.equals("")) {
             if (logica.Main.registrarUsuario(name, lastname, username, password)) {
                 JOptionPane.showMessageDialog(this, "Usuario registrado con éxito", "Registro", JOptionPane.INFORMATION_MESSAGE);
             } else {
