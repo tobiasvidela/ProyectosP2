@@ -24,13 +24,10 @@ public class Main {
         }
         
         // Iniciar sistema
-        // Ejecutar el JFrame en el hilo de eventos
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-            gui.MainMenu menu = new gui.MainMenu();
-            menu.setExtendedState(JFrame.MAXIMIZED_BOTH); // Establecemos el tamaño de la ventana
-            menu.setLocationRelativeTo(null); // Centra la ventana
-            menu.setVisible(true); // Hace visible el JFrame
+                //      LOGIN
+                gui.Login login = new gui.Login();
             }
         });
         // CLI
@@ -42,73 +39,12 @@ public class Main {
             }
         }*/
     }
-
-    private static void mostrarMenuPrincipal() {
-        System.out.println("\n--- Menú Principal ---");
-        System.out.println("1. Registrarse");
-        System.out.println("2. Iniciar sesión");
-        System.out.println("3. Ver todos los usuarios registrados");
-        System.out.println("4. Eliminar usuario");
-        System.out.println("5. Salir");
-        System.out.print("Seleccione una opción: ");
-
-        int opcion = scanner.nextInt();
-        scanner.nextLine(); // Consumir el salto de línea
-        
-        switch (opcion) {
-            case 1 -> registrarUsuario();
-            case 2 -> iniciarSesion();
-            case 3 -> verTodosLosUsuarios();
-            case 4 -> eliminarUsuario();
-            case 5 -> {
-                System.out.println("¡Hasta luego!");
-                System.exit(0);
-            }
-            default -> System.out.println("Opción no válida. Intente de nuevo.");
-        }
+    public static boolean autenticarUsuario(String username, String contrasena) {
+        return usuarioService.autenticarUsuario(username, contrasena);
     }
 
-    private static void mostrarMenuUsuario() {
-        System.out.println("\n--- Menú de Usuario ---");
-        System.out.println("1. Crear tarea");
-        System.out.println("2. Ver tareas");
-        System.out.println("3. Actualizar tarea");
-        System.out.println("4. Eliminar tarea");
-        System.out.println("5. Actualizar perfil");
-        System.out.println("6. Cerrar sesión");
-        System.out.print("Seleccione una opción: ");
-
-        int opcion = scanner.nextInt();
-        scanner.nextLine(); // Consumir el salto de línea
-        
-        int idUsuarioActual = usuarioService.obtenerUsuarioPorUsername(usuarioActual).getId();
-
-        switch (opcion) {
-            case 1 -> crearTarea(idUsuarioActual);
-            case 2 -> verTareas(idUsuarioActual);
-            case 3 -> actualizarTarea(idUsuarioActual);
-            case 4 -> eliminarTarea(idUsuarioActual);
-            case 5 -> actualizarPerfil();
-            case 6 -> cerrarSesion();
-            default -> System.out.println("Opción no válida. Intente de nuevo.");
-        }
-    }
-
-    private static void registrarUsuario() {
-        System.out.print("Nombre: ");
-        String nombre = scanner.nextLine();
-        System.out.print("Apellido: ");
-        String apellido = scanner.nextLine();
-        System.out.print("Usuario: ");
-        String username = scanner.nextLine();
-        System.out.print("Contraseña: ");
-        String contrasena = scanner.nextLine();
-
-        if (usuarioService.registrarUsuario(nombre, apellido, username, contrasena)) {
-            System.out.println("Usuario registrado con éxito.");
-        } else {
-            System.out.println("El nombre de usuario ya existe. Intente con otro.");
-        }
+    public static boolean registrarUsuario(String nombre, String apellido, String username, String contrasena) {
+        return usuarioService.registrarUsuario(nombre, apellido, username, contrasena);
     }
     
     private static void verTodosLosUsuarios() {
@@ -149,20 +85,6 @@ public class Main {
             System.out.println("Usuario eliminado con éxito.");
         } else {
             System.out.println("No se pudo eliminar el usuario. Verifique el ID.");
-        }
-    }
-
-    private static void iniciarSesion() {
-        System.out.print("Ingrese nombre de usuario: ");
-        String username = scanner.nextLine();
-        System.out.print("Ingrese contraseña: ");
-        String contrasena = scanner.nextLine();
-
-        if (usuarioService.autenticarUsuario(username, contrasena)) {
-            usuarioActual = username;
-            System.out.println("Sesión iniciada con éxito.");
-        } else {
-            System.out.println("Nombre de usuario o contraseña incorrectos.");
         }
     }
 
@@ -325,7 +247,6 @@ public class Main {
         usuarioService.actualizarUsuario(usuarioActualizado);
         System.out.println("Perfil actualizado con éxito.");
     }
-
     
     private static void cerrarSesion() {
         usuarioActual = null;

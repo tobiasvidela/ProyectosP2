@@ -19,6 +19,9 @@ public class MainMenu extends javax.swing.JFrame {
     public MainMenu() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("ico_mainmenu.png")).getImage());
+        setExtendedState(JFrame.MAXIMIZED_BOTH); // Establecemos el tamaño de la ventana
+        setLocationRelativeTo(null); // Centra la ventana
+        setVisible(true); // Hace visible el JFrame
     }
 
     /**
