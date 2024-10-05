@@ -4,6 +4,7 @@
  */
 package gui;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -19,6 +20,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("ico_mainmenu.png")).getImage());
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -46,6 +48,7 @@ public class Login extends javax.swing.JFrame {
         btn_exit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Task Management v0.1");
 
         lbl_loginTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbl_loginTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/ico_login.png"))); // NOI18N
@@ -160,7 +163,7 @@ public class Login extends javax.swing.JFrame {
             System.out.println("Login successful.");
             this.dispose();
             //      MENU
-            MainMenu menu = new gui.MainMenu();
+            MainMenu menu = new gui.MainMenu(username);
             menu.setExtendedState(JFrame.MAXIMIZED_BOTH); // Establecemos el tamaño de la ventana
             menu.setLocationRelativeTo(null); // Centra la ventana
             menu.setVisible(true); // Hace visible el JFrame

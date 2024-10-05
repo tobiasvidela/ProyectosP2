@@ -57,6 +57,9 @@
                 <Property name="toolTipText" type="java.lang.String" value="Cuidado con esto manito"/>
                 <Property name="borderPainted" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="submenu_eliminarCuentaActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

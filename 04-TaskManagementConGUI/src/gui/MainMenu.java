@@ -6,16 +6,27 @@ package gui;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author La Maquina
  */
 public class MainMenu extends javax.swing.JFrame {
+    private static String usuarioActual = null;
 
     /**
-     * Creates new form MainMenu
+     * Creates new form 
+     * @param username usuario actual
      */
+    public MainMenu(String username) {
+        usuarioActual = username;
+        initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("ico_mainmenu.png")).getImage());
+        setExtendedState(JFrame.MAXIMIZED_BOTH); // Establecemos el tamaño de la ventana
+        setLocationRelativeTo(null); // Centra la ventana
+        setVisible(true); // Hace visible el JFrame
+    }
     public MainMenu() {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("ico_mainmenu.png")).getImage());
@@ -126,6 +137,11 @@ public class MainMenu extends javax.swing.JFrame {
         submenu_eliminarCuenta.setText("Eliminar cuenta");
         submenu_eliminarCuenta.setToolTipText("Cuidado con esto manito");
         submenu_eliminarCuenta.setBorderPainted(false);
+        submenu_eliminarCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submenu_eliminarCuentaActionPerformed(evt);
+            }
+        });
         menu_usuario.add(submenu_eliminarCuenta);
 
         barraMenu.add(menu_usuario);
@@ -151,10 +167,27 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_submenu_modificarCuentaActionPerformed
 
     private void submenu_cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenu_cerrarSesionActionPerformed
-        // TODO add your handling code here:
-        //logica.Main.cerrarSesion();
-        System.out.println("User Logout...");
+        if(JOptionPane.showConfirmDialog(this, "Estás Por cerrar tu sesión. ¿Estás seguro?", "Cerrar Sesión", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
+            Login login = new Login();
+            login.setVisible(true);
+            this.dispose();
+            System.out.println("User " + usuarioActual + " out.");
+            usuarioActual = null;
+            System.out.println("Usuario actual: " + usuarioActual);
+        }
     }//GEN-LAST:event_submenu_cerrarSesionActionPerformed
+
+    private void submenu_eliminarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenu_eliminarCuentaActionPerformed
+        if(JOptionPane.showConfirmDialog(this, "Estás a punto de eliminar para siempre tu cuenta. ¿Estás seguro?", "Eliminar cuenta", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == 0){
+            logica.Main.eliminarUsuario(usuarioActual);
+            System.out.println("Cuenta de "+ usuarioActual + " Eliminada");
+            usuarioActual = null;
+            System.out.println("Usuario actual: " + usuarioActual);
+            Login login = new Login();
+            this.setVisible(false);
+            login.setVisible(true);
+        }
+    }//GEN-LAST:event_submenu_eliminarCuentaActionPerformed
 
     /**
      * @param args the command line arguments

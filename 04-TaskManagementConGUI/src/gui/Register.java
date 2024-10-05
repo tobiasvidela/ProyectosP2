@@ -4,6 +4,7 @@
  */
 package gui;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +21,7 @@ public class Register extends javax.swing.JFrame {
     public Register(Login login) {
         this.login = login;
         initComponents();
+        setIconImage(new ImageIcon(getClass().getResource("ico_signup.png")).getImage());
         setLocationRelativeTo(null);
         this.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -56,6 +58,7 @@ public class Register extends javax.swing.JFrame {
         lbl_password_signup = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Registro");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);

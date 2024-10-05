@@ -30,14 +30,6 @@ public class Main {
                 gui.Login login = new gui.Login();
             }
         });
-        // CLI
-        /*while (true) {
-            if (usuarioActual == null) {
-                mostrarMenuPrincipal();
-            } else {
-                mostrarMenuUsuario();
-            }
-        }*/
     }
     public static boolean autenticarUsuario(String username, String contrasena) {
         return usuarioService.autenticarUsuario(username, contrasena);
@@ -47,45 +39,8 @@ public class Main {
         return usuarioService.registrarUsuario(nombre, apellido, username, contrasena);
     }
     
-    private static void verTodosLosUsuarios() {
-        List<Usuario> usuarios = usuarioService.obtenerTodosUsuarios();
-        if (usuarios.isEmpty()) {
-            System.out.println("No hay usuarios registrados.");
-        } else {
-            System.out.println("Usuarios registrados:");
-
-            // Definir el formato de la tabla
-            String formato = "| %-4s | %-23s | %-23s | %-18s |%n";
-
-            // Imprimir el encabezado de la tabla
-            System.out.println("+------+-------------------------+-------------------------+--------------------+");
-            System.out.printf(formato, "ID", "Nombre", "Apellido", "Username");
-            System.out.println("+------+-------------------------+-------------------------+--------------------+");
-
-            // Imprimir los datos de cada usuario
-            for (Usuario usuario : usuarios) {
-                System.out.printf(formato, 
-                                  usuario.getId(), 
-                                  usuario.getNombre(), 
-                                  usuario.getApellido(), 
-                                  usuario.getUsername());
-            }
-
-            // Imprimir el pie de la tabla
-            System.out.println("+------+-------------------------+-------------------------+--------------------+");
-        }
-    }
-
-    private static void eliminarUsuario() {
-        System.out.print("Ingrese el ID del usuario a eliminar: ");
-        int id = scanner.nextInt();
-        scanner.nextLine(); // Consumir el salto de línea
-
-        if (usuarioService.eliminarUsuario(id)) {
-            System.out.println("Usuario eliminado con éxito.");
-        } else {
-            System.out.println("No se pudo eliminar el usuario. Verifique el ID.");
-        }
+    public static boolean eliminarUsuario(String username) {
+        return usuarioService.eliminarUsuario(usuarioService.obtenerUsuarioPorUsername(username).getId());
     }
 
     private static void crearTarea(int idUsuarioActual) {
