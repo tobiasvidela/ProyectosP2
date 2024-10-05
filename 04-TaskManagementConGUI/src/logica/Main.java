@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.sql.Connection;
 import java.sql.SQLException;
+import javax.swing.JFrame;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
@@ -23,13 +24,23 @@ public class Main {
         }
         
         // Iniciar sistema
-        while (true) {
+        // Ejecutar el JFrame en el hilo de eventos
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+            gui.MainMenu menu = new gui.MainMenu();
+            menu.setExtendedState(JFrame.MAXIMIZED_BOTH); // Establecemos el tamaño de la ventana
+            menu.setLocationRelativeTo(null); // Centra la ventana
+            menu.setVisible(true); // Hace visible el JFrame
+            }
+        });
+        // CLI
+        /*while (true) {
             if (usuarioActual == null) {
                 mostrarMenuPrincipal();
             } else {
                 mostrarMenuUsuario();
             }
-        }
+        }*/
     }
 
     private static void mostrarMenuPrincipal() {
