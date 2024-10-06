@@ -72,12 +72,16 @@ public class Register extends javax.swing.JDialog {
         lbl_signupTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_signupTitle.setText("Formulario de Registro");
 
+        lbl_name_signup.setLabelFor(txt_name_signup);
         lbl_name_signup.setText("Nombre/s");
 
+        lbl_username_signup.setLabelFor(txt_username_signup);
         lbl_username_signup.setText("Username");
 
+        lbl_lastname_signup.setLabelFor(txt_lastname_signup);
         lbl_lastname_signup.setText("Apellido/s");
 
+        lbl_password_signup.setLabelFor(txt_password_signup);
         lbl_password_signup.setText("Password");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

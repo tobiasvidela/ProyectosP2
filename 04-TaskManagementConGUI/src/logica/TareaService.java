@@ -1,5 +1,6 @@
 package logica;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,8 +20,8 @@ public class TareaService {
         }
     }
 
-    public boolean crearTarea(String titulo, String descripcion, String estado, int idUsuario) {
-        Tarea nuevaTarea = new Tarea(titulo, descripcion, estado, idUsuario);
+    public boolean crearTarea(String titulo, String descripcion, String estado, int idUsuario, String fecha_entrega, String fecha_creacion) {
+        Tarea nuevaTarea = new Tarea(titulo, descripcion, estado, idUsuario, fecha_entrega, fecha_creacion);
         try {
             int idGenerado = tareaDAO.agregarTarea(nuevaTarea);
             nuevaTarea.setId(idGenerado);  // Establece el ID generado

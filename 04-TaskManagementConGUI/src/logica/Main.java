@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Date;
 import javax.swing.JFrame;
 
 public class Main {
@@ -54,22 +55,14 @@ public class Main {
     public static List<Tarea> getAllTaskFromUsername(String username) {
         return tareaService.obtenerTareasPorUsuario(usuarioService.obtenerUsuarioPorUsername(username).getId());
     }
-
-    private static void crearTarea(int idUsuarioActual) {
-        System.out.print("Ingrese título de la tarea: ");
-        String titulo = scanner.nextLine();
-        System.out.print("Ingrese descripción de la tarea: ");
-        String descripcion = scanner.nextLine();
-        System.out.print("Ingrese estado de la tarea (Nuevo/Pendiente/Finalizado): ");
-        String estado = scanner.nextLine();
-
-        if(tareaService.crearTarea(titulo, descripcion, estado, idUsuarioActual)){
-            System.out.println("Tarea creada con éxito.");
-        } else {
-            System.out.println("Hubo un problema con la creación de la tarea.");
-        }
+    
+    public static Tarea getTaskById(int id) {
+        return tareaService.obtenerTareaPorId(id);
     }
-
+    public static boolean agregarTarea(String titulo, String descripcion, String estado, int idUsuarioActual, String fecha_entrega, String fecha_creacion) {
+        return tareaService.crearTarea(titulo, descripcion, estado, idUsuarioActual, fecha_entrega, fecha_creacion);
+    }
+    
     private static void verTareas(int idUsuarioActual) {
         List<Tarea> tareas = tareaService.obtenerTareasPorUsuario(idUsuarioActual);
         if (tareas.isEmpty()) {
@@ -132,9 +125,9 @@ public class Main {
                 nuevoEstado = tareaActualizarObj.getEstado();
             }
 
-            Tarea nuevaTarea = new Tarea(id, nuevoTitulo, nuevaDescripcion, nuevoEstado, idUsuarioActual);
+            //Tarea nuevaTarea = new Tarea(id, nuevoTitulo, nuevaDescripcion, nuevoEstado, idUsuarioActual);
             
-            tareaActualizarObj = nuevaTarea;
+            //tareaActualizarObj = nuevaTarea;
 
             if (tareaService.actualizarTarea(tareaActualizarObj)) {
                 System.out.println("Tarea actualizada con éxito.");

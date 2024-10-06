@@ -78,12 +78,16 @@ public class UpdateUser extends javax.swing.JDialog {
         lbl_updateTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_updateTitle.setText("Modificar Datos");
 
+        lbl_name_update.setLabelFor(txt_name_update);
         lbl_name_update.setText("Nombre/s");
 
+        lbl_username_update.setLabelFor(txt_username_update);
         lbl_username_update.setText("Username");
 
+        lbl_lastname_update.setLabelFor(txt_lastname_update);
         lbl_lastname_update.setText("Apellido/s");
 
+        lbl_password_update.setLabelFor(txt_password_update);
         lbl_password_update.setText("Password");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

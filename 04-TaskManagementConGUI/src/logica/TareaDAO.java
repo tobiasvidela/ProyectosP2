@@ -4,19 +4,36 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import gui.*;
+import java.text.ParseException;
 
 public class TareaDAO {
 
     public int agregarTarea(Tarea tarea) {
-        String sql = "INSERT INTO tareas (titulo, descripcion, estado, idusuario) VALUES (?, ?, ?, ?)";
+        // Definir el formato de la fecha
+        SimpleDateFormat formato = MainMenu.dateFormat;
+        Date fechaEntregaDate,fechaCreacionDate;
+        // INSERT
+        String sql = "INSERT INTO tareas (titulo, descripcion, estado, idusuario, fecha_entrega, fecha_creacion) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = Util.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, tarea.getTitulo());
             stmt.setString(2, tarea.getDescripcion());
             stmt.setString(3, tarea.getEstado());
             stmt.setInt(4, tarea.getIdUsuario());
+            // Parsear las fechas
+            fechaEntregaDate = formato.parse(tarea.getFechaEntrega());
+            fechaCreacionDate = formato.parse(tarea.getFechaCreacion());
+            // Convertirlas a java.sql.Date
+            java.sql.Date fechaEntregaSQL = new java.sql.Date(fechaEntregaDate.getTime());
+            java.sql.Date fechaCreacionSQL = new java.sql.Date(fechaCreacionDate.getTime());
+
+            stmt.setDate(5, fechaEntregaSQL);
+            stmt.setDate(6, fechaCreacionSQL);
             stmt.executeUpdate();
             
             try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
@@ -24,6 +41,8 @@ public class TareaDAO {
                     return generatedKeys.getInt(1); // Retorna el ID generado
                 }
             }
+        } catch (ParseException e) {
+            System.out.println("Formato de fecha inválido. Debe ser dd-MM-yyyy");
         } catch (SQLException e) {
             System.err.println("Error al añadir tarea a la Base de Datos: " + e.getMessage());
             e.printStackTrace();
@@ -43,7 +62,9 @@ public class TareaDAO {
                     rs.getString("titulo"),
                     rs.getString("descripcion"),
                     rs.getString("estado"),
-                    rs.getInt("idusuario")
+                    rs.getInt("idusuario"),
+                    rs.getString("fecha_entrega"),
+                    rs.getString("fecha_creacion")
                 );
             }
         } catch (SQLException e) {
@@ -66,7 +87,9 @@ public class TareaDAO {
                     rs.getString("titulo"),
                     rs.getString("descripcion"),
                     rs.getString("estado"),
-                    rs.getInt("idusuario")
+                    rs.getInt("idusuario"),
+                    rs.getString("fecha_entrega"),
+                    rs.getString("fecha_creacion")
                 );
                 tareas.add(tarea);
             }
@@ -89,7 +112,9 @@ public class TareaDAO {
                     rs.getString("titulo"),
                     rs.getString("descripcion"),
                     rs.getString("estado"),
-                    rs.getInt("idusuario")
+                    rs.getInt("idusuario"),
+                    rs.getString("fecha_entrega"),
+                    rs.getString("fecha_creacion")
                 );
                 tareas.add(tarea);
             }
