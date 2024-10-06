@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author La Maquina
  */
 public class MainMenu extends javax.swing.JFrame {
-    private static String usuarioActual = null;
+    public static String usuarioActual = null;
 
     /**
      * Creates new form 
@@ -165,7 +165,7 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submenu_modificarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenu_modificarCuentaActionPerformed
-        UpdateUser update_user = new UpdateUser(usuarioActual);
+        UpdateUser update_user = new UpdateUser(this);
         update_user.setVisible(true);
     }//GEN-LAST:event_submenu_modificarCuentaActionPerformed
 

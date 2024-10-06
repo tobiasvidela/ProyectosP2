@@ -4,6 +4,7 @@
  */
 package gui;
 
+import java.awt.Frame;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -11,29 +12,17 @@ import javax.swing.JOptionPane;
  *
  * @author NETBOOK G5
  */
-public class Register extends javax.swing.JFrame {
-    private Login login;
+public class Register extends javax.swing.JDialog {
 
     /**
      * Creates new form Register
-     * @param login frame de login "padre"
      */
-    public Register(Login login) {
-        this.login = login;
+    public Register(Frame parent) {
+        super(parent, true);
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("ico_signup.png")).getImage());
         setLocationRelativeTo(null);
-        this.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent e) {
-                // Al cerrar la ventana de Registro
-                login.setVisible(true);
-                dispose();
-            }
-        });
-    }
-    public Register(){
-        initComponents();
+        setVisible(true);
     }
 
     /**
@@ -57,7 +46,6 @@ public class Register extends javax.swing.JFrame {
         lbl_lastname_signup = new javax.swing.JLabel();
         lbl_password_signup = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -151,7 +139,6 @@ public class Register extends javax.swing.JFrame {
 
     private void btn_exit_signupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exit_signupActionPerformed
         this.dispose();
-        login.setVisible(true);
         System.out.println("Exit Registro");
     }//GEN-LAST:event_btn_exit_signupActionPerformed
 
@@ -165,7 +152,7 @@ public class Register extends javax.swing.JFrame {
             if (logica.Main.registrarUsuario(name, lastname, username, password)) {
                 JOptionPane.showMessageDialog(this, "Usuario registrado con éxito", "Registro", JOptionPane.PLAIN_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(this, "Error al añadir al Usuario a la Base de Datos", "Registro", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Usuario ya registrado.", "Registro", JOptionPane.ERROR_MESSAGE);
             }
         } else {
             JOptionPane.showMessageDialog(this, "Todos los campos deben estar completos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -173,7 +160,8 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_registrarUsuarioActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
+        //no sé cómo borrar esto, netbeans no me deja
+        this.dispose(); //sin este código el modal debe cerrarse dos veces
     }//GEN-LAST:event_formWindowClosed
 
     /**
@@ -206,7 +194,14 @@ public class Register extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Register().setVisible(true);
+                Register dialog = new Register(new javax.swing.JFrame());
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }

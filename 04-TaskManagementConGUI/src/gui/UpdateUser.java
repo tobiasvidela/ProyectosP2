@@ -4,6 +4,7 @@
  */
 package gui;
 
+import java.awt.Frame;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import logica.*;
@@ -12,29 +13,25 @@ import logica.*;
  *
  * @author La Maquina
  */
-public class UpdateUser extends javax.swing.JFrame {
+public class UpdateUser extends javax.swing.JDialog {
     private static String usuarioActual = null;
 
     /**
      * Creates new form UpdateUser
      */
-    public UpdateUser(String username) {
-        usuarioActual = username;
+    public UpdateUser(Frame parent) {
+        super(parent, true); // true establece que el diálogo es modal
+        usuarioActual = MainMenu.usuarioActual;
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("ico_updateUserForm.png")).getImage());
         setLocationRelativeTo(null);
         setVisible(true);
-        txt_name_update.setText(logica.Main.getUserByUsername(username).getNombre());
-        txt_lastname_update.setText(logica.Main.getUserByUsername(username).getApellido());
-        txt_username_update.setText(logica.Main.getUserByUsername(username).getUsername());
-        txt_password_update.setText(logica.Main.getUserByUsername(username).getContrasena());
-    }
-    
-    public UpdateUser(){
-        initComponents();
-        setIconImage(new ImageIcon(getClass().getResource("ico_updateUserForm.png")).getImage());
-        setLocationRelativeTo(null);
-        setVisible(true);
+        
+        // Rellenar campos con datos del usuario
+        txt_name_update.setText(logica.Main.getUserByUsername(usuarioActual).getNombre());
+        txt_lastname_update.setText(logica.Main.getUserByUsername(usuarioActual).getApellido());
+        txt_username_update.setText(logica.Main.getUserByUsername(usuarioActual).getUsername());
+        txt_password_update.setText(logica.Main.getUserByUsername(usuarioActual).getContrasena());
     }
 
     /**
@@ -157,6 +154,7 @@ public class UpdateUser extends javax.swing.JFrame {
             && !name.equals("") && !lastname.equals("") && !username.equals("") && !password.equals("")) {
             if (logica.Main.actualizarUsuario(usuario)) {
                 usuarioActual = username;
+                MainMenu.usuarioActual = usuarioActual;
                 System.out.println("Usuario " + usuarioActual + " actualizado.");
                 JOptionPane.showMessageDialog(this, "Usuario actualizado con éxito.", "Modificar cuenta", JOptionPane.PLAIN_MESSAGE);
             } else {
@@ -202,7 +200,14 @@ public class UpdateUser extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UpdateUser().setVisible(true);
+                UpdateUser dialog = new UpdateUser(new javax.swing.JFrame());
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }

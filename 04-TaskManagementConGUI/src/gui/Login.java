@@ -176,7 +176,6 @@ public class Login extends javax.swing.JFrame {
     private void btn_signupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_signupActionPerformed
         //  ABRIR FORM REGISTRO DE USUARIOS
         Register signup = new Register(this);
-        this.setVisible(false);
         signup.setVisible(true);
     }//GEN-LAST:event_btn_signupActionPerformed
 
