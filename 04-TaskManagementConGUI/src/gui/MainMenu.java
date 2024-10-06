@@ -4,9 +4,14 @@
  */
 package gui;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import logica.*;
 
 /**
  *
@@ -25,7 +30,9 @@ public class MainMenu extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("ico_mainmenu.png")).getImage());
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Establecemos el tamaño de la ventana
         setLocationRelativeTo(null); // Centra la ventana
-        setVisible(true); // Hace visible el JFrame
+        updateMenuBar();
+        updateTableTareas();
+        //setVisible(true); // Hace visible el JFrame
     }
     public MainMenu() {
         initComponents();
@@ -33,6 +40,41 @@ public class MainMenu extends javax.swing.JFrame {
         setExtendedState(JFrame.MAXIMIZED_BOTH); // Establecemos el tamaño de la ventana
         setLocationRelativeTo(null); // Centra la ventana
         setVisible(true); // Hace visible el JFrame
+    }
+    
+    private void updateMenuBar(){
+        menu_usuario.setText(usuarioActual);
+    }
+    
+    private void updateTableTareas() {
+        // Limpiar la tabla antes de actualizarla
+        DefaultTableModel model = (DefaultTableModel) table_tareas.getModel();
+        model.setRowCount(0); // Esto elimina todas las filas previas
+        //Obtener lista de Tareas
+        List<Tarea> listaTareas = logica.Main.getAllTaskFromUsername(usuarioActual);
+        // Rellenar la tabla con las tareas
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        for (Tarea tarea : listaTareas) {
+            Object[] rowData = {
+                tarea.getId(),
+                tarea.getTitulo(),
+                tarea.getDescripcion(),
+                tarea.getEstado(),
+                formatFecha(tarea.getFechaEntrega(), dateFormat),
+                formatFecha(tarea.getFechaCreacion(), dateFormat)
+            };
+            // Añadir fila al modelo de la tabla
+            model.addRow(rowData);
+        }
+    }
+    
+    // Método para formatear fecha con manejo de null
+    private String formatFecha(Date fecha, SimpleDateFormat dateFormat) {
+        if (fecha != null) {
+            return dateFormat.format(fecha);
+        } else {
+            return "Sin fecha"; // O "" si prefieres dejar la celda vacía
+        }
     }
 
     /**
@@ -66,7 +108,7 @@ public class MainMenu extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Título", "Descripción", "Estado", "Fecha Entrega", "Fecha Creación"
+                "ID", "Título", "Descripción", "Estado", "Fecha de Entrega", "Fecha de Creación"
             }
         ) {
             Class[] types = new Class [] {
@@ -84,6 +126,7 @@ public class MainMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        table_tareas.setToolTipText("Tus tareas, máquina");
         jScrollPane1.setViewportView(table_tareas);
 
         Escritorio.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -94,8 +137,8 @@ public class MainMenu extends javax.swing.JFrame {
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EscritorioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(242, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(114, Short.MAX_VALUE))
         );
         EscritorioLayout.setVerticalGroup(
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,7 +150,6 @@ public class MainMenu extends javax.swing.JFrame {
 
         barraMenu.setBackground(new java.awt.Color(227, 242, 253));
 
-        menu_usuario.setForeground(new java.awt.Color(255, 255, 255));
         menu_usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/ico_userMenu.png"))); // NOI18N
         menu_usuario.setToolTipText("Usuario");
         menu_usuario.setBorderPainted(false);
@@ -167,6 +209,7 @@ public class MainMenu extends javax.swing.JFrame {
     private void submenu_modificarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenu_modificarCuentaActionPerformed
         UpdateUser update_user = new UpdateUser(this);
         update_user.setVisible(true);
+        updateMenuBar();
     }//GEN-LAST:event_submenu_modificarCuentaActionPerformed
 
     private void submenu_cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenu_cerrarSesionActionPerformed

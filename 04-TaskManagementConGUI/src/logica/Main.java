@@ -50,6 +50,10 @@ public class Main {
     public static Usuario getUserByUsername(String username) {
         return usuarioService.obtenerUsuarioPorUsername(username);
     }
+    
+    public static List<Tarea> getAllTaskFromUsername(String username) {
+        return tareaService.obtenerTareasPorUsuario(usuarioService.obtenerUsuarioPorUsername(username).getId());
+    }
 
     private static void crearTarea(int idUsuarioActual) {
         System.out.print("Ingrese título de la tarea: ");

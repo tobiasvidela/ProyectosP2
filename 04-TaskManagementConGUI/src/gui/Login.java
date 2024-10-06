@@ -23,6 +23,19 @@ public class Login extends javax.swing.JFrame {
         setIconImage(new ImageIcon(getClass().getResource("ico_mainmenu.png")).getImage());
         setLocationRelativeTo(null);
         setVisible(true);
+        
+        txt_password_login.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt); // Llama al método que captura el Enter
+            }
+        });
+
+        txt_username_login.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt); // Llama al método que captura el Enter
+            }
+        });
+
     }
     
     public boolean isAuth(){
@@ -49,6 +62,11 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Task Management v0.1");
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         lbl_loginTitle.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lbl_loginTitle.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/ico_login.png"))); // NOI18N
@@ -168,6 +186,7 @@ public class Login extends javax.swing.JFrame {
             //menu.setLocationRelativeTo(null); // Centra la ventana
             menu.setVisible(true); // Hace visible el JFrame
             System.out.println("Main Menu displayed.");
+            JOptionPane.showMessageDialog(this, "Estás de vuelta, " + MainMenu.usuarioActual + ".", "Bienvenido/a", JOptionPane.PLAIN_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -178,6 +197,13 @@ public class Login extends javax.swing.JFrame {
         Register signup = new Register(this);
         signup.setVisible(true);
     }//GEN-LAST:event_btn_signupActionPerformed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            btn_signinActionPerformed(null); // Ejecuta la acción del botón Sign In
+        }
+
+    }//GEN-LAST:event_formKeyPressed
 
     /**
      * @param args the command line arguments
