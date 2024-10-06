@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 public class TareaService {
     private Map<Integer, Tarea> tareas = new HashMap<>();
@@ -44,11 +45,10 @@ public class TareaService {
 
     public boolean actualizarTarea(Tarea tarea) {
         try {
-            tareaDAO.actualizarTarea(tarea);
-            tareas.put(tarea.getId(), tarea);  // Actualiza en el mapa también
-            return true;
+            //tareas.put(tarea.getId(), tarea);  // Actualiza en el mapa también
+            return tareaDAO.actualizarTarea(tarea);
         } catch (Exception e) {
-            System.err.println("Error al actualizar tarea: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, e,"Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
     }

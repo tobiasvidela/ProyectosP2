@@ -206,13 +206,9 @@ public class CrearTarea extends javax.swing.JDialog {
             
             int idUsuarioActual = Main.getUserByUsername(MainMenu.usuarioActual).getId();
             
-            System.out.println(f_e);
-            System.out.println(f_c);
-            
             if (Main.agregarTarea(t, d, e, idUsuarioActual, f_e, f_c)) {
                 JOptionPane.showMessageDialog(this, "Tarea añadida con éxito a la Base de Datos.", "Crear Tarea", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
-                //actualizar tabla
                 System.out.println("Tarea creada.");
             } else {
                 JOptionPane.showMessageDialog(this, "Error al crear la tarea.", "Error", JOptionPane.ERROR_MESSAGE);

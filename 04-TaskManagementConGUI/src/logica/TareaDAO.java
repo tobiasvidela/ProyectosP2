@@ -26,8 +26,8 @@ public class TareaDAO {
             stmt.setString(3, tarea.getEstado());
             stmt.setInt(4, tarea.getIdUsuario());
             // Parsear las fechas
-            fechaEntregaDate = formato.parse(tarea.getFechaEntrega());
-            fechaCreacionDate = formato.parse(tarea.getFechaCreacion());
+            fechaEntregaDate = Util.convertirFecha(tarea.getFechaEntrega(), formato);
+            fechaCreacionDate = Util.convertirFecha(tarea.getFechaCreacion(), formato);
             // Convertirlas a java.sql.Date
             java.sql.Date fechaEntregaSQL = new java.sql.Date(fechaEntregaDate.getTime());
             java.sql.Date fechaCreacionSQL = new java.sql.Date(fechaCreacionDate.getTime());
@@ -41,8 +41,6 @@ public class TareaDAO {
                     return generatedKeys.getInt(1); // Retorna el ID generado
                 }
             }
-        } catch (ParseException e) {
-            System.out.println("Formato de fecha inválido. Debe ser dd-MM-yyyy");
         } catch (SQLException e) {
             System.err.println("Error al añadir tarea a la Base de Datos: " + e.getMessage());
             e.printStackTrace();
@@ -126,19 +124,33 @@ public class TareaDAO {
     }
 
 
-    public void actualizarTarea(Tarea tarea) {
-        String sql = "UPDATE tareas SET titulo = ?, descripcion = ?, estado = ?, idusuario = ? WHERE id = ?";
+    public boolean actualizarTarea(Tarea tarea) {
+        // Definir el formato de la fecha
+        SimpleDateFormat formato = MainMenu.dateFormat;
+        
+        String sql = "UPDATE tareas SET titulo = ?, descripcion = ?, estado = ?, idusuario = ?, fecha_entrega = ?, fecha_creacion = ? WHERE id = ?";
         try (Connection conn = Util.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, tarea.getTitulo());
             stmt.setString(2, tarea.getDescripcion());
             stmt.setString(3, tarea.getEstado());
             stmt.setInt(4, tarea.getIdUsuario());
-            stmt.setInt(5, tarea.getId());
+            //Parsear fecha
+            Date fechaEntregaDate = Util.convertirFecha(tarea.getFechaEntrega(), formato);
+            Date fechaCreacionDate = Util.convertirFecha(tarea.getFechaCreacion(), formato);
+            //Convertir fecha
+            java.sql.Date fechaEntregaSQL = new java.sql.Date(fechaEntregaDate.getTime());
+            java.sql.Date fechaCreacionSQL = new java.sql.Date(fechaCreacionDate.getTime());
+            //Proceguir
+            stmt.setDate(5, fechaEntregaSQL);
+            stmt.setDate(6, fechaCreacionSQL);
+            stmt.setInt(7, tarea.getId());
             stmt.executeUpdate();
+            return true;
         } catch (SQLException e) {
             System.err.println("Error al actualizar tarea: " + e.getMessage());
             e.printStackTrace();
+            return false;
         }
     }
 

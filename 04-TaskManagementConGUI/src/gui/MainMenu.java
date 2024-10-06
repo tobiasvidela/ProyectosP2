@@ -489,8 +489,8 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_crear_tareaActionPerformed
 
     private void btn_editar_tareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editar_tareaActionPerformed
-        //CrearTarea crearTarea = new CrearTarea(this, true);
-        //crearTarea.setVisible(true);
+        EditarTarea editarTarea = new EditarTarea(this, true);
+        editarTarea.setVisible(true);
         updateTareasMainMenu();
     }//GEN-LAST:event_btn_editar_tareaActionPerformed
 
