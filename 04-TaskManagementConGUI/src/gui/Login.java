@@ -165,7 +165,7 @@ public class Login extends javax.swing.JFrame {
             //      MENU
             MainMenu menu = new gui.MainMenu(username);
             menu.setExtendedState(JFrame.MAXIMIZED_BOTH); // Establecemos el tamaño de la ventana
-            menu.setLocationRelativeTo(null); // Centra la ventana
+            //menu.setLocationRelativeTo(null); // Centra la ventana
             menu.setVisible(true); // Hace visible el JFrame
             System.out.println("Main Menu displayed.");
         } else {

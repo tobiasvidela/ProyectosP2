@@ -22,7 +22,7 @@ public class Register extends javax.swing.JDialog {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("ico_signup.png")).getImage());
         setLocationRelativeTo(null);
-        setVisible(true);
+        //setVisible(true);
     }
 
     /**
@@ -46,6 +46,7 @@ public class Register extends javax.swing.JDialog {
         lbl_lastname_signup = new javax.swing.JLabel();
         lbl_password_signup = new javax.swing.JLabel();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Registro");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -161,7 +162,6 @@ public class Register extends javax.swing.JDialog {
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         //no sé cómo borrar esto, netbeans no me deja
-        this.dispose(); //sin este código el modal debe cerrarse dos veces
     }//GEN-LAST:event_formWindowClosed
 
     /**

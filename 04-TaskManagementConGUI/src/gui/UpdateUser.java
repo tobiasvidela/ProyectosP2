@@ -25,13 +25,15 @@ public class UpdateUser extends javax.swing.JDialog {
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("ico_updateUserForm.png")).getImage());
         setLocationRelativeTo(null);
-        setVisible(true);
         
         // Rellenar campos con datos del usuario
         txt_name_update.setText(logica.Main.getUserByUsername(usuarioActual).getNombre());
         txt_lastname_update.setText(logica.Main.getUserByUsername(usuarioActual).getApellido());
         txt_username_update.setText(logica.Main.getUserByUsername(usuarioActual).getUsername());
         txt_password_update.setText(logica.Main.getUserByUsername(usuarioActual).getContrasena());
+        
+        //setVisible(true);
+        System.out.println("UpdateUser displayed");
     }
 
     /**
@@ -55,7 +57,8 @@ public class UpdateUser extends javax.swing.JDialog {
         lbl_lastname_update = new javax.swing.JLabel();
         lbl_password_update = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Modificar Cuenta");
 
         btn_actualizarUsuario.setText("Actualizar Datos");
         btn_actualizarUsuario.addActionListener(new java.awt.event.ActionListener() {
