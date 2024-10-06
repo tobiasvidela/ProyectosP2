@@ -49,9 +49,15 @@ public class UsuarioService {
         return usuarioDAO.obtenerTodosUsuarios();
     }
     
-    public void actualizarUsuario(Usuario usuario) {
-        usuarioDAO.actualizarUsuario(usuario);
-        usuarios.put(usuario.getUsername(), usuario);  // Actualiza en el mapa también
+    public boolean actualizarUsuario(Usuario usuario) {
+        try {
+            usuarioDAO.actualizarUsuario(usuario);
+            usuarios.put(usuario.getUsername(), usuario);  // Actualiza en el mapa también
+            return true;
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+        return false;
     }
 
 

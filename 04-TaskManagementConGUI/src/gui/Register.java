@@ -163,7 +163,7 @@ public class Register extends javax.swing.JFrame {
         if (name != null && lastname != null && username != null && password != null
                 && !name.equals("") && !lastname.equals("") && !username.equals("") && !password.equals("")) {
             if (logica.Main.registrarUsuario(name, lastname, username, password)) {
-                JOptionPane.showMessageDialog(this, "Usuario registrado con éxito", "Registro", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Usuario registrado con éxito", "Registro", JOptionPane.PLAIN_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, "Error al añadir al Usuario a la Base de Datos", "Registro", JOptionPane.ERROR_MESSAGE);
             }

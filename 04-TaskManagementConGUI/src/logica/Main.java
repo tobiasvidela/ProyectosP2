@@ -39,8 +39,16 @@ public class Main {
         return usuarioService.registrarUsuario(nombre, apellido, username, contrasena);
     }
     
+    public static boolean actualizarUsuario(Usuario usuario) {
+        return usuarioService.actualizarUsuario(usuario);
+    }
+    
     public static boolean eliminarUsuario(String username) {
         return usuarioService.eliminarUsuario(usuarioService.obtenerUsuarioPorUsername(username).getId());
+    }
+    
+    public static Usuario getUserByUsername(String username) {
+        return usuarioService.obtenerUsuarioPorUsername(username);
     }
 
     private static void crearTarea(int idUsuarioActual) {

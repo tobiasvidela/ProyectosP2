@@ -114,6 +114,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         submenu_cerrarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/ico_logout.png"))); // NOI18N
         submenu_cerrarSesion.setText("Cerrar sesión");
+        submenu_cerrarSesion.setToolTipText("<html><strong>Anda. ¡Vete!</strong><br>\n<html><i>Sé que volveras arrastrándote...</i>");
         submenu_cerrarSesion.setBorderPainted(false);
         submenu_cerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,6 +125,7 @@ public class MainMenu extends javax.swing.JFrame {
 
         submenu_modificarCuenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/ico_modifyUser.png"))); // NOI18N
         submenu_modificarCuenta.setText("Modificar cuenta");
+        submenu_modificarCuenta.setToolTipText("Cambios de identidad...");
         submenu_modificarCuenta.setBorderPainted(false);
         submenu_modificarCuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,7 +165,8 @@ public class MainMenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submenu_modificarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenu_modificarCuentaActionPerformed
-        // TODO add your handling code here:
+        UpdateUser update_user = new UpdateUser(usuarioActual);
+        update_user.setVisible(true);
     }//GEN-LAST:event_submenu_modificarCuentaActionPerformed
 
     private void submenu_cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenu_cerrarSesionActionPerformed

@@ -27,6 +27,7 @@
                   <Image iconType="3" name="/gui/ico_logout.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cerrar sesi&#xf3;n"/>
+                <Property name="toolTipText" type="java.lang.String" value="&lt;html&gt;&lt;strong&gt;Anda. &#xa1;Vete!&lt;/strong&gt;&lt;br&gt;&#xa;&lt;html&gt;&lt;i&gt;S&#xe9; que volveras arrastr&#xe1;ndote...&lt;/i&gt;"/>
                 <Property name="borderPainted" type="boolean" value="false"/>
               </Properties>
               <Events>
@@ -39,6 +40,7 @@
                   <Image iconType="3" name="/gui/ico_modifyUser.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Modificar cuenta"/>
+                <Property name="toolTipText" type="java.lang.String" value="Cambios de identidad..."/>
                 <Property name="borderPainted" type="boolean" value="false"/>
               </Properties>
               <Events>
