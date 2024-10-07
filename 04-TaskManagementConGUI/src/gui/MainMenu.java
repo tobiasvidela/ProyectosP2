@@ -4,6 +4,8 @@
  */
 package gui;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
@@ -13,6 +15,8 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import logica.*;
 
@@ -89,6 +93,29 @@ public class MainMenu extends javax.swing.JFrame {
             // Añadir fila al modelo de la tabla
             model.addRow(rowData);
         }
+        //  ESTILO
+        table_tareas.setDefaultRenderer(table_tareas.getColumnClass(0), new CustomTableCellRenderer());
+        table_tareas.setDefaultRenderer(Object.class, new CustomTableCellRenderer());
+        //    FILAS
+        CustomTableCellRenderer centerRenderer = new CustomTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        table_tareas.getColumnModel().getColumn(4).setCellRenderer(centerRenderer); // Fecha de Entrega centrada
+        table_tareas.getColumnModel().getColumn(5).setCellRenderer(centerRenderer); // Fecha de Creación centrada
+        //      ALTO FILAS
+        table_tareas.setRowHeight(23); // Altura de las filas
+        //    COLUMNAS
+        table_tareas.getColumnModel().getColumn(0).setPreferredWidth(30); // ID (3 digits)
+        table_tareas.getColumnModel().getColumn(1).setPreferredWidth(120); // Titulo
+        //table_tareas.getColumnModel().getColumn(2).setPreferredWidth(160); // Descripción
+        table_tareas.getColumnModel().getColumn(3).setPreferredWidth(70); // Estado
+        table_tareas.getColumnModel().getColumn(4).setPreferredWidth(120); // Fecha de entrega
+        table_tareas.getColumnModel().getColumn(5).setPreferredWidth(120); // Fecha de creación
+        //      BORDES
+        table_tareas.setShowGrid(false); // Oculta los bordes de las celdas
+        //      HEADER
+        table_tareas.getTableHeader().setFont(new java.awt.Font("Segoe UI", Font.BOLD, 14));
+        table_tareas.getTableHeader().setBackground(new Color( 157, 190, 222 )); // Color del header
+        table_tareas.getTableHeader().setForeground(Color.BLACK); // Color del texto en el header
     }
     
     // Método para formatear fecha con manejo de null
@@ -104,13 +131,13 @@ public class MainMenu extends javax.swing.JFrame {
     private void updateDetallesTarea(Tarea tarea) {
         if (tarea != null) {
             lbl_panel_tarea_titulo.setText(tarea.getTitulo());
-            lbl_panel_tarea_descr.setText(tarea.getDescripcion());
+            txt_tarea_descr.setText(tarea.getDescripcion());
             updateEstadoIcono(tarea.getEstado());
             lbl_panel_tarea_tiempoRestante.setText(calcularTiempoRestante(tarea.getFechaEntrega()));
         } else {
             // Si no hay tarea seleccionada, muestra texto por defecto
             lbl_panel_tarea_titulo.setText("Título");
-            lbl_panel_tarea_descr.setText("Descripción.");
+            txt_tarea_descr.setText("Descripción.");
             updateEstadoIcono("None");
             lbl_panel_tarea_tiempoRestante.setText("Tiempo restante.");
         }
@@ -200,17 +227,18 @@ public class MainMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         Escritorio = new javax.swing.JDesktopPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scroll_table_tareas = new javax.swing.JScrollPane();
         table_tareas = new javax.swing.JTable();
         btn_crear_tarea = new javax.swing.JButton();
         btn_editar_tarea = new javax.swing.JButton();
         btn_eliminar_tarea = new javax.swing.JButton();
         panel_tarea = new javax.swing.JPanel();
         lbl_panel_tarea_titulo = new javax.swing.JLabel();
-        lbl_panel_tarea_descr = new javax.swing.JLabel();
         lbl_panel_tarea_estado = new javax.swing.JLabel();
         btn_ver_detalles = new javax.swing.JButton();
         lbl_panel_tarea_tiempoRestante = new javax.swing.JLabel();
+        scroll_tarea_descr = new javax.swing.JScrollPane();
+        txt_tarea_descr = new javax.swing.JTextArea();
         barraMenu = new javax.swing.JMenuBar();
         menu_usuario = new javax.swing.JMenu();
         submenu_cerrarSesion = new javax.swing.JMenuItem();
@@ -227,14 +255,15 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane1.setBackground(new java.awt.Color(242, 242, 242));
+        scroll_table_tareas.setBackground(new java.awt.Color(242, 242, 242));
 
+        table_tareas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         table_tareas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Título", "Descripción", "Estado", "Fecha de Entrega", "Fecha de Creación"
+                "ID", "Título", "Descripción", "Estado", "Entrega", "Creación"
             }
         ) {
             Class[] types = new Class [] {
@@ -252,8 +281,26 @@ public class MainMenu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        table_tareas.setToolTipText("Tus tareas, máquina");
-        jScrollPane1.setViewportView(table_tareas);
+        table_tareas.setToolTipText(table_tareas.getName());
+        table_tareas.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        table_tareas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        table_tareas.setGridColor(new java.awt.Color(206, 224, 238));
+        table_tareas.setName("Mis Tareas"); // NOI18N
+        scroll_table_tareas.setViewportView(table_tareas);
+        if (table_tareas.getColumnModel().getColumnCount() > 0) {
+            table_tareas.getColumnModel().getColumn(0).setResizable(false);
+            table_tareas.getColumnModel().getColumn(0).setPreferredWidth(30);
+            table_tareas.getColumnModel().getColumn(1).setResizable(false);
+            table_tareas.getColumnModel().getColumn(1).setPreferredWidth(120);
+            table_tareas.getColumnModel().getColumn(2).setMinWidth(162);
+            table_tareas.getColumnModel().getColumn(2).setPreferredWidth(162);
+            table_tareas.getColumnModel().getColumn(3).setResizable(false);
+            table_tareas.getColumnModel().getColumn(3).setPreferredWidth(70);
+            table_tareas.getColumnModel().getColumn(4).setResizable(false);
+            table_tareas.getColumnModel().getColumn(4).setPreferredWidth(120);
+            table_tareas.getColumnModel().getColumn(5).setResizable(false);
+            table_tareas.getColumnModel().getColumn(5).setPreferredWidth(120);
+        }
 
         btn_crear_tarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/ico_crear_tarea.png"))); // NOI18N
         btn_crear_tarea.setToolTipText("Crear tarea");
@@ -285,9 +332,6 @@ public class MainMenu extends javax.swing.JFrame {
         lbl_panel_tarea_titulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbl_panel_tarea_titulo.setText("Título");
 
-        lbl_panel_tarea_descr.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lbl_panel_tarea_descr.setText("Descripción");
-
         lbl_panel_tarea_estado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbl_panel_tarea_estado.setToolTipText("Estado");
         lbl_panel_tarea_estado.setAlignmentX(0.5F);
@@ -304,6 +348,23 @@ public class MainMenu extends javax.swing.JFrame {
         lbl_panel_tarea_tiempoRestante.setText("Tiempo restante");
         lbl_panel_tarea_tiempoRestante.setToolTipText("Tiempo para la entrega");
 
+        scroll_tarea_descr.setBackground(new java.awt.Color(242, 242, 242));
+        scroll_tarea_descr.setBorder(null);
+
+        txt_tarea_descr.setEditable(false);
+        txt_tarea_descr.setColumns(20);
+        txt_tarea_descr.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txt_tarea_descr.setLineWrap(true);
+        txt_tarea_descr.setRows(5);
+        txt_tarea_descr.setText("Descripción");
+        txt_tarea_descr.setToolTipText("Descripción de la tarea");
+        txt_tarea_descr.setWrapStyleWord(true);
+        txt_tarea_descr.setBorder(null);
+        txt_tarea_descr.setFocusable(false);
+        txt_tarea_descr.setName("Descripción"); // NOI18N
+        txt_tarea_descr.setOpaque(false);
+        scroll_tarea_descr.setViewportView(txt_tarea_descr);
+
         javax.swing.GroupLayout panel_tareaLayout = new javax.swing.GroupLayout(panel_tarea);
         panel_tarea.setLayout(panel_tareaLayout);
         panel_tareaLayout.setHorizontalGroup(
@@ -311,17 +372,15 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(panel_tareaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panel_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scroll_tarea_descr)
                     .addGroup(panel_tareaLayout.createSequentialGroup()
                         .addComponent(lbl_panel_tarea_titulo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbl_panel_tarea_estado, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 397, Short.MAX_VALUE)
                         .addComponent(lbl_panel_tarea_tiempoRestante)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_ver_detalles, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_tareaLayout.createSequentialGroup()
-                        .addComponent(lbl_panel_tarea_descr)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(btn_ver_detalles, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         panel_tareaLayout.setVerticalGroup(
@@ -335,12 +394,12 @@ public class MainMenu extends javax.swing.JFrame {
                             .addComponent(lbl_panel_tarea_titulo)
                             .addComponent(btn_ver_detalles, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(lbl_panel_tarea_tiempoRestante))
-                .addGap(5, 5, 5)
-                .addComponent(lbl_panel_tarea_descr)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scroll_tarea_descr)
+                .addContainerGap())
         );
 
-        Escritorio.setLayer(jScrollPane1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        Escritorio.setLayer(scroll_table_tareas, javax.swing.JLayeredPane.DEFAULT_LAYER);
         Escritorio.setLayer(btn_crear_tarea, javax.swing.JLayeredPane.DEFAULT_LAYER);
         Escritorio.setLayer(btn_editar_tarea, javax.swing.JLayeredPane.DEFAULT_LAYER);
         Escritorio.setLayer(btn_eliminar_tarea, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -354,7 +413,7 @@ public class MainMenu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panel_tarea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE))
+                    .addComponent(scroll_table_tareas, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_crear_tarea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -367,7 +426,7 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(EscritorioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(scroll_table_tareas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(EscritorioLayout.createSequentialGroup()
                         .addComponent(btn_crear_tarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -376,7 +435,7 @@ public class MainMenu extends javax.swing.JFrame {
                         .addComponent(btn_eliminar_tarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(panel_tarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(109, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
 
         barraMenu.setBackground(new java.awt.Color(227, 242, 253));
@@ -554,16 +613,17 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton btn_editar_tarea;
     private javax.swing.JButton btn_eliminar_tarea;
     private javax.swing.JButton btn_ver_detalles;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lbl_panel_tarea_descr;
     private javax.swing.JLabel lbl_panel_tarea_estado;
     private javax.swing.JLabel lbl_panel_tarea_tiempoRestante;
     private javax.swing.JLabel lbl_panel_tarea_titulo;
     private javax.swing.JMenu menu_usuario;
     private javax.swing.JPanel panel_tarea;
+    private javax.swing.JScrollPane scroll_table_tareas;
+    private javax.swing.JScrollPane scroll_tarea_descr;
     private javax.swing.JMenuItem submenu_cerrarSesion;
     private javax.swing.JMenuItem submenu_eliminarCuenta;
     private javax.swing.JMenuItem submenu_modificarCuenta;
     private javax.swing.JTable table_tareas;
+    private javax.swing.JTextArea txt_tarea_descr;
     // End of variables declaration//GEN-END:variables
 }
