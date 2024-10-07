@@ -63,6 +63,7 @@ public class CrearTarea extends javax.swing.JDialog {
         lbl_crear_tarea_estado = new javax.swing.JLabel();
         calendar_fecha_entrega = new com.toedter.calendar.JCalendar();
         btn_agregar_tarea = new javax.swing.JButton();
+        lbl_crear_tarea_descr1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nueva Tarea");
@@ -82,7 +83,11 @@ public class CrearTarea extends javax.swing.JDialog {
         lbl_crear_tarea_descr.setText("Descripción: ");
 
         txt_crear_tarea_descr.setColumns(20);
+        txt_crear_tarea_descr.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txt_crear_tarea_descr.setLineWrap(true);
         txt_crear_tarea_descr.setRows(5);
+        txt_crear_tarea_descr.setToolTipText("Añade tu descripción aquí");
+        txt_crear_tarea_descr.setWrapStyleWord(true);
         txt_crear_tarea_descr.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txt_crear_tarea_descrKeyReleased(evt);
@@ -98,6 +103,7 @@ public class CrearTarea extends javax.swing.JDialog {
         });
 
         lbl_crear_tarea_estado.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_crear_tarea_estado.setLabelFor(select_crear_tarea_estado);
         lbl_crear_tarea_estado.setText("Estado: ");
 
         calendar_fecha_entrega.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -116,6 +122,10 @@ public class CrearTarea extends javax.swing.JDialog {
             }
         });
 
+        lbl_crear_tarea_descr1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lbl_crear_tarea_descr1.setLabelFor(calendar_fecha_entrega);
+        lbl_crear_tarea_descr1.setText("Fecha de Entrega:");
+
         javax.swing.GroupLayout panel_crear_tareaLayout = new javax.swing.GroupLayout(panel_crear_tarea);
         panel_crear_tarea.setLayout(panel_crear_tareaLayout);
         panel_crear_tareaLayout.setHorizontalGroup(
@@ -123,22 +133,23 @@ public class CrearTarea extends javax.swing.JDialog {
             .addGroup(panel_crear_tareaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panel_crear_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panel_crear_tareaLayout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_crear_tareaLayout.createSequentialGroup()
                         .addComponent(lbl_crear_tarea_titulo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txt_crear_tarea_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lbl_crear_tarea_estado)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(select_crear_tarea_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46))
-                    .addGroup(panel_crear_tareaLayout.createSequentialGroup()
+                        .addComponent(select_crear_tarea_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_crear_tareaLayout.createSequentialGroup()
                         .addGroup(panel_crear_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(scroll_crear_tarea_descr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_crear_tarea_descr)
-                            .addComponent(btn_agregar_tarea))
+                            .addComponent(btn_agregar_tarea)
+                            .addComponent(lbl_crear_tarea_descr))
                         .addGap(18, 18, 18)
-                        .addComponent(calendar_fecha_entrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(panel_crear_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_crear_tarea_descr1)
+                            .addComponent(calendar_fecha_entrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel_crear_tareaLayout.setVerticalGroup(
@@ -153,15 +164,17 @@ public class CrearTarea extends javax.swing.JDialog {
                         .addComponent(lbl_crear_tarea_titulo)
                         .addComponent(txt_crear_tarea_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panel_crear_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_crear_tarea_descr)
+                    .addComponent(lbl_crear_tarea_descr1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_crear_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panel_crear_tareaLayout.createSequentialGroup()
-                        .addComponent(lbl_crear_tarea_descr)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scroll_crear_tarea_descr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_crear_tareaLayout.createSequentialGroup()
+                        .addComponent(scroll_crear_tarea_descr)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_agregar_tarea))
                     .addComponent(calendar_fecha_entrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -264,6 +277,7 @@ public class CrearTarea extends javax.swing.JDialog {
     private javax.swing.JButton btn_agregar_tarea;
     private com.toedter.calendar.JCalendar calendar_fecha_entrega;
     private javax.swing.JLabel lbl_crear_tarea_descr;
+    private javax.swing.JLabel lbl_crear_tarea_descr1;
     private javax.swing.JLabel lbl_crear_tarea_estado;
     private javax.swing.JLabel lbl_crear_tarea_titulo;
     private javax.swing.JPanel panel_crear_tarea;

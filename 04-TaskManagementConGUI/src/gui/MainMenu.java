@@ -45,18 +45,25 @@ public class MainMenu extends javax.swing.JFrame {
         
         // Evento para detectar el click en una fila de la tabla
         table_tareas.addMouseListener(new MouseAdapter() {
+            @Override
             public void mouseClicked(MouseEvent e) {
-                int filaSeleccionada = table_tareas.getSelectedRow();
-                if (filaSeleccionada != -1) {
-                    // Obtener la tarea seleccionada desde la tabla
-                    int tareaId = (int) table_tareas.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID está en la primera columna
-                    tareaSeleccionada = logica.Main.getTaskById(tareaId);  // Método para obtener la tarea por ID
-                    
-                    updateDetallesTarea(tareaSeleccionada); // Actualizar la vista con los detalles de la tarea
-                    
-                    btn_ver_detalles.setEnabled(true);
-                    btn_editar_tarea.setEnabled(true);
-                    btn_eliminar_tarea.setEnabled(true);
+                if (e.getClickCount() == 2) {
+                    runVerDetallesTarea();
+                } else if (e.getClickCount() == 1) {
+                    int filaSeleccionada = table_tareas.getSelectedRow();
+                    if (filaSeleccionada != -1) {
+                        // Obtener la tarea seleccionada desde la tabla
+                        int tareaId = (int) table_tareas.getValueAt(filaSeleccionada, 0); // Suponiendo que el ID está en la primera columna
+                        tareaSeleccionada = logica.Main.getTaskById(tareaId);  // Método para obtener la tarea por ID
+
+                        updateDetallesTarea(tareaSeleccionada); // Actualizar la vista con los detalles de la tarea
+
+                        btn_ver_detalles.setEnabled(true);
+                        btn_editar_tarea.setEnabled(true);
+                        btn_eliminar_tarea.setEnabled(true);
+                    }
+                } else {
+                    //play sound
                 }
             }
         });
@@ -216,6 +223,17 @@ public class MainMenu extends javax.swing.JFrame {
         updateDetallesTarea(tarea);
     }
 
+    private void runVerDetallesTarea() {
+        int filaSeleccionada = table_tareas.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            // Mostrar los detalles en un JDialog
+            DetallesTarea detallesTarea = new DetallesTarea(this, true);
+            detallesTarea.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, selecciona una tarea para ver los detalles.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -531,14 +549,7 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_submenu_eliminarCuentaActionPerformed
 
     private void btn_ver_detallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ver_detallesActionPerformed
-        int filaSeleccionada = table_tareas.getSelectedRow();
-        if (filaSeleccionada != -1) {
-            // Mostrar los detalles en un JDialog
-            DetallesTarea detallesTarea = new DetallesTarea(this, true);
-            detallesTarea.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor, selecciona una tarea para ver los detalles.", "Advertencia", JOptionPane.WARNING_MESSAGE);
-        }
+        runVerDetallesTarea();
     }//GEN-LAST:event_btn_ver_detallesActionPerformed
 
     private void EscritorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EscritorioMouseClicked
@@ -555,6 +566,10 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
         crearTarea.setVisible(true);
+        updateTableTareas();
+        int tareaId = (int) table_tareas.getValueAt(table_tareas.getRowCount() - 1, 0);
+        tareaSeleccionada = logica.Main.getTaskById(tareaId); //Actualizar tarea seleccionada
+        updateTareasMainMenu(tareaSeleccionada);
     }//GEN-LAST:event_btn_crear_tareaActionPerformed
 
     private void btn_editar_tareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editar_tareaActionPerformed
