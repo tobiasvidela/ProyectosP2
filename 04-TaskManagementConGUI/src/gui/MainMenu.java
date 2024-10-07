@@ -33,13 +33,12 @@ public class MainMenu extends javax.swing.JFrame {
         usuarioActual = username;
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("ico_mainmenu.png")).getImage());
-        setExtendedState(JFrame.MAXIMIZED_BOTH); // Establecemos el tamaño de la ventana
+        //setExtendedState(JFrame.MAXIMIZED_BOTH); // Establecemos el tamaño de la ventana
         setLocationRelativeTo(null); // Centra la ventana
         
         updateMenuBar();
         
         updateTableTareas();
-        
         
         updateDetallesTarea(null);
         
@@ -64,7 +63,6 @@ public class MainMenu extends javax.swing.JFrame {
                 }
             }
         });
-        //setVisible(true); // Hace visible el JFrame
     }
     
     private void updateMenuBar(){
@@ -143,6 +141,10 @@ public class MainMenu extends javax.swing.JFrame {
 
         if (tiempoRestante <= 0) {
             return "Entrega vencida";
+        }
+        
+        if (tareaSeleccionada.getEstado().equalsIgnoreCase("Finalizado")) {
+            return "Entrega completada";
         }
 
         long diasRestantes = tiempoRestante / (1000 * 60 * 60 * 24); // Convertir a días
@@ -274,6 +276,11 @@ public class MainMenu extends javax.swing.JFrame {
         btn_eliminar_tarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/ico_eliminar_tarea.png"))); // NOI18N
         btn_eliminar_tarea.setToolTipText("Borrar tarea");
         btn_eliminar_tarea.setPreferredSize(new java.awt.Dimension(48, 48));
+        btn_eliminar_tarea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminar_tareaActionPerformed(evt);
+            }
+        });
 
         lbl_panel_tarea_titulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lbl_panel_tarea_titulo.setText("Título");
@@ -493,6 +500,17 @@ public class MainMenu extends javax.swing.JFrame {
         editarTarea.setVisible(true);
         updateTareasMainMenu();
     }//GEN-LAST:event_btn_editar_tareaActionPerformed
+
+    private void btn_eliminar_tareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminar_tareaActionPerformed
+        if(JOptionPane.showConfirmDialog(this,
+                "Estás a punto de eliminar para siempre esta tarea. ¿Estás seguro?",
+                "Eliminar " + tareaSeleccionada.getTitulo(),
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.WARNING_MESSAGE) == 0){
+            logica.Main.eliminarTarea(tareaSeleccionada.getId());
+            updateTareasMainMenu();
+        }
+    }//GEN-LAST:event_btn_eliminar_tareaActionPerformed
 
     /**
      * @param args the command line arguments

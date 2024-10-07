@@ -184,8 +184,6 @@ public class Login extends javax.swing.JFrame {
             this.dispose();
             //      MENU
             MainMenu menu = new gui.MainMenu(username);
-            menu.setExtendedState(JFrame.MAXIMIZED_BOTH); // Establecemos el tamaño de la ventana
-            //menu.setLocationRelativeTo(null); // Centra la ventana
             menu.setVisible(true); // Hace visible el JFrame
             System.out.println("Main Menu displayed.");
             JOptionPane.showMessageDialog(this, "Estás de vuelta, " + MainMenu.usuarioActual + ".", "Bienvenido/a", JOptionPane.PLAIN_MESSAGE);

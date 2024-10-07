@@ -220,6 +220,9 @@
               <Dimension value="[48, 48]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_eliminar_tareaActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="panel_tarea">
 

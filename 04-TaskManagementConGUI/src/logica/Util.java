@@ -17,14 +17,19 @@ public class Util {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
     public static Date convertirFecha(String fecha, SimpleDateFormat formato) {
-        try {
-            // Convertir el String a Date
-            Date fechaEntregaDate = formato.parse(fecha);
-            return fechaEntregaDate;
-        } catch (ParseException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error parseando fecha.", "Convertir Fecha (String -> Date)", JOptionPane.ERROR_MESSAGE);
-            return null;
-        }
+        if (fecha != null) {
+            try {
+                // Convertir el String a Date
+                Date fechaEntregaDate = formato.parse(fecha);
+                return fechaEntregaDate;
+            } catch (ParseException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error parseando fecha.", "Convertir Fecha (String -> Date)", JOptionPane.ERROR_MESSAGE);
+                return null;
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Sin fecha. Devolviendo fecha actual", "Convertir Fecha (String -> Date)", JOptionPane.ERROR_MESSAGE);
+            return new Date();
+        }        
     }
 }

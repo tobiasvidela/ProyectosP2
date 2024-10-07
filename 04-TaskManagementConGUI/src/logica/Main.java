@@ -67,26 +67,7 @@ public class Main {
         return tareaService.actualizarTarea(new Tarea(id, titulo, descripcion, estado, idUsuarioActual, fecha_entrega, fecha_creacion));
     }
     
-    private static void eliminarTarea(int idUsuarioActual) {
-        //verTareas(idUsuarioActual);
-        System.out.print("Ingrese ID de la tarea a eliminar: ");
-        int id = scanner.nextInt();
-        scanner.nextLine(); // Consumir el salto de línea
-        
-        // Veirificar si existe la tarea
-        if (tareaService.obtenerTareaPorId(id) == null) {
-            System.out.println("Prueba con otro ID."); //Avisar al usuario que intente otro ID
-            return;
-        }
-        
-        if (tareaService.obtenerTareaPorId(id).getIdUsuario() != idUsuarioActual) {
-            System.out.println("La tarea seleccionada no te pertenece.");
-        } else {
-            if (tareaService.eliminarTarea(id)) {
-                System.out.println("Tarea eliminada con éxito.");
-            } else {
-                System.out.println("No se pudo eliminar la tarea. Verifique el ID.");
-            }
-        }
+    public static boolean eliminarTarea(int id) {
+        return tareaService.eliminarTarea(id);
     }
 }
