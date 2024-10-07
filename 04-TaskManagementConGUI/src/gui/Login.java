@@ -5,7 +5,6 @@
 package gui;
 
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -185,7 +184,6 @@ public class Login extends javax.swing.JFrame {
             //      MENU
             MainMenu menu = new gui.MainMenu(username);
             menu.setVisible(true); // Hace visible el JFrame
-            System.out.println("Main Menu displayed.");
             JOptionPane.showMessageDialog(this, "Estás de vuelta, " + MainMenu.usuarioActual + ".", "Bienvenido/a", JOptionPane.PLAIN_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.", "Error", JOptionPane.ERROR_MESSAGE);

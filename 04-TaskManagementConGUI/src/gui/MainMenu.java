@@ -13,10 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import logica.*;
 
@@ -29,15 +27,10 @@ public class MainMenu extends javax.swing.JFrame {
     public static Tarea tareaSeleccionada = null;
     public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-    /**
-     * Creates new form 
-     * @param username usuario actual
-     */
     public MainMenu(String username) {
         usuarioActual = username;
         initComponents();
         setIconImage(new ImageIcon(getClass().getResource("ico_mainmenu.png")).getImage());
-        //setExtendedState(JFrame.MAXIMIZED_BOTH); // Establecemos el tamaño de la ventana
         setLocationRelativeTo(null); // Centra la ventana
         
         updateMenuBar();
@@ -208,13 +201,19 @@ public class MainMenu extends javax.swing.JFrame {
     }
     
     private void updateTareasMainMenu() {
-        table_tareas.clearSelection();
+        updateTableTareas();
         tareaSeleccionada = null;
         updateDetallesTarea(tareaSeleccionada);
-        updateTableTareas();
         btn_ver_detalles.setEnabled(false);
         btn_editar_tarea.setEnabled(false);
         btn_eliminar_tarea.setEnabled(false);
+    }
+    
+    private void updateTareasMainMenu(Tarea tarea) {
+        int selectedRow = table_tareas.getSelectedRow();        
+        updateTableTareas();
+        table_tareas.changeSelection(selectedRow, 0, true, false);
+        updateDetallesTarea(tarea);
     }
 
     /**
@@ -286,6 +285,7 @@ public class MainMenu extends javax.swing.JFrame {
         table_tareas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         table_tareas.setGridColor(new java.awt.Color(206, 224, 238));
         table_tareas.setName("Mis Tareas"); // NOI18N
+        table_tareas.setUpdateSelectionOnSort(false);
         scroll_table_tareas.setViewportView(table_tareas);
         if (table_tareas.getColumnModel().getColumnCount() > 0) {
             table_tareas.getColumnModel().getColumn(0).setResizable(false);
@@ -413,8 +413,8 @@ public class MainMenu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panel_tarea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scroll_table_tareas, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
+                    .addComponent(scroll_table_tareas))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_crear_tarea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_editar_tarea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -437,6 +437,9 @@ public class MainMenu extends javax.swing.JFrame {
                 .addComponent(panel_tarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(128, Short.MAX_VALUE))
         );
+
+        scroll_table_tareas.getAccessibleContext().setAccessibleName("scrollPane_table_tareas");
+        scroll_table_tareas.getAccessibleContext().setAccessibleDescription("scroll panel for table_tareas");
 
         barraMenu.setBackground(new java.awt.Color(227, 242, 253));
 
@@ -503,25 +506,27 @@ public class MainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_submenu_modificarCuentaActionPerformed
 
     private void submenu_cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenu_cerrarSesionActionPerformed
-        if(JOptionPane.showConfirmDialog(this, "Estás Por cerrar tu sesión. ¿Estás seguro?", "Cerrar Sesión", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
+        if(JOptionPane.showConfirmDialog(this, "Estás por cerrar tu sesión.\n ¿Estás seguro?", "Cerrar Sesión", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
+            this.setVisible(false);
             Login login = new Login();
             login.setVisible(true);
-            this.dispose();
             System.out.println("User " + usuarioActual + " out.");
             usuarioActual = null;
-            System.out.println("Usuario actual: " + usuarioActual);
+            this.dispose();
         }
     }//GEN-LAST:event_submenu_cerrarSesionActionPerformed
 
     private void submenu_eliminarCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submenu_eliminarCuentaActionPerformed
-        if(JOptionPane.showConfirmDialog(this, "Estás a punto de eliminar para siempre tu cuenta. ¿Estás seguro?", "Eliminar cuenta", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == 0){
-            logica.Main.eliminarUsuario(usuarioActual);
-            System.out.println("Cuenta de "+ usuarioActual + " Eliminada");
+        if(JOptionPane.showConfirmDialog(this, "Estás a punto de eliminar para siempre tu cuenta.\n ¿Estás seguro?", "Eliminar cuenta", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE) == 0){
+            if (logica.Main.eliminarUsuario(usuarioActual)) {
+                JOptionPane.showMessageDialog(this, "Cuenta eliminada. \nLamentamos despedirte aquí! \nPero no te rogaremos para que vuelvas...", "El fin de " + usuarioActual, JOptionPane.PLAIN_MESSAGE);
+            }
+            System.out.println("Cuenta de "+ usuarioActual + " Eliminada.");
             usuarioActual = null;
-            System.out.println("Usuario actual: " + usuarioActual);
-            Login login = new Login();
             this.setVisible(false);
+            Login login = new Login();
             login.setVisible(true);
+            this.dispose();
         }
     }//GEN-LAST:event_submenu_eliminarCuentaActionPerformed
 
@@ -546,18 +551,17 @@ public class MainMenu extends javax.swing.JFrame {
         crearTarea.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent e) {
-                System.out.println("Modal crearTarea cerrado.");
                 updateTareasMainMenu();
             }
         });
         crearTarea.setVisible(true);
-        System.out.println("Fin de miFunción.");
     }//GEN-LAST:event_btn_crear_tareaActionPerformed
 
     private void btn_editar_tareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editar_tareaActionPerformed
         EditarTarea editarTarea = new EditarTarea(this, true);
         editarTarea.setVisible(true);
-        updateTareasMainMenu();
+        tareaSeleccionada = logica.Main.getTaskById(tareaSeleccionada.getId()); //Actualizar tarea seleccionada
+        updateTareasMainMenu(tareaSeleccionada);
     }//GEN-LAST:event_btn_editar_tareaActionPerformed
 
     private void btn_eliminar_tareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminar_tareaActionPerformed
@@ -601,7 +605,7 @@ public class MainMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainMenu("---").setVisible(true);
+                new MainMenu("mind972").setVisible(true);
             }
         });
     }
