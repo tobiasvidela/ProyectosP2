@@ -80,19 +80,31 @@ public class MainMenu extends javax.swing.JFrame {
         model.setRowCount(0); // Esto elimina todas las filas previas
         //Obtener lista de Tareas
         List<Tarea> listaTareas = logica.Main.getAllTaskFromUsername(usuarioActual);
-        // Rellenar la tabla con las tareas
         
+        // Rellenar la tabla con las tareas
         for (Tarea tarea : listaTareas) {
-            Object[] rowData = {
-                tarea.getId(),
-                tarea.getTitulo(),
-                tarea.getDescripcion(),
-                tarea.getEstado(),
-                tarea.getFechaEntrega(),
-                tarea.getFechaCreacion()
-            };
-            // Añadir fila al modelo de la tabla
-            model.addRow(rowData);
+            // Filtrar
+            boolean agregarTarea = false;
+            // Verificar si el estado de la tarea coincide con los seleccionados
+            if (check_menu_item_nuevo.isSelected() && tarea.getEstado().equalsIgnoreCase("Nuevo")) {
+                agregarTarea = true;
+            } else if (check_menu_item_pendiente.isSelected() && tarea.getEstado().equalsIgnoreCase("Pendiente")) {
+                agregarTarea = true;
+            } else if (check_menu_item_finalizado.isSelected() && tarea.getEstado().equalsIgnoreCase("Finalizado")) {
+                agregarTarea = true;
+            }
+            if (agregarTarea) {
+                Object[] rowData = {
+                    tarea.getId(),
+                    tarea.getTitulo(),
+                    tarea.getDescripcion(),
+                    tarea.getEstado(),
+                    tarea.getFechaEntrega(),
+                    tarea.getFechaCreacion()
+                };
+                // Añadir fila al modelo de la tabla
+                model.addRow(rowData);
+            }
         }
         aplicarEstiloTableTareas();
     }
@@ -267,6 +279,12 @@ public class MainMenu extends javax.swing.JFrame {
         submenu_cerrarSesion = new javax.swing.JMenuItem();
         submenu_modificarCuenta = new javax.swing.JMenuItem();
         submenu_eliminarCuenta = new javax.swing.JMenuItem();
+        menu_tareas = new javax.swing.JMenu();
+        submenu_filtrar_tareas = new javax.swing.JMenu();
+        submenu_filtrar_estado = new javax.swing.JMenu();
+        check_menu_item_nuevo = new javax.swing.JCheckBoxMenuItem();
+        check_menu_item_pendiente = new javax.swing.JCheckBoxMenuItem();
+        check_menu_item_finalizado = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Task Management");
@@ -520,6 +538,51 @@ public class MainMenu extends javax.swing.JFrame {
 
         barraMenu.add(menu_usuario);
 
+        menu_tareas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/ico_taskMenu.png"))); // NOI18N
+        menu_tareas.setText("Tareas");
+        menu_tareas.setToolTipText("");
+
+        submenu_filtrar_tareas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/ico_filterTasks.png"))); // NOI18N
+        submenu_filtrar_tareas.setText("Filtrar tareas");
+
+        submenu_filtrar_estado.setText("Por estado");
+
+        check_menu_item_nuevo.setSelected(true);
+        check_menu_item_nuevo.setText("Nuevo");
+        check_menu_item_nuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/ico_tarea_nuevo.png"))); // NOI18N
+        check_menu_item_nuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                check_menu_item_nuevoActionPerformed(evt);
+            }
+        });
+        submenu_filtrar_estado.add(check_menu_item_nuevo);
+
+        check_menu_item_pendiente.setSelected(true);
+        check_menu_item_pendiente.setText("Pendiente");
+        check_menu_item_pendiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/ico_tarea_pendiente.png"))); // NOI18N
+        check_menu_item_pendiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                check_menu_item_pendienteActionPerformed(evt);
+            }
+        });
+        submenu_filtrar_estado.add(check_menu_item_pendiente);
+
+        check_menu_item_finalizado.setSelected(true);
+        check_menu_item_finalizado.setText("Finalizado");
+        check_menu_item_finalizado.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/ico_tarea_finalizado.png"))); // NOI18N
+        check_menu_item_finalizado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                check_menu_item_finalizadoActionPerformed(evt);
+            }
+        });
+        submenu_filtrar_estado.add(check_menu_item_finalizado);
+
+        submenu_filtrar_tareas.add(submenu_filtrar_estado);
+
+        menu_tareas.add(submenu_filtrar_tareas);
+
+        barraMenu.add(menu_tareas);
+
         setJMenuBar(barraMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -612,6 +675,18 @@ public class MainMenu extends javax.swing.JFrame {
         //Nothing
     }//GEN-LAST:event_table_tareasPropertyChange
 
+    private void check_menu_item_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_menu_item_nuevoActionPerformed
+        updateTableTareas();
+    }//GEN-LAST:event_check_menu_item_nuevoActionPerformed
+
+    private void check_menu_item_pendienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_menu_item_pendienteActionPerformed
+        updateTableTareas();
+    }//GEN-LAST:event_check_menu_item_pendienteActionPerformed
+
+    private void check_menu_item_finalizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_check_menu_item_finalizadoActionPerformed
+        updateTableTareas();
+    }//GEN-LAST:event_check_menu_item_finalizadoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -654,15 +729,21 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton btn_editar_tarea;
     private javax.swing.JButton btn_eliminar_tarea;
     private javax.swing.JButton btn_ver_detalles;
+    private javax.swing.JCheckBoxMenuItem check_menu_item_finalizado;
+    private javax.swing.JCheckBoxMenuItem check_menu_item_nuevo;
+    private javax.swing.JCheckBoxMenuItem check_menu_item_pendiente;
     private javax.swing.JLabel lbl_panel_tarea_estado;
     private javax.swing.JLabel lbl_panel_tarea_tiempoRestante;
     private javax.swing.JLabel lbl_panel_tarea_titulo;
+    private javax.swing.JMenu menu_tareas;
     private javax.swing.JMenu menu_usuario;
     private javax.swing.JPanel panel_tarea;
     private javax.swing.JScrollPane scroll_table_tareas;
     private javax.swing.JScrollPane scroll_tarea_descr;
     private javax.swing.JMenuItem submenu_cerrarSesion;
     private javax.swing.JMenuItem submenu_eliminarCuenta;
+    private javax.swing.JMenu submenu_filtrar_estado;
+    private javax.swing.JMenu submenu_filtrar_tareas;
     private javax.swing.JMenuItem submenu_modificarCuenta;
     private javax.swing.JTable table_tareas;
     private javax.swing.JTextArea txt_tarea_descr;
