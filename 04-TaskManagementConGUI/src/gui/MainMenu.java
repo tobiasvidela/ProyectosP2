@@ -273,6 +273,7 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         scroll_table_tareas.setBackground(new java.awt.Color(242, 242, 242));
+        scroll_table_tareas.setMaximumSize(new java.awt.Dimension(32767, 430));
 
         table_tareas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         table_tareas.setModel(new javax.swing.table.DefaultTableModel(
@@ -303,6 +304,7 @@ public class MainMenu extends javax.swing.JFrame {
         table_tareas.setColumnSelectionAllowed(true);
         table_tareas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         table_tareas.setGridColor(new java.awt.Color(206, 224, 238));
+        table_tareas.setMaximumSize(scroll_table_tareas.getMaximumSize());
         table_tareas.setName("Mis Tareas"); // NOI18N
         table_tareas.setUpdateSelectionOnSort(false);
         scroll_table_tareas.setViewportView(table_tareas);
@@ -383,6 +385,7 @@ public class MainMenu extends javax.swing.JFrame {
         txt_tarea_descr.setFocusable(false);
         txt_tarea_descr.setName("Descripción"); // NOI18N
         txt_tarea_descr.setOpaque(false);
+        txt_tarea_descr.setPreferredSize(new java.awt.Dimension(240, 30));
         scroll_tarea_descr.setViewportView(txt_tarea_descr);
 
         javax.swing.GroupLayout panel_tareaLayout = new javax.swing.GroupLayout(panel_tarea);
@@ -432,8 +435,8 @@ public class MainMenu extends javax.swing.JFrame {
             .addGroup(EscritorioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel_tarea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scroll_table_tareas))
+                    .addComponent(panel_tarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scroll_table_tareas, javax.swing.GroupLayout.PREFERRED_SIZE, 622, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_crear_tarea, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -445,17 +448,17 @@ public class MainMenu extends javax.swing.JFrame {
             EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EscritorioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(scroll_table_tareas, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scroll_table_tareas, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
                     .addGroup(EscritorioLayout.createSequentialGroup()
                         .addComponent(btn_crear_tarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btn_editar_tarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(btn_eliminar_tarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(panel_tarea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_tarea, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         scroll_table_tareas.getAccessibleContext().setAccessibleName("scrollPane_table_tareas");
