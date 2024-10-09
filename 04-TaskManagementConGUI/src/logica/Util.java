@@ -48,6 +48,7 @@ public class Util {
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
+    
     public static Date convertirFecha(String fecha, SimpleDateFormat formato) {
         if (fecha != null) {
             try {

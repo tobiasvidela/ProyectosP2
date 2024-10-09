@@ -2,9 +2,6 @@ package logica;
 
 import java.util.List;
 import java.util.Scanner;
-import java.sql.Connection;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 public class Main {
@@ -28,9 +25,14 @@ public class Main {
             }
             // Intentar conectar a la base de datos en el hilo de eventos de Swing
             SwingUtilities.invokeLater(() -> {
-                Util.conectarBaseDatos();
-                // eliminar pantalla de carga
-                pantallaCarga.dispose();
+                try {
+                    Util.conectarBaseDatos();
+                } catch (Exception e) {
+                    System.out.println(e);
+                } finally {
+                    // eliminar pantalla de carga
+                    pantallaCarga.dispose();
+                }
             });
         }).start();
     }

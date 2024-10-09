@@ -39,6 +39,8 @@ public class PantallaDeCarga extends javax.swing.JFrame {
 
         lbl_loading.setIcon(new javax.swing.ImageIcon(getClass().getResource("/animated/loading.gif"))); // NOI18N
         lbl_loading.setToolTipText("Conectándose a gestion_tareas");
+        lbl_loading.setMinimumSize(new java.awt.Dimension(249, 249));
+        lbl_loading.setPreferredSize(panel_loading.getPreferredSize());
 
         javax.swing.GroupLayout panel_loadingLayout = new javax.swing.GroupLayout(panel_loading);
         panel_loading.setLayout(panel_loadingLayout);
@@ -55,11 +57,11 @@ public class PantallaDeCarga extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_loading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_loading, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel_loading, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panel_loading, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
         );
 
         pack();

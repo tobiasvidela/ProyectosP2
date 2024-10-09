@@ -23,7 +23,7 @@ public class EditarTarea extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setTitle(MainMenu.tareaSeleccionada.getTitulo() + " - Edición");
-        this.setIconImage(new ImageIcon(getClass().getResource("ico_editar_tarea.png")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("/iconos/ico_editar_tarea.png")).getImage());
         this.setLocationRelativeTo(parent);
         
         // Rellenar campos con datos de la tarea
@@ -140,37 +140,34 @@ public class EditarTarea extends javax.swing.JDialog {
             panel_editar_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_editar_tareaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panel_editar_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_editar_tareaLayout.createSequentialGroup()
+                .addGroup(panel_editar_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scroll_editar_tarea_descr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_actualizar_tarea)
+                    .addComponent(lbl_editar_tarea_descr)
+                    .addGroup(panel_editar_tareaLayout.createSequentialGroup()
                         .addComponent(lbl_editar_tarea_titulo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_editar_tarea_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(txt_editar_tarea_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(panel_editar_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panel_editar_tareaLayout.createSequentialGroup()
                         .addComponent(lbl_editar_tarea_estado)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(select_editar_tarea_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panel_editar_tareaLayout.createSequentialGroup()
-                        .addGroup(panel_editar_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scroll_editar_tarea_descr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btn_actualizar_tarea)
-                            .addComponent(lbl_editar_tarea_descr))
-                        .addGap(18, 18, 18)
-                        .addGroup(panel_editar_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_editar_tarea_descr1)
-                            .addComponent(calendar_fecha_entrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(lbl_editar_tarea_descr1)
+                    .addComponent(calendar_fecha_entrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         panel_editar_tareaLayout.setVerticalGroup(
             panel_editar_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_editar_tareaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panel_editar_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panel_editar_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbl_editar_tarea_titulo)
+                    .addComponent(txt_editar_tarea_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panel_editar_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbl_editar_tarea_estado)
-                        .addComponent(select_editar_tarea_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panel_editar_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lbl_editar_tarea_titulo)
-                        .addComponent(txt_editar_tarea_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(select_editar_tarea_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_editar_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbl_editar_tarea_descr)

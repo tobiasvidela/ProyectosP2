@@ -20,7 +20,7 @@ public class Register extends javax.swing.JDialog {
     public Register(Frame parent) {
         super(parent, true);
         initComponents();
-        setIconImage(new ImageIcon(getClass().getResource("ico_signup.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/iconos/ico_signup.png")).getImage());
         setLocationRelativeTo(null);
         //setVisible(true);
     }

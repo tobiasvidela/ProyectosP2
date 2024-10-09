@@ -4,8 +4,6 @@
  */
 package gui;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.swing.ImageIcon;
 
 /**
@@ -21,7 +19,7 @@ public class DetallesTarea extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setTitle(MainMenu.tareaSeleccionada.getTitulo() + " - Detalles");
-        this.setIconImage(new ImageIcon(getClass().getResource("ico_tarea_detalles.png")).getImage());
+        this.setIconImage(new ImageIcon(getClass().getResource("/iconos/ico_tarea_detalles.png")).getImage());
         this.setLocationRelativeTo(parent);
         
         tarea_title.setText(MainMenu.tareaSeleccionada.getTitulo());

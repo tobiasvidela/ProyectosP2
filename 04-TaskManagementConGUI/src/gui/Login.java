@@ -19,7 +19,7 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-        setIconImage(new ImageIcon(getClass().getResource("ico_login.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/iconos/ico_login.png")).getImage());
         setLocationRelativeTo(null);
         setVisible(true);
         
@@ -82,7 +82,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        btn_signin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/ico_signin.png"))); // NOI18N
+        btn_signin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/ico_signin.png"))); // NOI18N
         btn_signin.setToolTipText("Ingresar");
         btn_signin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,7 +90,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        btn_signup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/ico_signup.png"))); // NOI18N
+        btn_signup.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/ico_signup.png"))); // NOI18N
         btn_signup.setToolTipText("Registrar");
         btn_signup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,7 +98,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        btn_exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui/ico_exit_app.png"))); // NOI18N
+        btn_exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/ico_exit_app.png"))); // NOI18N
         btn_exit.setToolTipText("Salir");
         btn_exit.setPreferredSize(new java.awt.Dimension(48, 48));
         btn_exit.addActionListener(new java.awt.event.ActionListener() {

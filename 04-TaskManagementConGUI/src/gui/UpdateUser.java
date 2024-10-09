@@ -23,7 +23,7 @@ public class UpdateUser extends javax.swing.JDialog {
         super(parent, true); // true establece que el diálogo es modal
         usuarioActual = MainMenu.usuarioActual;
         initComponents();
-        setIconImage(new ImageIcon(getClass().getResource("ico_updateUserForm.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("/iconos/ico_updateUserForm.png")).getImage());
         setLocationRelativeTo(null);
         
         // Rellenar campos con datos del usuario

@@ -116,7 +116,7 @@
     <Component class="javax.swing.JButton" name="btn_signin">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/gui/ico_signin.png"/>
+          <Image iconType="3" name="/iconos/ico_signin.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Ingresar"/>
       </Properties>
@@ -127,7 +127,7 @@
     <Component class="javax.swing.JButton" name="btn_signup">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/gui/ico_signup.png"/>
+          <Image iconType="3" name="/iconos/ico_signup.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Registrar"/>
       </Properties>
@@ -138,7 +138,7 @@
     <Component class="javax.swing.JButton" name="btn_exit">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/gui/ico_exit_app.png"/>
+          <Image iconType="3" name="/iconos/ico_exit_app.png"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Salir"/>
         <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
