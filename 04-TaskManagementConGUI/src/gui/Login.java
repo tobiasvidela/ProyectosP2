@@ -160,6 +160,8 @@ public class Login extends javax.swing.JFrame {
 
     private void btn_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exitActionPerformed
         this.dispose();
+        // Salir del sistema
+        System.exit(0);
     }//GEN-LAST:event_btn_exitActionPerformed
 
     private void btn_signinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_signinActionPerformed

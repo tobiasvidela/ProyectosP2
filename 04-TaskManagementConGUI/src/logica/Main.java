@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Date;
-import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
@@ -14,23 +14,25 @@ public class Main {
     private static String usuarioActual = null;
 
     public static void main(String[] args) {
+        // Mostrar pantalla de carga
+        gui.PantallaDeCarga pantallaCarga = new gui.PantallaDeCarga();
+        pantallaCarga.setVisible(true);
         
-        // Intentar conectar a la base de datos
-        try (Connection conn = Util.getConnection()) {
-            if (conn != null) {
-                System.out.println("Conexión exitosa a la base de datos!");
+        // Crear un hilo separado para la espera y la conexión
+        new Thread(() -> {
+            try {
+                // por si se conecta demasiado rápido
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            System.out.println("Error al conectar a la base de datos: " + e.getMessage());
-        }
-        
-        // Iniciar sistema
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                //      LOGIN
-                gui.Login login = new gui.Login();
-            }
-        });
+            // Intentar conectar a la base de datos en el hilo de eventos de Swing
+            SwingUtilities.invokeLater(() -> {
+                Util.conectarBaseDatos();
+                // eliminar pantalla de carga
+                pantallaCarga.dispose();
+            });
+        }).start();
     }
     public static boolean autenticarUsuario(String username, String contrasena) {
         return usuarioService.autenticarUsuario(username, contrasena);
