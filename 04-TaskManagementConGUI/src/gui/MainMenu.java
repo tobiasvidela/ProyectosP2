@@ -581,14 +581,13 @@ public class MainMenu extends javax.swing.JFrame {
         crearTarea.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosed(java.awt.event.WindowEvent e) {
-                updateTareasMainMenu();
+                updateTableTareas();
+                int tareaId = (int) table_tareas.getValueAt(table_tareas.getRowCount() - 1, 0);
+                tareaSeleccionada = logica.Main.getTaskById(tareaId); //Actualizar tarea seleccionada
+                updateTareasMainMenu(tareaSeleccionada);
             }
         });
         crearTarea.setVisible(true);
-        updateTableTareas();
-        int tareaId = (int) table_tareas.getValueAt(table_tareas.getRowCount() - 1, 0);
-        tareaSeleccionada = logica.Main.getTaskById(tareaId); //Actualizar tarea seleccionada
-        updateTareasMainMenu(tareaSeleccionada);
     }//GEN-LAST:event_btn_crear_tareaActionPerformed
 
     private void btn_editar_tareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editar_tareaActionPerformed
