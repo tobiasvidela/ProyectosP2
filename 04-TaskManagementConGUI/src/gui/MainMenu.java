@@ -326,7 +326,6 @@ public class MainMenu extends javax.swing.JFrame {
         });
         table_tareas.setToolTipText(table_tareas.getName());
         table_tareas.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
-        table_tareas.setColumnSelectionAllowed(true);
         table_tareas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         table_tareas.setGridColor(new java.awt.Color(206, 224, 238));
         table_tareas.setMaximumSize(scroll_table_tareas.getMaximumSize());
@@ -338,7 +337,6 @@ public class MainMenu extends javax.swing.JFrame {
             }
         });
         scroll_table_tareas.setViewportView(table_tareas);
-        table_tareas.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         if (table_tareas.getColumnModel().getColumnCount() > 0) {
             table_tareas.getColumnModel().getColumn(0).setResizable(false);
             table_tareas.getColumnModel().getColumn(0).setPreferredWidth(30);

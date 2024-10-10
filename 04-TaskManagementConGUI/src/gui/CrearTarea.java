@@ -154,12 +154,13 @@ public class CrearTarea extends javax.swing.JDialog {
             panel_crear_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel_crear_tareaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panel_crear_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_crear_tarea_titulo)
-                    .addComponent(txt_crear_tarea_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panel_crear_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_crear_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lbl_crear_tarea_estado)
-                        .addComponent(select_crear_tarea_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(select_crear_tarea_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panel_crear_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lbl_crear_tarea_titulo)
+                        .addComponent(txt_crear_tarea_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panel_crear_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_crear_tarea_descr)
@@ -211,6 +212,7 @@ public class CrearTarea extends javax.swing.JDialog {
             String e = (String) select_crear_tarea_estado.getSelectedItem();
             System.out.println(e);
             SimpleDateFormat dateFormat = MainMenu.dateFormat;
+            System.out.println(calendar_fecha_entrega.getDate());
             String f_e = MainMenu.formatFecha(calendar_fecha_entrega.getDate(), dateFormat);
             String f_c = MainMenu.formatFecha(new Date(), dateFormat);
             

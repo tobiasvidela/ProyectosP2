@@ -1,6 +1,10 @@
 package logica;
 
+import java.text.SimpleDateFormat;
+
 public class Tarea {
+    public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    
     private int id;
     private String titulo;
     private String descripcion;
@@ -61,6 +65,4 @@ public class Tarea {
     public String getFechaCreacion() {
         return fecha_creacion;
     }
-
-    
 }
