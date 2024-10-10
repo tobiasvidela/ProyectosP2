@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import logica.Util;
 
 public class Conexion extends javax.swing.JFrame {
@@ -81,53 +80,29 @@ public class Conexion extends javax.swing.JFrame {
         
         new Thread(() -> {
             try {
-                    try (Connection conn = Util.getConnection()) {
-                        if (conn != null) {
-                            JOptionPane.showMessageDialog(this,
-                                    "Conexión exitosa",
-                                    "Conexión a BD remota",
-                                    JOptionPane.INFORMATION_MESSAGE);
-                            connection = conn;
-                        } else {
-                            System.out.println("Conexión nula.");
-                        }
-                    } catch (SQLException e) {
+                String PASSWORD = JOptionPane.showInputDialog(this, "Prueba que eres digno:");
+                try (Connection conn = Util.getConnection(PASSWORD)) {
+                    if (conn != null) {
                         JOptionPane.showMessageDialog(this,
-                                    "Intento de conexión fallido.\n"+e,
-                                    "Conexión a BD remota",
-                                    JOptionPane.ERROR_MESSAGE);
+                                "Conexión exitosa",
+                                "Conexión a BD remota",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        connection = conn;
+                    } else {
+                        System.out.println("Conexión nula.");
                     }
-                } catch (Exception e) {
-                    System.out.println(e);
-                } finally {
-                    // eliminar pantalla de carga
-                    loadingScreen.dispose();
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(this,
+                                "Intento de conexión fallido.\n"+e,
+                                "Conexión a BD remota",
+                                JOptionPane.ERROR_MESSAGE);
                 }
-            /*SwingUtilities.invokeLater(() -> {
-                try {
-                    try (Connection conn = Util.getConnection()) {
-                        if (conn != null) {
-                            JOptionPane.showMessageDialog(this,
-                                    "Conexión exitosa",
-                                    "Conexión a BD remota",
-                                    JOptionPane.INFORMATION_MESSAGE);
-                            connection = conn;
-                        } else {
-                            System.out.println("Conexión nula.");
-                        }
-                    } catch (SQLException e) {
-                        JOptionPane.showMessageDialog(this,
-                                    "Intento de conexión fallido.\n"+e,
-                                    "Conexión a BD remota",
-                                    JOptionPane.ERROR_MESSAGE);
-                    }
-                } catch (Exception e) {
-                    System.out.println(e);
-                } finally {
-                    // eliminar pantalla de carga
-                    loadingScreen.dispose();
-                }
-            });*/
+            } catch (Exception e) {
+                System.out.println(e);
+            } finally {
+                // eliminar pantalla de carga
+                loadingScreen.dispose();
+            }
         }).start();
     }//GEN-LAST:event_btn_conectarActionPerformed
 

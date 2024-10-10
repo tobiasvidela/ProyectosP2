@@ -1,14 +1,11 @@
 package logica;
 
 import java.util.List;
-import java.util.Scanner;
 import javax.swing.SwingUtilities;
 
 public class Main {
-    private static Scanner scanner = new Scanner(System.in);
     private static UsuarioService usuarioService = new UsuarioService();
     private static TareaService tareaService = new TareaService();
-    private static String usuarioActual = null;
 
     public static void main(String[] args) {
         // Mostrar pantalla de carga
