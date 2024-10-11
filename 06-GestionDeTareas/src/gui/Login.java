@@ -1,20 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package gui;
 
-/**
- *
- * @author La Maquina
- */
-public class Login extends javax.swing.JFrame {
+import javax.swing.Icon;
+import javax.swing.JOptionPane;
 
-    /**
-     * Creates new form Login
-     */
+public class Login extends javax.swing.JFrame {
+    public static final Icon login_JOP_icon = recursos.iconos.IconGetter.login_JOP_icon;
+    public static final Icon exit_JOP_icon = recursos.iconos.IconGetter.exit_JOP_icon;
+    
     public Login() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -30,7 +25,7 @@ public class Login extends javax.swing.JFrame {
         lbl_username = new javax.swing.JLabel();
         txt_username = new javax.swing.JTextField();
         lbl_password = new javax.swing.JLabel();
-        txt_password = new javax.swing.JTextField();
+        txt_password = new javax.swing.JPasswordField();
         btn_registrarse = new javax.swing.JButton();
         btn_iniciar_sesion = new javax.swing.JButton();
         btn_salir = new javax.swing.JButton();
@@ -50,8 +45,18 @@ public class Login extends javax.swing.JFrame {
         btn_registrarse.setText("Registrarse");
 
         btn_iniciar_sesion.setText("Iniciar Sesión");
+        btn_iniciar_sesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_iniciar_sesionActionPerformed(evt);
+            }
+        });
 
         btn_salir.setText("Salir");
+        btn_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout p_loginLayout = new javax.swing.GroupLayout(p_login);
         p_login.setLayout(p_loginLayout);
@@ -71,8 +76,8 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(lbl_username))
                         .addGap(20, 20, 20)
                         .addGroup(p_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_username)
-                            .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txt_username, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                            .addComponent(txt_password))))
                 .addGap(18, 18, 18)
                 .addComponent(btn_salir)
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -113,6 +118,43 @@ public class Login extends javax.swing.JFrame {
     private void txt_usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_usernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_usernameActionPerformed
+
+    private void btn_iniciar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_iniciar_sesionActionPerformed
+        String username = txt_username.getText();
+        String password = new String(txt_password.getPassword());
+        if (!username.isEmpty() && !password.isEmpty()) {
+            if (logica.UsuarioService.autenticarUsuario(username, password)) {
+                //Ir a principal
+                logica.Main.USUARIO_ACTUAL = username;
+                Principal main = new Principal();
+                main.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this,
+                    "Debes estar registrado para iniciar sesión.",
+                    "Iniciar Sesión",
+                    JOptionPane.WARNING_MESSAGE, 
+                    login_JOP_icon);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Debes ingresar un nombre de usuario y una contraseña para iniciar sesión.",
+                    "Iniciar Sesión",
+                    JOptionPane.WARNING_MESSAGE, 
+                    login_JOP_icon);
+        }
+    }//GEN-LAST:event_btn_iniciar_sesionActionPerformed
+
+    private void btn_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salirActionPerformed
+        if (JOptionPane.showConfirmDialog(this,
+                "¿Salir del programa?",
+                "Salir del programa",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.WARNING_MESSAGE,
+                exit_JOP_icon) == 0) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_btn_salirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,7 +198,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_password;
     private javax.swing.JLabel lbl_username;
     private javax.swing.JPanel p_login;
-    private javax.swing.JTextField txt_password;
+    private javax.swing.JPasswordField txt_password;
     private javax.swing.JTextField txt_username;
     // End of variables declaration//GEN-END:variables
 }

@@ -54,8 +54,8 @@
                           </Group>
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="txt_username" max="32767" attributes="0"/>
-                              <Component id="txt_password" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="txt_username" pref="100" max="32767" attributes="0"/>
+                              <Component id="txt_password" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -105,7 +105,7 @@
             <Property name="text" type="java.lang.String" value="Contrase&#xf1;a"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txt_password">
+        <Component class="javax.swing.JPasswordField" name="txt_password">
         </Component>
         <Component class="javax.swing.JButton" name="btn_registrarse">
           <Properties>
@@ -116,11 +116,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Iniciar Sesi&#xf3;n"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_iniciar_sesionActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_salir">
           <Properties>
             <Property name="text" type="java.lang.String" value="Salir"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_salirActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

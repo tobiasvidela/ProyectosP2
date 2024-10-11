@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package gui;
 
@@ -8,12 +8,13 @@ package gui;
  *
  * @author La Maquina
  */
-public class ModificarUsuario extends javax.swing.JFrame {
+public class ModificarUsuario extends javax.swing.JDialog {
 
     /**
      * Creates new form ModificarUsuario
      */
-    public ModificarUsuario() {
+    public ModificarUsuario(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
     }
 
@@ -26,7 +27,7 @@ public class ModificarUsuario extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        p_cargar_usuario = new javax.swing.JPanel();
+        p_modificar_usuario = new javax.swing.JPanel();
         lbl_nombre = new javax.swing.JLabel();
         txt_nombre = new javax.swing.JTextField();
         lbl_apellido = new javax.swing.JLabel();
@@ -35,10 +36,10 @@ public class ModificarUsuario extends javax.swing.JFrame {
         txt_username = new javax.swing.JTextField();
         lbl_password = new javax.swing.JLabel();
         txt_password = new javax.swing.JTextField();
-        btn_cargar_usuario = new javax.swing.JButton();
+        btn_modificar_usuario = new javax.swing.JButton();
         btn_volver = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lbl_nombre.setText("Nombre/s:");
 
@@ -48,61 +49,61 @@ public class ModificarUsuario extends javax.swing.JFrame {
 
         lbl_password.setText("Password:");
 
-        btn_cargar_usuario.setText("Modificar");
+        btn_modificar_usuario.setText("Modificar");
 
         btn_volver.setText("Volver");
 
-        javax.swing.GroupLayout p_cargar_usuarioLayout = new javax.swing.GroupLayout(p_cargar_usuario);
-        p_cargar_usuario.setLayout(p_cargar_usuarioLayout);
-        p_cargar_usuarioLayout.setHorizontalGroup(
-            p_cargar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(p_cargar_usuarioLayout.createSequentialGroup()
+        javax.swing.GroupLayout p_modificar_usuarioLayout = new javax.swing.GroupLayout(p_modificar_usuario);
+        p_modificar_usuario.setLayout(p_modificar_usuarioLayout);
+        p_modificar_usuarioLayout.setHorizontalGroup(
+            p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(p_modificar_usuarioLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(p_cargar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(p_cargar_usuarioLayout.createSequentialGroup()
+                .addGroup(p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(p_modificar_usuarioLayout.createSequentialGroup()
                         .addComponent(lbl_password)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(p_cargar_usuarioLayout.createSequentialGroup()
+                    .addGroup(p_modificar_usuarioLayout.createSequentialGroup()
                         .addComponent(lbl_username)
                         .addGap(18, 18, Short.MAX_VALUE)
                         .addComponent(txt_username, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(p_cargar_usuarioLayout.createSequentialGroup()
+                    .addGroup(p_modificar_usuarioLayout.createSequentialGroup()
                         .addComponent(lbl_apellido)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(p_cargar_usuarioLayout.createSequentialGroup()
+                    .addGroup(p_modificar_usuarioLayout.createSequentialGroup()
                         .addComponent(lbl_nombre)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(p_cargar_usuarioLayout.createSequentialGroup()
-                        .addComponent(btn_cargar_usuario)
+                    .addGroup(p_modificar_usuarioLayout.createSequentialGroup()
+                        .addComponent(btn_modificar_usuario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_volver)))
                 .addGap(20, 20, 20))
         );
-        p_cargar_usuarioLayout.setVerticalGroup(
-            p_cargar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(p_cargar_usuarioLayout.createSequentialGroup()
+        p_modificar_usuarioLayout.setVerticalGroup(
+            p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(p_modificar_usuarioLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(p_cargar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_nombre)
                     .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(p_cargar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_apellido)
                     .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(p_cargar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_username)
                     .addComponent(txt_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(p_cargar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_password)
                     .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
-                .addGroup(p_cargar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_cargar_usuario)
+                .addGroup(p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_modificar_usuario)
                     .addComponent(btn_volver))
                 .addGap(20, 20, 20))
         );
@@ -111,11 +112,11 @@ public class ModificarUsuario extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(p_cargar_usuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(p_modificar_usuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(p_cargar_usuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(p_modificar_usuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -148,22 +149,29 @@ public class ModificarUsuario extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModificarUsuario().setVisible(true);
+                ModificarUsuario dialog = new ModificarUsuario(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_cargar_usuario;
+    private javax.swing.JButton btn_modificar_usuario;
     private javax.swing.JButton btn_volver;
     private javax.swing.JLabel lbl_apellido;
     private javax.swing.JLabel lbl_nombre;
     private javax.swing.JLabel lbl_password;
     private javax.swing.JLabel lbl_username;
-    private javax.swing.JPanel p_cargar_usuario;
+    private javax.swing.JPanel p_modificar_usuario;
     private javax.swing.JTextField txt_apellido;
     private javax.swing.JTextField txt_nombre;
     private javax.swing.JTextField txt_password;

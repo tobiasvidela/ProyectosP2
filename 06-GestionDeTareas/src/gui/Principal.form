@@ -13,6 +13,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cerrar sesi&#xf3;n"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menu_opc_cerrar_sesionActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menu_opc_modificar_cuenta">
               <Properties>
@@ -53,25 +56,25 @@
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="submenu_filtrar_tareas">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Filtrar"/>
+                <Property name="text" type="java.lang.String" value="Mostrar"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JCheckBoxMenuItem" name="menu_opc_filtrar_nuevo">
                   <Properties>
                     <Property name="selected" type="boolean" value="true"/>
-                    <Property name="text" type="java.lang.String" value="Estado: Nuevo"/>
+                    <Property name="text" type="java.lang.String" value="Nuevas"/>
                   </Properties>
                 </MenuItem>
                 <MenuItem class="javax.swing.JCheckBoxMenuItem" name="menu_opc_filtrar_pendiente">
                   <Properties>
                     <Property name="selected" type="boolean" value="true"/>
-                    <Property name="text" type="java.lang.String" value="Estado: Pendiente"/>
+                    <Property name="text" type="java.lang.String" value="Pendientes"/>
                   </Properties>
                 </MenuItem>
                 <MenuItem class="javax.swing.JCheckBoxMenuItem" name="menu_opc_filtrar_finalizado">
                   <Properties>
                     <Property name="selected" type="boolean" value="true"/>
-                    <Property name="text" type="java.lang.String" value="Estado: Finalizado"/>
+                    <Property name="text" type="java.lang.String" value="Finalizado"/>
                   </Properties>
                 </MenuItem>
               </SubComponents>
@@ -89,6 +92,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -144,7 +150,7 @@
             <Container class="javax.swing.JScrollPane" name="sp_table_tareas">
               <Properties>
                 <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-                  <Dimension value="[275, 20]"/>
+                  <Dimension value="[275, 565]"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -204,6 +210,9 @@
                         </Column>
                       </TableColumnModel>
                     </Property>
+                    <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[275, 565]"/>
+                    </Property>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
@@ -249,8 +258,8 @@
                               <Component id="btn_ver_mas" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                          <Component id="sp_descr" max="32767" attributes="0"/>
-                          <EmptySpace pref="422" max="32767" attributes="0"/>
+                          <Component id="sp_descr" pref="502" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

@@ -3,25 +3,22 @@ package logica;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 public class TareaService {
-    private Map<Integer, Tarea> tareas = new HashMap<>();
-    private TareaDAO tareaDAO = new TareaDAO();
+    private static Map<Integer, Tarea> tareas = new HashMap<>();
+    private static TareaDAO tareaDAO = new TareaDAO();
+    private static final Icon db_icon = recursos.iconos.IconGetter.db_JOP_icon;
 
-    public TareaService() {
-        cargarTareasDesdeBD();
-    }
-
-    private void cargarTareasDesdeBD() {
+    public static void cargarTareasDesdeBD() {
         List<Tarea> tareasList = tareaDAO.obtenerTodasTareas();
         for (Tarea tarea : tareasList) {
             tareas.put(tarea.getId(), tarea);
         }
     }
 
-    public boolean crearTarea(String titulo, String descripcion, String estado, int idUsuario, String fecha_entrega, String fecha_creacion) {
+    public static boolean crearTarea(String titulo, String descripcion, String estado, int idUsuario, String fecha_entrega, String fecha_creacion) {
         Tarea nuevaTarea = new Tarea(titulo, descripcion, estado, idUsuario, fecha_entrega, fecha_creacion);
         try {
             int idGenerado = tareaDAO.agregarTarea(nuevaTarea);
@@ -31,27 +28,27 @@ public class TareaService {
                     "Tarea añadida a la Base de Datos.", 
                     "TareaService", 
                     JOptionPane.PLAIN_MESSAGE,
-                    new ImageIcon(getClass().getResource("/recursos/iconos/database.png")));
+                    db_icon);
             return true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, 
                     "Error al intentar añadir la tarea a la Base de Datos.\n" + e.getMessage(), 
                     "TareaService", 
                     JOptionPane.ERROR_MESSAGE,
-                    new ImageIcon(getClass().getResource("/recursos/iconos/database.png")));
+                    db_icon);
             return false;
         }
     }
 
-    public Tarea obtenerTareaPorId(int id) {
+    public static Tarea obtenerTareaPorId(int id) {
         return tareaDAO.obtenerTareaPorId(id);
     }
 
-    public List<Tarea> obtenerTareasPorUsuario(int idUsuario) {
+    public static List<Tarea> obtenerTareasPorUsuario(int idUsuario) {
         return tareaDAO.obtenerTareasPorUsuario(idUsuario);
     }
 
-    public boolean actualizarTarea(Tarea tarea) {
+    public static boolean actualizarTarea(Tarea tarea) {
         try {
             //tareas.put(tarea.getId(), tarea);  // Actualiza en el mapa también
             return tareaDAO.actualizarTarea(tarea);
@@ -60,12 +57,12 @@ public class TareaService {
                     "Error al intentar actualizar la tarea en la Base de Datos.\n" + e.getMessage(), 
                     "TareaService", 
                     JOptionPane.ERROR_MESSAGE,
-                    new ImageIcon(getClass().getResource("/recursos/iconos/database.png")));
+                    db_icon);
             return false;
         }
     }
 
-    public boolean eliminarTarea(int id) {
+    public static boolean eliminarTarea(int id) {
         try {
             tareaDAO.eliminarTarea(id);
             tareas.remove(id);
@@ -75,9 +72,8 @@ public class TareaService {
                     "Error al intentar eliminar la tarea de la Base de Datos.\n" + e.getMessage(), 
                     "TareaService", 
                     JOptionPane.ERROR_MESSAGE,
-                    new ImageIcon(getClass().getResource("/recursos/iconos/database.png")));
+                    db_icon);
             return false;
         }
-    }
-    
+    }   
 }

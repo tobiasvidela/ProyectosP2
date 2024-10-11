@@ -1,20 +1,26 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package gui;
 
-/**
- *
- * @author La Maquina
- */
-public class Principal extends javax.swing.JFrame {
+import javax.swing.Icon;
+import javax.swing.JOptionPane;
 
-    /**
-     * Creates new form Principal
-     */
+public class Principal extends javax.swing.JFrame {
+    private static Icon logout_JOP_icon = recursos.iconos.IconGetter.logout_JOP_icon;
+    
     public Principal() {
         initComponents();
+        setLocationRelativeTo(null);
+        
+        //Bienvenida
+        JOptionPane.showMessageDialog(this,
+                "Bueno, a ponerse manos a la obra...\n¡Tú puedes!",
+                "Bienvenido/a " + logica.Main.USUARIO_ACTUAL,
+                JOptionPane.PLAIN_MESSAGE);
+        
+        updateMenuBar();
+    }
+    
+    private void updateMenuBar() {
+        menu_usuario.setText("Usuario: " + logica.Main.USUARIO_ACTUAL);
     }
 
     /**
@@ -51,8 +57,13 @@ public class Principal extends javax.swing.JFrame {
         menu_opc_filtrar_finalizado = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
-        sp_table_tareas.setMinimumSize(new java.awt.Dimension(275, 20));
+        sp_table_tareas.setMinimumSize(new java.awt.Dimension(275, 565));
 
         table_tareas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -80,6 +91,7 @@ public class Principal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        table_tareas.setMinimumSize(new java.awt.Dimension(275, 565));
         sp_table_tareas.setViewportView(table_tareas);
         if (table_tareas.getColumnModel().getColumnCount() > 0) {
             table_tareas.getColumnModel().getColumn(0).setResizable(false);
@@ -126,8 +138,8 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(lbl_titulo)
                     .addComponent(btn_ver_mas))
                 .addGap(15, 15, 15)
-                .addComponent(sp_descr)
-                .addContainerGap(422, Short.MAX_VALUE))
+                .addComponent(sp_descr, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         splitPane_tareas.setLeftComponent(p_detalles_tarea);
@@ -154,6 +166,11 @@ public class Principal extends javax.swing.JFrame {
         menu_usuario.setText("Usuario");
 
         menu_opc_cerrar_sesion.setText("Cerrar sesión");
+        menu_opc_cerrar_sesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_opc_cerrar_sesionActionPerformed(evt);
+            }
+        });
         menu_usuario.add(menu_opc_cerrar_sesion);
 
         menu_opc_modificar_cuenta.setText("Modificar cuenta");
@@ -181,18 +198,18 @@ public class Principal extends javax.swing.JFrame {
         menu_tareas.add(menu_opc_eliminar_tarea);
         menu_tareas.add(tarea_menu_separator);
 
-        submenu_filtrar_tareas.setText("Filtrar");
+        submenu_filtrar_tareas.setText("Mostrar");
 
         menu_opc_filtrar_nuevo.setSelected(true);
-        menu_opc_filtrar_nuevo.setText("Estado: Nuevo");
+        menu_opc_filtrar_nuevo.setText("Nuevas");
         submenu_filtrar_tareas.add(menu_opc_filtrar_nuevo);
 
         menu_opc_filtrar_pendiente.setSelected(true);
-        menu_opc_filtrar_pendiente.setText("Estado: Pendiente");
+        menu_opc_filtrar_pendiente.setText("Pendientes");
         submenu_filtrar_tareas.add(menu_opc_filtrar_pendiente);
 
         menu_opc_filtrar_finalizado.setSelected(true);
-        menu_opc_filtrar_finalizado.setText("Estado: Finalizado");
+        menu_opc_filtrar_finalizado.setText("Finalizado");
         submenu_filtrar_tareas.add(menu_opc_filtrar_finalizado);
 
         menu_tareas.add(submenu_filtrar_tareas);
@@ -218,6 +235,24 @@ public class Principal extends javax.swing.JFrame {
     private void menu_opc_editar_tareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_opc_editar_tareaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menu_opc_editar_tareaActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosing
+
+    private void menu_opc_cerrar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_opc_cerrar_sesionActionPerformed
+        if (JOptionPane.showConfirmDialog(this,
+                "¿Cerrar sesión?",
+                "Cerrar sesión",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.WARNING_MESSAGE,
+                logout_JOP_icon) == 0) {
+            logica.Main.USUARIO_ACTUAL = null;
+            Login login = new Login();
+            login.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_menu_opc_cerrar_sesionActionPerformed
 
     /**
      * @param args the command line arguments
