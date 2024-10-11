@@ -9,6 +9,7 @@ public class EditarTarea extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
+        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/edit_task_menu.png")).getImage());
         if (tarea != null) {
             this.tarea = tarea;
             this.setTitle("Editando " + tarea.getTitulo());

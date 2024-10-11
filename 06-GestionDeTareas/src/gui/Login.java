@@ -132,10 +132,11 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_password))
                 .addGap(30, 30, 30)
-                .addGroup(p_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_registrarse)
+                .addGroup(p_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_iniciar_sesion)
-                    .addComponent(btn_salir))
+                    .addGroup(p_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btn_registrarse)
+                        .addComponent(btn_salir)))
                 .addGap(35, 35, 35))
         );
 

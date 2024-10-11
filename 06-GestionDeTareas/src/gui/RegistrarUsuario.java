@@ -10,6 +10,7 @@ public class RegistrarUsuario extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
+        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/register_user_JOP.png")).getImage());
     }
 
     /**

@@ -11,6 +11,7 @@ public class ModificarUsuario extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
+        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/modify_user_JOP.png")).getImage());
         txt_nombre.setText(usuarioActual.getNombre());
         txt_apellido.setText(usuarioActual.getApellido());
         txt_username.setText(usuarioActual.getUsername());
@@ -40,6 +41,7 @@ public class ModificarUsuario extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Actualizar Datos");
+        setIconImage(null);
         setResizable(false);
 
         p_modificar_usuario.setBackground(new java.awt.Color(230, 247, 245));
