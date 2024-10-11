@@ -2,6 +2,7 @@ package gui;
 
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 public class Login extends javax.swing.JFrame {
     public static final Icon login_JOP_icon = recursos.iconos.IconGetter.login_JOP_icon;
@@ -43,6 +44,11 @@ public class Login extends javax.swing.JFrame {
         lbl_password.setText("Contraseña");
 
         btn_registrarse.setText("Registrarse");
+        btn_registrarse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_registrarseActionPerformed(evt);
+            }
+        });
 
         btn_iniciar_sesion.setText("Iniciar Sesión");
         btn_iniciar_sesion.addActionListener(new java.awt.event.ActionListener() {
@@ -123,18 +129,27 @@ public class Login extends javax.swing.JFrame {
         String username = txt_username.getText();
         String password = new String(txt_password.getPassword());
         if (!username.isEmpty() && !password.isEmpty()) {
-            if (logica.UsuarioService.autenticarUsuario(username, password)) {
-                //Ir a principal
-                logica.Main.USUARIO_ACTUAL = username;
-                Principal main = new Principal();
-                main.setVisible(true);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this,
-                    "Debes estar registrado para iniciar sesión.",
-                    "Iniciar Sesión",
-                    JOptionPane.WARNING_MESSAGE, 
-                    login_JOP_icon);
+            logica.UsuarioService.AutenticacionUsuarioResultado resultado = logica.UsuarioService.autenticarUsuario(username, password);
+            switch (resultado) {
+                case EXITO -> {
+                    this.dispose();
+                    logica.Main.USUARIO_ACTUAL = username;
+                    SwingUtilities.invokeLater(() -> {
+                        Principal main = new Principal();
+                        main.setVisible(true);
+                    });
+                }
+                case USUARIO_NO_EXISTE -> JOptionPane.showMessageDialog(this,
+                        "Debes estar registrado para iniciar sesión.",
+                        "Iniciar Sesión",
+                        JOptionPane.WARNING_MESSAGE, 
+                        login_JOP_icon);
+
+                case CONTRASENA_INCORRECTA -> JOptionPane.showMessageDialog(this,
+                        "Usuario y/o contraseña incorrectos.",
+                        "Iniciar Sesión",
+                        JOptionPane.ERROR_MESSAGE, 
+                        login_JOP_icon);
             }
         } else {
             JOptionPane.showMessageDialog(this,
@@ -155,6 +170,11 @@ public class Login extends javax.swing.JFrame {
             System.exit(0);
         }
     }//GEN-LAST:event_btn_salirActionPerformed
+
+    private void btn_registrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrarseActionPerformed
+        RegistrarUsuario registrarUsuario = new RegistrarUsuario(this, true);
+        registrarUsuario.setVisible(true);
+    }//GEN-LAST:event_btn_registrarseActionPerformed
 
     /**
      * @param args the command line arguments

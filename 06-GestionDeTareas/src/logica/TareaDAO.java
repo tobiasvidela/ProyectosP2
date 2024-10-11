@@ -12,8 +12,6 @@ import java.util.List;
 public class TareaDAO {
     //Create
     public int agregarTarea(Tarea tarea) {
-        // Definir el formato de la fecha
-        SimpleDateFormat formato = Tarea.dateFormat;
         Date fechaEntregaDate,fechaCreacionDate;
         // INSERT
         String sql = "INSERT INTO tareas (titulo, descripcion, estado, idusuario, fecha_entrega, fecha_creacion) VALUES (?, ?, ?, ?, ?, ?)";
@@ -24,8 +22,8 @@ public class TareaDAO {
             stmt.setString(3, tarea.getEstado());
             stmt.setInt(4, tarea.getIdUsuario());
             // Parsear las fechas
-            fechaEntregaDate = Util.convertirFecha(tarea.getFechaEntrega(), formato);
-            fechaCreacionDate = Util.convertirFecha(tarea.getFechaCreacion(), formato);
+            fechaEntregaDate = Util.convertirFecha(tarea.getFechaEntrega());
+            fechaCreacionDate = Util.convertirFecha(tarea.getFechaCreacion());
             // Convertirlas a java.sql.Date
             java.sql.Date fechaEntregaSQL = new java.sql.Date(fechaEntregaDate.getTime());
             java.sql.Date fechaCreacionSQL = new java.sql.Date(fechaCreacionDate.getTime());
@@ -122,8 +120,6 @@ public class TareaDAO {
     }
     //Update
     public boolean actualizarTarea(Tarea tarea) {
-        // Definir el formato de la fecha
-        SimpleDateFormat formato = Tarea.dateFormat;
         
         String sql = "UPDATE tareas SET titulo = ?, descripcion = ?, estado = ?, idusuario = ?, fecha_entrega = ?, fecha_creacion = ? WHERE id = ?";
         try (Connection conn = Util.getConnection();
@@ -133,8 +129,8 @@ public class TareaDAO {
             stmt.setString(3, tarea.getEstado());
             stmt.setInt(4, tarea.getIdUsuario());
             //Parsear fecha
-            Date fechaEntregaDate = Util.convertirFecha(tarea.getFechaEntrega(), formato);
-            Date fechaCreacionDate = Util.convertirFecha(tarea.getFechaCreacion(), formato);
+            Date fechaEntregaDate = Util.convertirFecha(tarea.getFechaEntrega());
+            Date fechaCreacionDate = Util.convertirFecha(tarea.getFechaCreacion());
             //Convertir fecha
             java.sql.Date fechaEntregaSQL = new java.sql.Date(fechaEntregaDate.getTime());
             java.sql.Date fechaCreacionSQL = new java.sql.Date(fechaCreacionDate.getTime());

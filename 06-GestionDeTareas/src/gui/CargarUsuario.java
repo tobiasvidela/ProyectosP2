@@ -1,21 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package gui;
 
-/**
- *
- * @author La Maquina
- */
-public class CargarUsuario extends javax.swing.JDialog {
+import javax.swing.Icon;
+import javax.swing.JOptionPane;
 
-    /**
-     * Creates new form CargarUsuario
-     */
+public class CargarUsuario extends javax.swing.JDialog {
+    private static Icon register_JOP_icon = recursos.iconos.IconGetter.register_user_JOP_icon;
+    
     public CargarUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(parent);
     }
 
     /**
@@ -50,8 +44,18 @@ public class CargarUsuario extends javax.swing.JDialog {
         lbl_password.setText("Password:");
 
         btn_cargar_usuario.setText("Cargar");
+        btn_cargar_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cargar_usuarioActionPerformed(evt);
+            }
+        });
 
         btn_volver.setText("Volver");
+        btn_volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_volverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout p_cargar_usuarioLayout = new javax.swing.GroupLayout(p_cargar_usuario);
         p_cargar_usuario.setLayout(p_cargar_usuarioLayout);
@@ -121,6 +125,35 @@ public class CargarUsuario extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btn_volverActionPerformed
+
+    private void btn_cargar_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cargar_usuarioActionPerformed
+        String nombre = txt_nombre.getText();
+        String apellido = txt_apellido.getText();
+        String username = txt_username.getText().toLowerCase();
+        String password = txt_password.getText();
+        if (!nombre.isEmpty() && !apellido.isEmpty()
+                && !username.isEmpty() && !password.isEmpty()) {
+            if (logica.UsuarioService.registrarUsuario(nombre, apellido, username, password)) {
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this,
+                    "El usuario" + "("+username+")" + " ya está registrado.",
+                    "Registrar Usuario",
+                    JOptionPane.ERROR_MESSAGE, 
+                    register_JOP_icon);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Debes completar todos los campos para poder registrar un usuario.",
+                    "Registrar Usuario",
+                    JOptionPane.WARNING_MESSAGE, 
+                    register_JOP_icon);
+        }
+    }//GEN-LAST:event_btn_cargar_usuarioActionPerformed
 
     /**
      * @param args the command line arguments

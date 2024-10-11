@@ -160,11 +160,17 @@
           </Properties>
         </Component>
         <Component class="com.toedter.calendar.JCalendar" name="calendar_fecha_entrega">
+          <Events>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="calendar_fecha_entregaPropertyChange"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_editar_tarea">
           <Properties>
             <Property name="text" type="java.lang.String" value="Actualizar Tarea"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_editar_tareaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

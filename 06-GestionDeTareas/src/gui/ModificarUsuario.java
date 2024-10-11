@@ -1,21 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package gui;
 
-/**
- *
- * @author La Maquina
- */
-public class ModificarUsuario extends javax.swing.JDialog {
+import javax.swing.Icon;
+import javax.swing.JOptionPane;
 
-    /**
-     * Creates new form ModificarUsuario
-     */
+public class ModificarUsuario extends javax.swing.JDialog {
+    private static Icon modify_JOP_icon = recursos.iconos.IconGetter.modify_user_JOP_icon;
+    private logica.Usuario usuarioActual = logica.UsuarioService.obtenerUsuarioPorUsername(logica.Main.USUARIO_ACTUAL);
+    
     public ModificarUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(parent);
+        txt_nombre.setText(usuarioActual.getNombre());
+        txt_apellido.setText(usuarioActual.getApellido());
+        txt_username.setText(usuarioActual.getUsername());
+        txt_password.setText(usuarioActual.getContrasena());
     }
 
     /**
@@ -50,8 +49,18 @@ public class ModificarUsuario extends javax.swing.JDialog {
         lbl_password.setText("Password:");
 
         btn_modificar_usuario.setText("Modificar");
+        btn_modificar_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_modificar_usuarioActionPerformed(evt);
+            }
+        });
 
         btn_volver.setText("Volver");
+        btn_volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_volverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout p_modificar_usuarioLayout = new javax.swing.GroupLayout(p_modificar_usuario);
         p_modificar_usuario.setLayout(p_modificar_usuarioLayout);
@@ -121,6 +130,59 @@ public class ModificarUsuario extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btn_volverActionPerformed
+
+    private void btn_modificar_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_modificar_usuarioActionPerformed
+        String nombre = txt_nombre.getText();
+        String apellido = txt_apellido.getText();
+        String username = txt_username.getText().toLowerCase();
+        String password = txt_password.getText();
+        
+        // Verificar si algún campo está vacío
+        if (nombre.isEmpty() || apellido.isEmpty() || username.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Ningún campo debe estar vacío.",
+                    "Actualizar Datos",
+                    JOptionPane.WARNING_MESSAGE,
+                    modify_JOP_icon);
+            return;
+        }
+        
+        // Verificar si se ha realizado algún cambio
+        boolean cambiosRealizados = !nombre.equalsIgnoreCase(usuarioActual.getNombre()) ||
+                !apellido.equalsIgnoreCase(usuarioActual.getApellido()) ||
+                !username.equalsIgnoreCase(usuarioActual.getUsername()) ||
+                !password.equals(usuarioActual.getContrasena());
+        
+        if (!cambiosRealizados) {
+            JOptionPane.showMessageDialog(this,
+                    "No has alterado ningún campo.",
+                    "Actualizar Datos",
+                    JOptionPane.INFORMATION_MESSAGE,
+                    modify_JOP_icon);
+            return;
+        }
+        
+        logica.Usuario usuarioActualizado = new logica.Usuario(usuarioActual.getId(), nombre, apellido, username, password);
+        if (logica.UsuarioService.actualizarUsuario(usuarioActualizado)) {
+            logica.Main.USUARIO_ACTUAL = username;
+            JOptionPane.showMessageDialog(this,
+                    "Tu información ha sido actualizada exitosamente.",
+                    "Actualizar Datos",
+                    JOptionPane.INFORMATION_MESSAGE,
+                    modify_JOP_icon);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "No se pudo actualizar tu información.",
+                    "Actualizar Datos",
+                    JOptionPane.ERROR_MESSAGE,
+                    modify_JOP_icon);
+        }
+    }//GEN-LAST:event_btn_modificar_usuarioActionPerformed
 
     /**
      * @param args the command line arguments

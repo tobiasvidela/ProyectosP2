@@ -1,21 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package gui;
 
-/**
- *
- * @author La Maquina
- */
-public class CrearTarea extends javax.swing.JDialog {
+import java.util.Date;
+import javax.swing.JOptionPane;
 
-    /**
-     * Creates new form CrearTarea
-     */
+public class CrearTarea extends javax.swing.JDialog {
+    
     public CrearTarea(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(parent);
     }
 
     /**
@@ -58,7 +51,18 @@ public class CrearTarea extends javax.swing.JDialog {
 
         lbl_fecha_seleccionada.setText("yyyy-mm-dd");
 
+        calendar_fecha_entrega.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                calendar_fecha_entregaPropertyChange(evt);
+            }
+        });
+
         btn_crear_tarea.setText("Crear Tarea");
+        btn_crear_tarea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_crear_tareaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout p_crear_tareaLayout = new javax.swing.GroupLayout(p_crear_tarea);
         p_crear_tarea.setLayout(p_crear_tareaLayout);
@@ -128,6 +132,27 @@ public class CrearTarea extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void calendar_fecha_entregaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_calendar_fecha_entregaPropertyChange
+        lbl_fecha_seleccionada.setText(logica.Util.getDateFormat().format(calendar_fecha_entrega.getDate()));
+    }//GEN-LAST:event_calendar_fecha_entregaPropertyChange
+
+    private void btn_crear_tareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_crear_tareaActionPerformed
+        boolean camposCompletos = validarCampos();
+        
+        String titulo = txt_titulo.getText().trim();
+        String descr = txt_descr.getText().trim();
+        String estado = (String) select_estado.getSelectedItem();
+        String f_e = lbl_fecha_seleccionada.getText();
+        String F_C = logica.Util.getDateFormat().format(new Date());
+        
+        int id_usuario = logica.UsuarioService.obtenerUsuarioPorUsername(logica.Main.USUARIO_ACTUAL).getId();
+        
+        if (camposCompletos) {
+            logica.TareaService.crearTarea(titulo, descr, estado, id_usuario, f_e, F_C);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btn_crear_tareaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -184,4 +209,46 @@ public class CrearTarea extends javax.swing.JDialog {
     private javax.swing.JTextArea txt_descr;
     private javax.swing.JTextField txt_titulo;
     // End of variables declaration//GEN-END:variables
+
+    private boolean validarCampos() {
+        String titulo = txt_titulo.getText().trim();
+        String descripcion = txt_descr.getText().trim();
+        String estado = (String) select_estado.getSelectedItem();
+        String fecha_entrega = lbl_fecha_seleccionada.getText();
+
+        // Validar que todos los campos estén completos
+        if (titulo.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Debes ingresar un título para la tarea.",
+                    "Validación",
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        if (descripcion.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Debes ingresar una descripción para la tarea.",
+                    "Validación",
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        if (estado == null || estado.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Debes seleccionar un estado para la tarea.",
+                    "Validación",
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        if (fecha_entrega.equals("yyyy-mm-dd")) {
+            JOptionPane.showMessageDialog(this,
+                    "Debes seleccionar una fecha de entrega.",
+                    "Validación",
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
 }

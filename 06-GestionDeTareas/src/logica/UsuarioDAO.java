@@ -115,5 +115,22 @@ public class UsuarioDAO {
             e.printStackTrace();
         }
     }
-    
+    //validation
+    public boolean existeNombreUsuario(String username, int idUsuarioActual) {
+        //Que otro usuario tenga el mismo username (para actualizar el usuario actual)
+        String sql = "SELECT COUNT(*) FROM usuarios WHERE usuario = ? AND id != ?";
+        try (Connection conn = Util.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            stmt.setInt(2, idUsuarioActual);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

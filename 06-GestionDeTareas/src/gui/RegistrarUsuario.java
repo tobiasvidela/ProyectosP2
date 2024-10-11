@@ -1,21 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package gui;
 
-/**
- *
- * @author La Maquina
- */
-public class RegistrarUsuario extends javax.swing.JDialog {
+import javax.swing.Icon;
+import javax.swing.JOptionPane;
 
-    /**
-     * Creates new form RegistrarUsuario
-     */
+public class RegistrarUsuario extends javax.swing.JDialog {
+    private static Icon register_JOP_icon = recursos.iconos.IconGetter.register_user_JOP_icon;
+    
     public RegistrarUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(parent);
     }
 
     /**
@@ -50,8 +44,18 @@ public class RegistrarUsuario extends javax.swing.JDialog {
         lbl_password.setText("Password:");
 
         btn_registrar_usuario.setText("Registrar");
+        btn_registrar_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_registrar_usuarioActionPerformed(evt);
+            }
+        });
 
         btn_volver.setText("Volver");
+        btn_volver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_volverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout p_registrar_usuarioLayout = new javax.swing.GroupLayout(p_registrar_usuario);
         p_registrar_usuario.setLayout(p_registrar_usuarioLayout);
@@ -121,6 +125,35 @@ public class RegistrarUsuario extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_volverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_volverActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btn_volverActionPerformed
+
+    private void btn_registrar_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_registrar_usuarioActionPerformed
+        String nombre = txt_nombre.getText();
+        String apellido = txt_apellido.getText();
+        String username = txt_username.getText().toLowerCase();
+        String password = txt_password.getText();
+        if (!nombre.isEmpty() && !apellido.isEmpty()
+                && !username.isEmpty() && !password.isEmpty()) {
+            if (logica.UsuarioService.registrarUsuario(nombre, apellido, username, password)) {
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this,
+                    "Ese usuario " + "("+username+")" + " ya tiene cuenta.",
+                    "Registrase",
+                    JOptionPane.ERROR_MESSAGE, 
+                    register_JOP_icon);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this,
+                    "Debes completar todos los campos para poder registrarte.",
+                    "Registrarse",
+                    JOptionPane.WARNING_MESSAGE, 
+                    register_JOP_icon);
+        }
+    }//GEN-LAST:event_btn_registrar_usuarioActionPerformed
 
     /**
      * @param args the command line arguments

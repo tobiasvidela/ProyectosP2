@@ -1,28 +1,35 @@
 package gui;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.List;
 import javax.swing.Icon;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+import logica.Tarea;
 
 public class Principal extends javax.swing.JFrame {
+    //iconos
     private static Icon logout_JOP_icon = recursos.iconos.IconGetter.logout_JOP_icon;
+    private static Icon delete_account_JOP_icon = recursos.iconos.IconGetter.delete_account_JOP_icon;
+    private static Icon delete_task_JOP_icon = recursos.iconos.IconGetter.delete_task_JOP_icon;
+    
+    private logica.Usuario usuarioActual = logica.UsuarioService.obtenerUsuarioPorUsername(logica.Main.USUARIO_ACTUAL);
+    private logica.Tarea tareaSeleccionada = null;
     
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);
+        cerrarVentana();
         
-        //Bienvenida
-        JOptionPane.showMessageDialog(this,
-                "Bueno, a ponerse manos a la obra...\n¡Tú puedes!",
-                "Bienvenido/a " + logica.Main.USUARIO_ACTUAL,
-                JOptionPane.PLAIN_MESSAGE);
+        // Mostrar mensaje de bienvenida después de que la ventana sea visible
+        SwingUtilities.invokeLater(() -> mostrarMensajeBienvenida());
         
-        updateMenuBar();
+        updateVentanaPrincipal();
     }
     
-    private void updateMenuBar() {
-        menu_usuario.setText("Usuario: " + logica.Main.USUARIO_ACTUAL);
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -56,31 +63,50 @@ public class Principal extends javax.swing.JFrame {
         menu_opc_filtrar_pendiente = new javax.swing.JCheckBoxMenuItem();
         menu_opc_filtrar_finalizado = new javax.swing.JCheckBoxMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
+        escritorio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                escritorioMouseClicked(evt);
+            }
+        });
+
+        splitPane_tareas.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                splitPane_tareasComponentResized(evt);
+            }
+        });
+        splitPane_tareas.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                splitPane_tareasPropertyChange(evt);
+            }
+        });
+
         sp_table_tareas.setMinimumSize(new java.awt.Dimension(275, 565));
 
+        table_tareas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         table_tareas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Título", "Descripción", "Estado", "Entrega", "Creación"
+                "ID", "Título", "Descripción", "Estado", "Entrega"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -92,6 +118,12 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         table_tareas.setMinimumSize(new java.awt.Dimension(275, 565));
+        table_tareas.getTableHeader().setReorderingAllowed(false);
+        table_tareas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_tareasMouseClicked(evt);
+            }
+        });
         sp_table_tareas.setViewportView(table_tareas);
         if (table_tareas.getColumnModel().getColumnCount() > 0) {
             table_tareas.getColumnModel().getColumn(0).setResizable(false);
@@ -99,7 +131,6 @@ public class Principal extends javax.swing.JFrame {
             table_tareas.getColumnModel().getColumn(2).setResizable(false);
             table_tareas.getColumnModel().getColumn(3).setResizable(false);
             table_tareas.getColumnModel().getColumn(4).setResizable(false);
-            table_tareas.getColumnModel().getColumn(5).setResizable(false);
         }
 
         splitPane_tareas.setRightComponent(sp_table_tareas);
@@ -110,10 +141,19 @@ public class Principal extends javax.swing.JFrame {
         lbl_titulo.setText("Título");
 
         btn_ver_mas.setText("Ver más");
+        btn_ver_mas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ver_masActionPerformed(evt);
+            }
+        });
 
+        txt_descr.setEditable(false);
         txt_descr.setColumns(20);
+        txt_descr.setLineWrap(true);
         txt_descr.setRows(5);
         txt_descr.setText("Descripción");
+        txt_descr.setWrapStyleWord(true);
+        txt_descr.setOpaque(false);
         sp_descr.setViewportView(txt_descr);
 
         javax.swing.GroupLayout p_detalles_tareaLayout = new javax.swing.GroupLayout(p_detalles_tarea);
@@ -174,9 +214,19 @@ public class Principal extends javax.swing.JFrame {
         menu_usuario.add(menu_opc_cerrar_sesion);
 
         menu_opc_modificar_cuenta.setText("Modificar cuenta");
+        menu_opc_modificar_cuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_opc_modificar_cuentaActionPerformed(evt);
+            }
+        });
         menu_usuario.add(menu_opc_modificar_cuenta);
 
         menu_opc_eliminar_cuenta.setText("Eliminar cuenta");
+        menu_opc_eliminar_cuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_opc_eliminar_cuentaActionPerformed(evt);
+            }
+        });
         menu_usuario.add(menu_opc_eliminar_cuenta);
 
         menubar_principal.add(menu_usuario);
@@ -184,6 +234,11 @@ public class Principal extends javax.swing.JFrame {
         menu_tareas.setText("Tareas");
 
         menu_opc_crear_tarea.setText("Nueva Tarea");
+        menu_opc_crear_tarea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_opc_crear_tareaActionPerformed(evt);
+            }
+        });
         menu_tareas.add(menu_opc_crear_tarea);
 
         menu_opc_editar_tarea.setText("Editar Tarea");
@@ -195,6 +250,11 @@ public class Principal extends javax.swing.JFrame {
         menu_tareas.add(menu_opc_editar_tarea);
 
         menu_opc_eliminar_tarea.setText("Eliminar Tarea");
+        menu_opc_eliminar_tarea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_opc_eliminar_tareaActionPerformed(evt);
+            }
+        });
         menu_tareas.add(menu_opc_eliminar_tarea);
         menu_tareas.add(tarea_menu_separator);
 
@@ -202,14 +262,29 @@ public class Principal extends javax.swing.JFrame {
 
         menu_opc_filtrar_nuevo.setSelected(true);
         menu_opc_filtrar_nuevo.setText("Nuevas");
+        menu_opc_filtrar_nuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_opc_filtrar_nuevoActionPerformed(evt);
+            }
+        });
         submenu_filtrar_tareas.add(menu_opc_filtrar_nuevo);
 
         menu_opc_filtrar_pendiente.setSelected(true);
         menu_opc_filtrar_pendiente.setText("Pendientes");
+        menu_opc_filtrar_pendiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_opc_filtrar_pendienteActionPerformed(evt);
+            }
+        });
         submenu_filtrar_tareas.add(menu_opc_filtrar_pendiente);
 
         menu_opc_filtrar_finalizado.setSelected(true);
         menu_opc_filtrar_finalizado.setText("Finalizado");
+        menu_opc_filtrar_finalizado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menu_opc_filtrar_finalizadoActionPerformed(evt);
+            }
+        });
         submenu_filtrar_tareas.add(menu_opc_filtrar_finalizado);
 
         menu_tareas.add(submenu_filtrar_tareas);
@@ -233,26 +308,102 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menu_opc_editar_tareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_opc_editar_tareaActionPerformed
-        // TODO add your handling code here:
+        abrirEditarTarea(tareaSeleccionada);
     }//GEN-LAST:event_menu_opc_editar_tareaActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        System.exit(0);
+        //cerrarVentana();
     }//GEN-LAST:event_formWindowClosing
 
     private void menu_opc_cerrar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_opc_cerrar_sesionActionPerformed
-        if (JOptionPane.showConfirmDialog(this,
-                "¿Cerrar sesión?",
-                "Cerrar sesión",
-                JOptionPane.OK_CANCEL_OPTION,
-                JOptionPane.WARNING_MESSAGE,
-                logout_JOP_icon) == 0) {
-            logica.Main.USUARIO_ACTUAL = null;
-            Login login = new Login();
-            login.setVisible(true);
-            this.dispose();
-        }
+        confirmarCierreSesion();
     }//GEN-LAST:event_menu_opc_cerrar_sesionActionPerformed
+
+    private void menu_opc_modificar_cuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_opc_modificar_cuentaActionPerformed
+        ModificarUsuario modificarUsuario = new ModificarUsuario(this, true);
+        modificarUsuario.setVisible(true);
+        updateMenuBar();
+    }//GEN-LAST:event_menu_opc_modificar_cuentaActionPerformed
+
+    private void menu_opc_eliminar_cuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_opc_eliminar_cuentaActionPerformed
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.",
+                "Eliminar cuenta",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE,
+                delete_account_JOP_icon);
+
+        if (opcion == JOptionPane.YES_OPTION) {
+            if (eliminarCuenta()) {
+                JOptionPane.showMessageDialog(this,
+                        "Tu cuenta ha sido eliminada.\nLamentamos que te vayas.",
+                        "Cuenta eliminada",
+                        JOptionPane.INFORMATION_MESSAGE,
+                        delete_account_JOP_icon);
+                cerrarSesion();
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "No se pudo eliminar la cuenta. Por favor, intenta de nuevo más tarde.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE,
+                        delete_account_JOP_icon);
+            }
+        }
+    }//GEN-LAST:event_menu_opc_eliminar_cuentaActionPerformed
+
+    private void table_tareasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_tareasMouseClicked
+        if (evt.getClickCount() == 1) {
+            int filaSeleccionada = table_tareas.getSelectedRow();
+            if (filaSeleccionada != -1) {
+                // Obtener la tarea seleccionada desde la tabla
+                int tareaId = (int) table_tareas.getValueAt(filaSeleccionada, 0);
+                this.tareaSeleccionada = logica.TareaService.obtenerTareaPorId(tareaId);
+
+                updateDetallesTarea(tareaSeleccionada);
+                
+                updateVentanaPrincipal();
+            }
+        } else if (evt.getClickCount() == 2 && tareaSeleccionada != null) {
+            abrirDetallesDeTarea(tareaSeleccionada);
+        }
+    }//GEN-LAST:event_table_tareasMouseClicked
+
+    private void splitPane_tareasComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_splitPane_tareasComponentResized
+        //updateTituloDetallesTarea(tareaSeleccionada);
+    }//GEN-LAST:event_splitPane_tareasComponentResized
+
+    private void splitPane_tareasPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_splitPane_tareasPropertyChange
+        updateTituloDetallesTarea(tareaSeleccionada);
+    }//GEN-LAST:event_splitPane_tareasPropertyChange
+
+    private void btn_ver_masActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ver_masActionPerformed
+        abrirDetallesDeTarea(tareaSeleccionada);
+    }//GEN-LAST:event_btn_ver_masActionPerformed
+
+    private void escritorioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_escritorioMouseClicked
+        this.tareaSeleccionada = null;
+        updateVentanaPrincipal();
+    }//GEN-LAST:event_escritorioMouseClicked
+
+    private void menu_opc_crear_tareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_opc_crear_tareaActionPerformed
+        abrirCrearTarea();
+    }//GEN-LAST:event_menu_opc_crear_tareaActionPerformed
+
+    private void menu_opc_eliminar_tareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_opc_eliminar_tareaActionPerformed
+        eliminarTarea(tareaSeleccionada);
+    }//GEN-LAST:event_menu_opc_eliminar_tareaActionPerformed
+
+    private void menu_opc_filtrar_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_opc_filtrar_nuevoActionPerformed
+        updateTabletareas();
+    }//GEN-LAST:event_menu_opc_filtrar_nuevoActionPerformed
+
+    private void menu_opc_filtrar_pendienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_opc_filtrar_pendienteActionPerformed
+        updateTabletareas();
+    }//GEN-LAST:event_menu_opc_filtrar_pendienteActionPerformed
+
+    private void menu_opc_filtrar_finalizadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_opc_filtrar_finalizadoActionPerformed
+        updateTabletareas();
+    }//GEN-LAST:event_menu_opc_filtrar_finalizadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -314,4 +465,192 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator tarea_menu_separator;
     private javax.swing.JTextArea txt_descr;
     // End of variables declaration//GEN-END:variables
+    private void cerrarVentana() {
+        try {
+            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            // Agregar el listener para el evento de cierre de ventana
+            addWindowListener(new WindowAdapter() {
+                //@Override
+                public void windowClosing(WindowEvent e) {
+                    confirmarCierreSesion();
+                }
+            });
+            this.setVisible(true);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                    "Error al cerrar la ventana principal.\n" + e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void mostrarMensajeBienvenida() {
+        JOptionPane.showMessageDialog(null,
+                "Bueno, a ponerse manos a la obra...\n¡Tú puedes!",
+                "Bienvenido/a " + logica.Main.USUARIO_ACTUAL,
+                JOptionPane.PLAIN_MESSAGE);
+    }
+    
+    private void confirmarCierreSesion() {
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que quieres cerrar sesión?",
+                "Cerrar sesión",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                logout_JOP_icon);
+        
+        if (opcion == JOptionPane.YES_OPTION) {
+            cerrarSesion();
+        }
+    }
+    
+    private void cerrarSesion() {
+        logica.Main.USUARIO_ACTUAL = null;
+        Login login = new Login();
+        login.setVisible(true);
+        this.dispose();
+    }
+    
+    private boolean eliminarCuenta() {
+        return logica.UsuarioService.eliminarUsuario(this.usuarioActual.getId());
+    }
+
+    private void updateVentanaPrincipal() {
+        updateMenuBar();
+        updateTabletareas();
+        updateDetallesTarea(tareaSeleccionada);
+        if (tareaSeleccionada != null) {
+            btn_ver_mas.setEnabled(true);
+            menu_opc_editar_tarea.setEnabled(true);
+            menu_opc_eliminar_tarea.setEnabled(true);
+        } else {
+            btn_ver_mas.setEnabled(false);
+            menu_opc_editar_tarea.setEnabled(false);
+            menu_opc_eliminar_tarea.setEnabled(false);
+        }
+    }
+    
+    private void updateMenuBar() {
+        menu_usuario.setText("Usuario: " + logica.Main.USUARIO_ACTUAL);
+        this.usuarioActual = logica.UsuarioService.obtenerUsuarioPorUsername(logica.Main.USUARIO_ACTUAL);
+    }
+
+    private void updateTabletareas() {
+        List<logica.Tarea> listaDeTareas = logica.TareaService.obtenerTareasPorUsuario(this.usuarioActual.getId());
+        // Limpiar la tabla antes de actualizarla
+        DefaultTableModel model = (DefaultTableModel) table_tareas.getModel();
+        model.setRowCount(0); // Eliminar todas las filas previas
+
+        // Filtrar las tareas según los JCheckBoxMenuItems
+        boolean filtrarNuevo = menu_opc_filtrar_nuevo.isSelected();
+        boolean filtrarPendiente = menu_opc_filtrar_pendiente.isSelected();
+        boolean filtrarFinalizado = menu_opc_filtrar_finalizado.isSelected();
+
+        for (logica.Tarea tarea : listaDeTareas) {
+            // Comprobar si la tarea cumple con alguno de los filtros seleccionados
+            boolean agregar = false;
+
+            if (filtrarNuevo && tarea.getEstado().equals("Nuevo")) {
+                agregar = true;
+            } 
+            if (filtrarPendiente && tarea.getEstado().equals("Pendiente")) {
+                agregar = true;
+            } 
+            if (filtrarFinalizado && tarea.getEstado().equals("Finalizado")) {
+                agregar = true;
+            }
+
+            // Añadir la tarea a la tabla si cumple con los filtros
+            if (agregar) {
+                Object[] rowData = {
+                    tarea.getId(),
+                    tarea.getTitulo(),
+                    tarea.getDescripcion(),
+                    tarea.getEstado(),
+                    tarea.getFechaEntrega() // Omitimos fecha_creacion
+                };
+                model.addRow(rowData); // Añadir la fila al modelo de la tabla
+            }
+        }
+
+        // ESTILO
+        //aplicarEstiloTableTareas();
+    }
+    
+    private void updateDetallesTarea(logica.Tarea tarea) {
+        if (tarea == null) {
+            lbl_titulo.setText("Título");
+            //icono_estado
+            txt_descr.setText("Descripción");
+        } else {
+            // Cargar los datos de la tarea seleccionada en los campos correspondientes
+            updateTituloDetallesTarea(tarea);
+
+            // Establecer el icono según el estado
+            //icono_estado.setIcon(obtenerIconoEstado(tarea.getEstado()));
+
+            txt_descr.setText(tarea.getDescripcion());
+        }
+    }
+
+    private void updateTituloDetallesTarea(logica.Tarea tarea) {
+        if (tarea == null) {
+            return;
+        }
+        // Calcular el ancho disponible (ancho del panel menos ancho del botón y margen)
+        int anchoPanel = p_detalles_tarea.getWidth();
+        int anchoBoton = btn_ver_mas.getWidth();
+        int margen = 30;
+        int anchoMaximoDisponible = anchoPanel - anchoBoton - margen;
+        
+        // Obtener el FontMetrics del JLabel para calcular el ancho del texto
+        java.awt.FontMetrics fontMetrics = lbl_titulo.getFontMetrics(lbl_titulo.getFont());
+        
+        lbl_titulo.setText(logica.Util.cortarTextoSiEsLargo(tarea.getTitulo(), anchoMaximoDisponible, fontMetrics));
+    }
+
+    private void abrirDetallesDeTarea(logica.Tarea tareaSeleccionada) {
+        DetallesDeTarea detalles_de_tarea = new DetallesDeTarea(this, true, tareaSeleccionada);
+        detalles_de_tarea.setVisible(true);
+    }
+
+    private void abrirEditarTarea(Tarea tarea) {
+        EditarTarea editarTarea = new EditarTarea(this, true, tarea);
+        editarTarea.setVisible(true);
+        updateTabletareas();
+        this.tareaSeleccionada = null;
+        updateDetallesTarea(this.tareaSeleccionada);
+    }
+
+    private void abrirCrearTarea() {
+        CrearTarea crearTarea = new CrearTarea(this, true);
+        crearTarea.setVisible(true);
+        updateTabletareas();
+    }
+
+    private void eliminarTarea(Tarea tarea) {
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que quieres eliminar tu tarea? Esta acción no se puede deshacer.",
+                "Eliminar " + tarea.getTitulo(),
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE,
+                delete_task_JOP_icon);
+        
+        if (opcion == JOptionPane.YES_OPTION) {
+            if (logica.TareaService.eliminarTarea(tarea.getId())) {
+                JOptionPane.showMessageDialog(this,
+                        "Tu tarea ha sido eliminada.",
+                        "Eliminar "+tarea.getTitulo(),
+                        JOptionPane.INFORMATION_MESSAGE,
+                        delete_task_JOP_icon);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "No se pudo eliminar la tarea. Por favor, intenta de nuevo más tarde.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE,
+                        delete_task_JOP_icon);
+            }
+        }
+        updateTabletareas();
+    }
 }

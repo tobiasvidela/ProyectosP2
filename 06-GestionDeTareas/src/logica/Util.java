@@ -14,6 +14,7 @@ public class Util {
     private static final String USER = "root"; // Cambia si tu usuario es diferente
     private static final String PASSWORD = ""; // Cambia si tienes una contraseña
     
+    private static SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
     private static final Icon db_JOP_icon = recursos.iconos.IconGetter.db_JOP_icon;
     
     public static void conectarBaseDatos() {
@@ -57,7 +58,11 @@ public class Util {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
     
-    public static Date convertirFecha(String fecha, SimpleDateFormat formato) {
+    public static SimpleDateFormat getDateFormat() {
+        return formato;
+    }
+    
+    public static Date convertirFecha(String fecha) {
         if (fecha != null) {
             try {
                 // Convertir el String a Date
@@ -79,5 +84,26 @@ public class Util {
             return new Date();
         }        
     }
+    
+    public static String cortarTextoSiEsLargo(String texto, int anchoMaximoDisponible, java.awt.FontMetrics fontMetrics) {
+        // Calcula cuántos caracteres caben en el ancho disponible
+        int anchoTexto = fontMetrics.stringWidth(texto);
+        if (anchoTexto <= anchoMaximoDisponible) {
+            return texto; // Si el texto cabe, no hacer nada
+        }
+
+        // Si no cabe, calcular cuántos caracteres pueden mostrarse
+        String textoCortado = "";
+        int anchoActual = 1;
+        for (int i = 0; i < texto.length(); i++) {
+            anchoActual += fontMetrics.charWidth(texto.charAt(i));
+            if (anchoActual + fontMetrics.stringWidth("...") > anchoMaximoDisponible) {
+                textoCortado = texto.substring(0, i) + "...";
+                break;
+            }
+        }
+        return textoCortado;
+    }
+
 }
 

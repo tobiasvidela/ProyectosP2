@@ -137,11 +137,17 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Modificar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_modificar_usuarioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_volver">
           <Properties>
             <Property name="text" type="java.lang.String" value="Volver"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_volverActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

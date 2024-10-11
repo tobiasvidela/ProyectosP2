@@ -49,10 +49,42 @@ public class TareaService {
     }
 
     public static boolean actualizarTarea(Tarea tarea) {
+        // Validar que la tarea no sea nula
+        if (tarea == null) {
+            JOptionPane.showMessageDialog(null, 
+                    "La tarea no puede ser nula.", 
+                    "TareaService", 
+                    JOptionPane.WARNING_MESSAGE,
+                    db_icon);
+            return false;
+        }
+
         try {
-            //tareas.put(tarea.getId(), tarea);  // Actualiza en el mapa también
-            return tareaDAO.actualizarTarea(tarea);
+            // Actualiza la tarea en el mapa
+            tareas.put(tarea.getId(), tarea); 
+
+            // Actualiza la tarea en la base de datos
+            boolean resultado = tareaDAO.actualizarTarea(tarea);
+
+            // Verifica el resultado de la actualización
+            if (!resultado) {
+                JOptionPane.showMessageDialog(null, 
+                        "No se pudo actualizar la tarea en la Base de Datos.", 
+                        "TareaService", 
+                        JOptionPane.ERROR_MESSAGE,
+                        db_icon);
+            }
+            
+            JOptionPane.showMessageDialog(null, 
+                    tarea.getTitulo()+ " actualizada exitosamente.", 
+                    "TareaService", 
+                    JOptionPane.PLAIN_MESSAGE,
+                    db_icon);
+
+            return resultado;
+
         } catch (Exception e) {
+            // Manejo de excepciones
             JOptionPane.showMessageDialog(null, 
                     "Error al intentar actualizar la tarea en la Base de Datos.\n" + e.getMessage(), 
                     "TareaService", 
@@ -61,6 +93,7 @@ public class TareaService {
             return false;
         }
     }
+
 
     public static boolean eliminarTarea(int id) {
         try {

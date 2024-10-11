@@ -1,21 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
 package gui;
 
-/**
- *
- * @author La Maquina
- */
-public class EditarTarea extends javax.swing.JDialog {
+import javax.swing.JOptionPane;
 
-    /**
-     * Creates new form EditarTarea
-     */
-    public EditarTarea(java.awt.Frame parent, boolean modal) {
+public class EditarTarea extends javax.swing.JDialog {
+    private logica.Tarea tarea = null;
+
+    public EditarTarea(java.awt.Frame parent, boolean modal, logica.Tarea tarea) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(parent);
+        if (tarea != null) {
+            this.tarea = tarea;
+            txt_titulo.setText(tarea.getTitulo());
+            txt_descr.setText(tarea.getDescripcion());
+            select_estado.setSelectedItem(tarea.getEstado());
+            calendar_fecha_entrega.setDate(logica.Util.convertirFecha(tarea.getFechaEntrega()));
+        }
     }
 
     /**
@@ -58,7 +58,18 @@ public class EditarTarea extends javax.swing.JDialog {
 
         lbl_fecha_seleccionada.setText("yyyy-mm-dd");
 
+        calendar_fecha_entrega.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                calendar_fecha_entregaPropertyChange(evt);
+            }
+        });
+
         btn_editar_tarea.setText("Actualizar Tarea");
+        btn_editar_tarea.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editar_tareaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout p_editar_tareaLayout = new javax.swing.GroupLayout(p_editar_tarea);
         p_editar_tarea.setLayout(p_editar_tareaLayout);
@@ -128,6 +139,28 @@ public class EditarTarea extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void calendar_fecha_entregaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_calendar_fecha_entregaPropertyChange
+        lbl_fecha_seleccionada.setText(logica.Util.getDateFormat().format(calendar_fecha_entrega.getDate()));
+    }//GEN-LAST:event_calendar_fecha_entregaPropertyChange
+
+    private void btn_editar_tareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editar_tareaActionPerformed
+        boolean camposCompletos = validarCampos();
+        
+        String titulo = txt_titulo.getText().trim();
+        String descr = txt_descr.getText().trim();
+        String estado = (String) select_estado.getSelectedItem();
+        String f_e = lbl_fecha_seleccionada.getText();
+        String F_C = this.tarea.getFechaCreacion();
+        
+        if (camposCompletos) {
+            logica.Tarea tareaActualizada = new logica.Tarea(tarea.getId(),
+                    titulo, descr, estado,
+                    tarea.getIdUsuario(), f_e, F_C);
+            logica.TareaService.actualizarTarea(tareaActualizada);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btn_editar_tareaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -158,7 +191,7 @@ public class EditarTarea extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                EditarTarea dialog = new EditarTarea(new javax.swing.JFrame(), true);
+                EditarTarea dialog = new EditarTarea(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -184,4 +217,46 @@ public class EditarTarea extends javax.swing.JDialog {
     private javax.swing.JTextArea txt_descr;
     private javax.swing.JTextField txt_titulo;
     // End of variables declaration//GEN-END:variables
+
+    private boolean validarCampos() {
+        String titulo = txt_titulo.getText().trim();
+        String descripcion = txt_descr.getText().trim();
+        String estado = (String) select_estado.getSelectedItem();
+        String fecha_entrega = lbl_fecha_seleccionada.getText();
+
+        // Validar que todos los campos estén completos
+        if (titulo.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Debes ingresar un título para la tarea.",
+                    "Validación",
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        if (descripcion.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Debes ingresar una descripción para la tarea.",
+                    "Validación",
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        if (estado == null || estado.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Debes seleccionar un estado para la tarea.",
+                    "Validación",
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+
+        if (fecha_entrega.equals("yyyy-mm-dd")) {
+            JOptionPane.showMessageDialog(this,
+                    "Debes seleccionar una fecha de entrega.",
+                    "Validación",
+                    JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
 }
