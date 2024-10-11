@@ -2,16 +2,17 @@ package gui;
 
 public class DetallesDeTarea extends javax.swing.JDialog {
     
-    public DetallesDeTarea(java.awt.Frame parent, boolean modal, logica.Tarea tareaSeleccionada) {
+    public DetallesDeTarea(java.awt.Frame parent, boolean modal, logica.Tarea tarea) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
-        if (tareaSeleccionada != null) {
-            txt_titulo.setText(tareaSeleccionada.getTitulo());
-            txt_descr.setText(tareaSeleccionada.getDescripcion());
-            txt_estado.setText(tareaSeleccionada.getEstado());
-            txt_fecha_entrega.setText(tareaSeleccionada.getFechaEntrega());
-            txt_fecha_creacion.setText(tareaSeleccionada.getFechaCreacion());
+        if (tarea != null) {
+            this.setTitle(tarea.getTitulo());
+            txt_titulo.setText(tarea.getTitulo());
+            txt_descr.setText(tarea.getDescripcion());
+            txt_estado.setText(tarea.getEstado());
+            txt_fecha_entrega.setText(tarea.getFechaEntrega());
+            txt_fecha_creacion.setText(tarea.getFechaCreacion());
         }
     }
 
@@ -37,14 +38,22 @@ public class DetallesDeTarea extends javax.swing.JDialog {
         txt_fecha_creacion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Detalles");
+
+        p_detalles.setBackground(new java.awt.Color(230, 247, 245));
+
+        sp_descr.setBackground(new java.awt.Color(230, 247, 245));
+        sp_descr.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         txt_descr.setEditable(false);
+        txt_descr.setBackground(new java.awt.Color(230, 247, 245));
         txt_descr.setColumns(20);
         txt_descr.setLineWrap(true);
         txt_descr.setRows(5);
         txt_descr.setText("Descripción");
         txt_descr.setWrapStyleWord(true);
-        txt_descr.setOpaque(false);
+        txt_descr.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        txt_descr.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         sp_descr.setViewportView(txt_descr);
 
         lbl_fecha_entrega.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
@@ -74,14 +83,13 @@ public class DetallesDeTarea extends javax.swing.JDialog {
             .addGroup(p_detallesLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
                 .addGroup(p_detallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(sp_descr)
-                    .addGroup(p_detallesLayout.createSequentialGroup()
-                        .addComponent(lbl_titulo)
-                        .addGap(33, 33, 33)
-                        .addComponent(txt_titulo)
-                        .addGap(0, 153, Short.MAX_VALUE))
+                    .addComponent(sp_descr, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
                     .addGroup(p_detallesLayout.createSequentialGroup()
                         .addGroup(p_detallesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(p_detallesLayout.createSequentialGroup()
+                                .addComponent(lbl_titulo)
+                                .addGap(33, 33, 33)
+                                .addComponent(txt_titulo))
                             .addGroup(p_detallesLayout.createSequentialGroup()
                                 .addComponent(lbl_estado)
                                 .addGap(24, 24, 24)

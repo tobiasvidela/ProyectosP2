@@ -34,30 +34,47 @@ public class CrearTarea extends javax.swing.JDialog {
         btn_crear_tarea = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Nueva tarea");
+        setBackground(new java.awt.Color(230, 247, 245));
+        setResizable(false);
+
+        p_crear_tarea.setBackground(new java.awt.Color(230, 247, 245));
 
         lbl_titulo.setText("Título:");
+
+        txt_titulo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lbl_descr.setText("Descripción:");
 
         txt_descr.setColumns(20);
+        txt_descr.setLineWrap(true);
         txt_descr.setRows(5);
+        txt_descr.setWrapStyleWord(true);
+        txt_descr.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         sp_descr.setViewportView(txt_descr);
 
         lbl_estado.setText("Estado:");
 
         select_estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nuevo", "Pendiente", "Finalizado" }));
+        select_estado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lbl_fecha_entrega.setText("Fecha de Entrega:");
 
         lbl_fecha_seleccionada.setText("yyyy-mm-dd");
 
+        calendar_fecha_entrega.setBackground(new java.awt.Color(230, 247, 245));
+        calendar_fecha_entrega.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        calendar_fecha_entrega.setDecorationBackgroundVisible(false);
         calendar_fecha_entrega.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 calendar_fecha_entregaPropertyChange(evt);
             }
         });
 
+        btn_crear_tarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/new_task_menu.png"))); // NOI18N
         btn_crear_tarea.setText("Crear Tarea");
+        btn_crear_tarea.setToolTipText("");
+        btn_crear_tarea.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_crear_tarea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_crear_tareaActionPerformed(evt);
@@ -75,7 +92,7 @@ public class CrearTarea extends javax.swing.JDialog {
                     .addComponent(lbl_descr)
                     .addGroup(p_crear_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(txt_titulo, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(sp_descr, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(sp_descr, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)))
                 .addGap(20, 20, 20)
                 .addGroup(p_crear_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(p_crear_tareaLayout.createSequentialGroup()
@@ -102,7 +119,7 @@ public class CrearTarea extends javax.swing.JDialog {
                     .addComponent(lbl_estado))
                 .addGap(10, 10, 10)
                 .addGroup(p_crear_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(select_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(p_crear_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)

@@ -11,6 +11,7 @@ public class EditarTarea extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
         if (tarea != null) {
             this.tarea = tarea;
+            this.setTitle("Editando " + tarea.getTitulo());
             txt_titulo.setText(tarea.getTitulo());
             txt_descr.setText(tarea.getDescripcion());
             select_estado.setSelectedItem(tarea.getEstado());
@@ -41,29 +42,46 @@ public class EditarTarea extends javax.swing.JDialog {
         btn_editar_tarea = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Editar");
+        setBackground(new java.awt.Color(230, 247, 245));
+        setResizable(false);
+
+        p_editar_tarea.setBackground(new java.awt.Color(230, 247, 245));
 
         lbl_titulo.setText("Título:");
 
+        txt_titulo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         lbl_descr.setText("Descripción:");
 
+        sp_descr.setBackground(new java.awt.Color(230, 247, 245));
+
         txt_descr.setColumns(20);
+        txt_descr.setLineWrap(true);
         txt_descr.setRows(5);
+        txt_descr.setWrapStyleWord(true);
+        txt_descr.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         sp_descr.setViewportView(txt_descr);
 
         lbl_estado.setText("Estado:");
 
         select_estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nuevo", "Pendiente", "Finalizado" }));
+        select_estado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lbl_fecha_entrega.setText("Fecha de Entrega:");
 
         lbl_fecha_seleccionada.setText("yyyy-mm-dd");
 
+        calendar_fecha_entrega.setBackground(new java.awt.Color(230, 247, 245));
+        calendar_fecha_entrega.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        calendar_fecha_entrega.setDecorationBackgroundVisible(false);
         calendar_fecha_entrega.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 calendar_fecha_entregaPropertyChange(evt);
             }
         });
 
+        btn_editar_tarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/edit_task_menu.png"))); // NOI18N
         btn_editar_tarea.setText("Actualizar Tarea");
         btn_editar_tarea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,7 +100,7 @@ public class EditarTarea extends javax.swing.JDialog {
                     .addComponent(lbl_descr)
                     .addGroup(p_editar_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(txt_titulo, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(sp_descr, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(sp_descr, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)))
                 .addGap(20, 20, 20)
                 .addGroup(p_editar_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(p_editar_tareaLayout.createSequentialGroup()
@@ -109,7 +127,7 @@ public class EditarTarea extends javax.swing.JDialog {
                     .addComponent(lbl_estado))
                 .addGap(10, 10, 10)
                 .addGroup(p_editar_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(select_estado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(p_editar_tareaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)

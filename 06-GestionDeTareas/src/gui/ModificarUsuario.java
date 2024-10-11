@@ -39,23 +39,51 @@ public class ModificarUsuario extends javax.swing.JDialog {
         btn_volver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Actualizar Datos");
+        setResizable(false);
+
+        p_modificar_usuario.setBackground(new java.awt.Color(230, 247, 245));
 
         lbl_nombre.setText("Nombre/s:");
 
+        txt_nombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         lbl_apellido.setText("Apellido/s:");
+
+        txt_apellido.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         lbl_username.setText("Username:");
 
+        txt_username.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         lbl_password.setText("Password:");
 
-        btn_modificar_usuario.setText("Modificar");
+        txt_password.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        btn_modificar_usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/guardar_cambios_JOP.png"))); // NOI18N
+        btn_modificar_usuario.setToolTipText("Modificar");
+        btn_modificar_usuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btn_modificar_usuario.setBorderPainted(false);
+        btn_modificar_usuario.setContentAreaFilled(false);
+        btn_modificar_usuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_modificar_usuario.setFocusPainted(false);
+        btn_modificar_usuario.setFocusable(false);
+        btn_modificar_usuario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_modificar_usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_modificar_usuarioActionPerformed(evt);
             }
         });
 
-        btn_volver.setText("Volver");
+        btn_volver.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/volver_JOP.png"))); // NOI18N
+        btn_volver.setToolTipText("Volver");
+        btn_volver.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btn_volver.setBorderPainted(false);
+        btn_volver.setContentAreaFilled(false);
+        btn_volver.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_volver.setFocusPainted(false);
+        btn_volver.setFocusable(false);
+        btn_volver.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_volver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_volverActionPerformed(evt);
@@ -67,29 +95,35 @@ public class ModificarUsuario extends javax.swing.JDialog {
         p_modificar_usuarioLayout.setHorizontalGroup(
             p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_modificar_usuarioLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(48, 48, 48)
                 .addGroup(p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(p_modificar_usuarioLayout.createSequentialGroup()
-                        .addComponent(lbl_password)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(p_modificar_usuarioLayout.createSequentialGroup()
-                        .addComponent(lbl_username)
-                        .addGap(18, 18, Short.MAX_VALUE)
-                        .addComponent(txt_username, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(p_modificar_usuarioLayout.createSequentialGroup()
-                        .addComponent(lbl_apellido)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(p_modificar_usuarioLayout.createSequentialGroup()
-                        .addComponent(lbl_nombre)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(p_modificar_usuarioLayout.createSequentialGroup()
                         .addComponent(btn_modificar_usuario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_volver)))
-                .addGap(20, 20, 20))
+                        .addComponent(btn_volver))
+                    .addGroup(p_modificar_usuarioLayout.createSequentialGroup()
+                        .addGroup(p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(p_modificar_usuarioLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(lbl_nombre)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                                    .addGroup(p_modificar_usuarioLayout.createSequentialGroup()
+                                        .addComponent(lbl_apellido)
+                                        .addGap(12, 12, 12)))
+                                .addGroup(p_modificar_usuarioLayout.createSequentialGroup()
+                                    .addComponent(lbl_username)
+                                    .addGap(13, 13, 13)))
+                            .addGroup(p_modificar_usuarioLayout.createSequentialGroup()
+                                .addComponent(lbl_password)
+                                .addGap(16, 16, 16)))
+                        .addGroup(p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txt_password, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                            .addComponent(txt_username)
+                            .addComponent(txt_apellido)
+                            .addComponent(txt_nombre))))
+                .addGap(48, 48, 48))
         );
         p_modificar_usuarioLayout.setVerticalGroup(
             p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,19 +131,19 @@ public class ModificarUsuario extends javax.swing.JDialog {
                 .addGap(20, 20, 20)
                 .addGroup(p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_nombre)
-                    .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
                 .addGroup(p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_apellido)
-                    .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(txt_apellido, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
                 .addGroup(p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_username)
-                    .addComponent(txt_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(txt_username, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
                 .addGroup(p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_password)
-                    .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(p_modificar_usuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_modificar_usuario)

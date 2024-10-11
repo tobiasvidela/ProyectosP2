@@ -83,6 +83,8 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        splitPane_tareas.setBackground(new java.awt.Color(230, 247, 245));
+        splitPane_tareas.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         splitPane_tareas.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 splitPane_tareasComponentResized(evt);
@@ -94,11 +96,33 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        sp_table_tareas.setBackground(new java.awt.Color(230, 247, 245));
+        sp_table_tareas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         sp_table_tareas.setMinimumSize(new java.awt.Dimension(275, 565));
 
         table_tareas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         table_tareas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -142,25 +166,42 @@ public class Principal extends javax.swing.JFrame {
 
         splitPane_tareas.setRightComponent(sp_table_tareas);
 
+        p_detalles_tarea.setBackground(new java.awt.Color(230, 247, 245));
+        p_detalles_tarea.setToolTipText("Detalles de la tarea");
         p_detalles_tarea.setMinimumSize(new java.awt.Dimension(275, 100));
 
+        lbl_titulo.setBackground(new java.awt.Color(230, 247, 245));
         lbl_titulo.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
         lbl_titulo.setText("Título");
 
-        btn_ver_mas.setText("Ver más");
+        btn_ver_mas.setBackground(new java.awt.Color(230, 247, 245));
+        btn_ver_mas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/more_JOP.png"))); // NOI18N
+        btn_ver_mas.setToolTipText("Ver más");
+        btn_ver_mas.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btn_ver_mas.setBorderPainted(false);
+        btn_ver_mas.setContentAreaFilled(false);
+        btn_ver_mas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_ver_mas.setFocusPainted(false);
+        btn_ver_mas.setFocusable(false);
+        btn_ver_mas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_ver_mas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_ver_masActionPerformed(evt);
             }
         });
 
+        sp_descr.setBackground(new java.awt.Color(230, 247, 245));
+        sp_descr.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+
         txt_descr.setEditable(false);
+        txt_descr.setBackground(new java.awt.Color(230, 247, 245));
         txt_descr.setColumns(20);
         txt_descr.setLineWrap(true);
         txt_descr.setRows(5);
         txt_descr.setText("Descripción");
         txt_descr.setWrapStyleWord(true);
-        txt_descr.setOpaque(false);
+        txt_descr.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        txt_descr.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         sp_descr.setViewportView(txt_descr);
 
         javax.swing.GroupLayout p_detalles_tareaLayout = new javax.swing.GroupLayout(p_detalles_tarea);
@@ -185,7 +226,7 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(lbl_titulo)
                     .addComponent(btn_ver_mas))
                 .addGap(15, 15, 15)
-                .addComponent(sp_descr, javax.swing.GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+                .addComponent(sp_descr, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -210,11 +251,23 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        menubar_principal.setBackground(new java.awt.Color(204, 204, 255));
+        menubar_principal.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        menubar_principal.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        menu_usuario.setBackground(new java.awt.Color(242, 242, 242));
+        menu_usuario.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         menu_usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/account_settings_JOP.png"))); // NOI18N
         menu_usuario.setText("Usuario");
         menu_usuario.setToolTipText("Gestiona tu cuenta");
+        menu_usuario.setBorderPainted(false);
+        menu_usuario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        menu_usuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        menu_opc_cerrar_sesion.setBackground(new java.awt.Color(242, 242, 242));
+        menu_opc_cerrar_sesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/logout_menu.png"))); // NOI18N
         menu_opc_cerrar_sesion.setText("Cerrar sesión");
+        menu_opc_cerrar_sesion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         menu_opc_cerrar_sesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_opc_cerrar_sesionActionPerformed(evt);
@@ -222,7 +275,10 @@ public class Principal extends javax.swing.JFrame {
         });
         menu_usuario.add(menu_opc_cerrar_sesion);
 
+        menu_opc_modificar_cuenta.setBackground(new java.awt.Color(242, 242, 242));
+        menu_opc_modificar_cuenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/modify_user_menu.png"))); // NOI18N
         menu_opc_modificar_cuenta.setText("Modificar cuenta");
+        menu_opc_modificar_cuenta.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         menu_opc_modificar_cuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_opc_modificar_cuentaActionPerformed(evt);
@@ -230,7 +286,10 @@ public class Principal extends javax.swing.JFrame {
         });
         menu_usuario.add(menu_opc_modificar_cuenta);
 
+        menu_opc_eliminar_cuenta.setBackground(new java.awt.Color(242, 242, 242));
+        menu_opc_eliminar_cuenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/delete_account_menu.png"))); // NOI18N
         menu_opc_eliminar_cuenta.setText("Eliminar cuenta");
+        menu_opc_eliminar_cuenta.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         menu_opc_eliminar_cuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_opc_eliminar_cuentaActionPerformed(evt);
@@ -240,11 +299,19 @@ public class Principal extends javax.swing.JFrame {
 
         menubar_principal.add(menu_usuario);
 
+        menu_tareas.setBackground(new java.awt.Color(242, 242, 242));
+        menu_tareas.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         menu_tareas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/clipboard_JOP.png"))); // NOI18N
         menu_tareas.setText("Tareas");
         menu_tareas.setToolTipText("Gestiona tus tareas");
+        menu_tareas.setBorderPainted(false);
+        menu_tareas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        menu_tareas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        menu_opc_crear_tarea.setBackground(new java.awt.Color(242, 242, 242));
+        menu_opc_crear_tarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/new_task_menu.png"))); // NOI18N
         menu_opc_crear_tarea.setText("Nueva Tarea");
+        menu_opc_crear_tarea.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         menu_opc_crear_tarea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_opc_crear_tareaActionPerformed(evt);
@@ -252,7 +319,10 @@ public class Principal extends javax.swing.JFrame {
         });
         menu_tareas.add(menu_opc_crear_tarea);
 
+        menu_opc_editar_tarea.setBackground(new java.awt.Color(242, 242, 242));
+        menu_opc_editar_tarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/edit_task_menu.png"))); // NOI18N
         menu_opc_editar_tarea.setText("Editar Tarea");
+        menu_opc_editar_tarea.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         menu_opc_editar_tarea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_opc_editar_tareaActionPerformed(evt);
@@ -260,19 +330,30 @@ public class Principal extends javax.swing.JFrame {
         });
         menu_tareas.add(menu_opc_editar_tarea);
 
+        menu_opc_eliminar_tarea.setBackground(new java.awt.Color(242, 242, 242));
+        menu_opc_eliminar_tarea.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/delete_task_menu.png"))); // NOI18N
         menu_opc_eliminar_tarea.setText("Eliminar Tarea");
+        menu_opc_eliminar_tarea.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         menu_opc_eliminar_tarea.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_opc_eliminar_tareaActionPerformed(evt);
             }
         });
         menu_tareas.add(menu_opc_eliminar_tarea);
+
+        tarea_menu_separator.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         menu_tareas.add(tarea_menu_separator);
 
+        submenu_filtrar_tareas.setBackground(new java.awt.Color(242, 242, 242));
+        submenu_filtrar_tareas.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        submenu_filtrar_tareas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/mostrar_tareas_menu.png"))); // NOI18N
         submenu_filtrar_tareas.setText("Mostrar");
+        submenu_filtrar_tareas.setBorderPainted(false);
 
+        menu_opc_filtrar_nuevo.setBackground(new java.awt.Color(242, 242, 242));
         menu_opc_filtrar_nuevo.setSelected(true);
         menu_opc_filtrar_nuevo.setText("Nuevas");
+        menu_opc_filtrar_nuevo.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         menu_opc_filtrar_nuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_opc_filtrar_nuevoActionPerformed(evt);
@@ -280,8 +361,10 @@ public class Principal extends javax.swing.JFrame {
         });
         submenu_filtrar_tareas.add(menu_opc_filtrar_nuevo);
 
+        menu_opc_filtrar_pendiente.setBackground(new java.awt.Color(242, 242, 242));
         menu_opc_filtrar_pendiente.setSelected(true);
         menu_opc_filtrar_pendiente.setText("Pendientes");
+        menu_opc_filtrar_pendiente.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         menu_opc_filtrar_pendiente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_opc_filtrar_pendienteActionPerformed(evt);
@@ -289,8 +372,10 @@ public class Principal extends javax.swing.JFrame {
         });
         submenu_filtrar_tareas.add(menu_opc_filtrar_pendiente);
 
+        menu_opc_filtrar_finalizado.setBackground(new java.awt.Color(242, 242, 242));
         menu_opc_filtrar_finalizado.setSelected(true);
         menu_opc_filtrar_finalizado.setText("Finalizado");
+        menu_opc_filtrar_finalizado.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         menu_opc_filtrar_finalizado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menu_opc_filtrar_finalizadoActionPerformed(evt);
@@ -542,7 +627,7 @@ public class Principal extends javax.swing.JFrame {
     }
     
     private void updateMenuBar() {
-        menu_usuario.setText("Usuario: " + logica.Main.USUARIO_ACTUAL);
+        menu_usuario.setText("Mi cuenta");
         this.usuarioActual = logica.UsuarioService.obtenerUsuarioPorUsername(logica.Main.USUARIO_ACTUAL);
     }
 
