@@ -1,10 +1,6 @@
 package logica;
 
-import java.text.SimpleDateFormat;
-
-public class Tarea {
-    public static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    
+public class Tarea {    
     private int id;
     private String titulo;
     private String descripcion;
