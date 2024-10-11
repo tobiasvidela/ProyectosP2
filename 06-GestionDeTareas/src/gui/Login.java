@@ -11,6 +11,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
+        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/login_JOP.png")).getImage());
     }
 
     /**
@@ -32,9 +33,15 @@ public class Login extends javax.swing.JFrame {
         btn_salir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Inicio de Sesión");
+        setBackground(new java.awt.Color(230, 247, 245));
+        setResizable(false);
+
+        p_login.setBackground(new java.awt.Color(230, 247, 245));
 
         lbl_username.setText("Usuario");
 
+        txt_username.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         txt_username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_usernameActionPerformed(evt);
@@ -43,21 +50,47 @@ public class Login extends javax.swing.JFrame {
 
         lbl_password.setText("Contraseña");
 
-        btn_registrarse.setText("Registrarse");
+        txt_password.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        btn_registrarse.setBackground(new java.awt.Color(230, 247, 245));
+        btn_registrarse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/register_user_JOP.png"))); // NOI18N
+        btn_registrarse.setToolTipText("Registrarse");
+        btn_registrarse.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btn_registrarse.setBorderPainted(false);
+        btn_registrarse.setContentAreaFilled(false);
+        btn_registrarse.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_registrarse.setFocusPainted(false);
+        btn_registrarse.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_registrarse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_registrarseActionPerformed(evt);
             }
         });
 
-        btn_iniciar_sesion.setText("Iniciar Sesión");
+        btn_iniciar_sesion.setBackground(new java.awt.Color(230, 247, 245));
+        btn_iniciar_sesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/login_JOP.png"))); // NOI18N
+        btn_iniciar_sesion.setToolTipText("Iniciar Sesión");
+        btn_iniciar_sesion.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btn_iniciar_sesion.setBorderPainted(false);
+        btn_iniciar_sesion.setContentAreaFilled(false);
+        btn_iniciar_sesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_iniciar_sesion.setFocusPainted(false);
+        btn_iniciar_sesion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_iniciar_sesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_iniciar_sesionActionPerformed(evt);
             }
         });
 
-        btn_salir.setText("Salir");
+        btn_salir.setBackground(new java.awt.Color(230, 247, 245));
+        btn_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/exit_JOP.png"))); // NOI18N
+        btn_salir.setToolTipText("Salir");
+        btn_salir.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btn_salir.setBorderPainted(false);
+        btn_salir.setContentAreaFilled(false);
+        btn_salir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_salir.setFocusPainted(false);
+        btn_salir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_salirActionPerformed(evt);
@@ -69,42 +102,41 @@ public class Login extends javax.swing.JFrame {
         p_loginLayout.setHorizontalGroup(
             p_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_loginLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(p_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(p_loginLayout.createSequentialGroup()
-                        .addComponent(btn_registrarse)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_iniciar_sesion))
-                    .addGroup(p_loginLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(p_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lbl_password)
-                            .addComponent(lbl_username))
-                        .addGap(20, 20, 20)
-                        .addGroup(p_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txt_username, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                            .addComponent(txt_password))))
-                .addGap(18, 18, 18)
+                .addGap(35, 35, 35)
+                .addComponent(btn_registrarse)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addComponent(btn_iniciar_sesion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                 .addComponent(btn_salir)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGap(35, 35, 35))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, p_loginLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(p_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_password, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lbl_username, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(p_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txt_username, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                    .addComponent(txt_password))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         p_loginLayout.setVerticalGroup(
             p_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(p_loginLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addGap(51, 51, 51)
                 .addGroup(p_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_username)
-                    .addComponent(txt_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(txt_username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_username))
+                .addGap(10, 10, 10)
                 .addGroup(p_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_password)
-                    .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txt_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_password))
+                .addGap(30, 30, 30)
                 .addGroup(p_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_registrarse)
                     .addComponent(btn_iniciar_sesion)
                     .addComponent(btn_salir))
-                .addGap(20, 20, 20))
+                .addGap(35, 35, 35))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

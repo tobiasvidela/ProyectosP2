@@ -15,6 +15,9 @@ public class Principal extends javax.swing.JFrame {
     private static Icon logout_JOP_icon = recursos.iconos.IconGetter.logout_JOP_icon;
     private static Icon delete_account_JOP_icon = recursos.iconos.IconGetter.delete_account_JOP_icon;
     private static Icon delete_task_JOP_icon = recursos.iconos.IconGetter.delete_task_JOP_icon;
+    private static Icon nuevo_JOP_icon = recursos.iconos.IconGetter.nuevo_JOP_icon;
+    private static Icon pendiente_JOP_icon = recursos.iconos.IconGetter.pendiente_JOP_icon;
+    private static Icon finalizado_JOP_icon = recursos.iconos.IconGetter.finalizado_JOP_icon;
     
     private logica.Usuario usuarioActual = logica.UsuarioService.obtenerUsuarioPorUsername(logica.Main.USUARIO_ACTUAL);
     private logica.Tarea tareaSeleccionada = null;
@@ -22,6 +25,7 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);
+        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/clipboard_JOP.png")).getImage());
         cerrarVentana();
         
         // Mostrar mensaje de bienvenida después de que la ventana sea visible
@@ -64,12 +68,15 @@ public class Principal extends javax.swing.JFrame {
         menu_opc_filtrar_finalizado = new javax.swing.JCheckBoxMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Gestion De Tareas");
+        setBackground(new java.awt.Color(230, 247, 245));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
+        escritorio.setBackground(new java.awt.Color(230, 247, 245));
         escritorio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 escritorioMouseClicked(evt);
@@ -203,7 +210,9 @@ public class Principal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        menu_usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/account_settings_JOP.png"))); // NOI18N
         menu_usuario.setText("Usuario");
+        menu_usuario.setToolTipText("Gestiona tu cuenta");
 
         menu_opc_cerrar_sesion.setText("Cerrar sesión");
         menu_opc_cerrar_sesion.addActionListener(new java.awt.event.ActionListener() {
@@ -231,7 +240,9 @@ public class Principal extends javax.swing.JFrame {
 
         menubar_principal.add(menu_usuario);
 
+        menu_tareas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/clipboard_JOP.png"))); // NOI18N
         menu_tareas.setText("Tareas");
+        menu_tareas.setToolTipText("Gestiona tus tareas");
 
         menu_opc_crear_tarea.setText("Nueva Tarea");
         menu_opc_crear_tarea.addActionListener(new java.awt.event.ActionListener() {
@@ -580,33 +591,49 @@ public class Principal extends javax.swing.JFrame {
     private void updateDetallesTarea(logica.Tarea tarea) {
         if (tarea == null) {
             lbl_titulo.setText("Título");
-            //icono_estado
             txt_descr.setText("Descripción");
         } else {
             // Cargar los datos de la tarea seleccionada en los campos correspondientes
             updateTituloDetallesTarea(tarea);
-
-            // Establecer el icono según el estado
-            //icono_estado.setIcon(obtenerIconoEstado(tarea.getEstado()));
-
             txt_descr.setText(tarea.getDescripcion());
         }
     }
 
     private void updateTituloDetallesTarea(logica.Tarea tarea) {
         if (tarea == null) {
+            updateIconoEstado("None");
             return;
         }
+        // Establecer el icono según el estado
+        updateIconoEstado(tarea.getEstado());
+        
         // Calcular el ancho disponible (ancho del panel menos ancho del botón y margen)
         int anchoPanel = p_detalles_tarea.getWidth();
         int anchoBoton = btn_ver_mas.getWidth();
-        int margen = 30;
+        int margen = 60;
         int anchoMaximoDisponible = anchoPanel - anchoBoton - margen;
         
         // Obtener el FontMetrics del JLabel para calcular el ancho del texto
         java.awt.FontMetrics fontMetrics = lbl_titulo.getFontMetrics(lbl_titulo.getFont());
         
         lbl_titulo.setText(logica.Util.cortarTextoSiEsLargo(tarea.getTitulo(), anchoMaximoDisponible, fontMetrics));
+    }
+    
+    private void updateIconoEstado(String estado) {
+        switch(estado){
+            case "Nuevo" -> {
+                lbl_titulo.setIcon(nuevo_JOP_icon);  // Icono para el estado "Nuevo"
+            }
+            case "Pendiente" -> {
+                lbl_titulo.setIcon(pendiente_JOP_icon);  // Icono para el estado "Pendiente"
+            }
+            case "Finalizado" -> {
+                lbl_titulo.setIcon(finalizado_JOP_icon);  // Icono para el estado "Finalizado"
+            }
+            default -> {
+                lbl_titulo.setIcon(null);  // Si el estado no coincide, se quita el icono o se usa uno por defecto
+            }
+        }
     }
 
     private void abrirDetallesDeTarea(logica.Tarea tareaSeleccionada) {

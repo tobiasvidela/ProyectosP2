@@ -6,7 +6,11 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="menu_usuario">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/recursos/iconos/account_settings_JOP.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Usuario"/>
+            <Property name="toolTipText" type="java.lang.String" value="Gestiona tu cuenta"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menu_opc_cerrar_sesion">
@@ -37,7 +41,11 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menu_tareas">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/recursos/iconos/clipboard_JOP.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Tareas"/>
+            <Property name="toolTipText" type="java.lang.String" value="Gestiona tus tareas"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menu_opc_crear_tarea">
@@ -107,6 +115,10 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
+    <Property name="title" type="java.lang.String" value="Gestion De Tareas"/>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="f5" green="f7" red="e6" type="rgb"/>
+    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="menubar_principal"/>
@@ -142,6 +154,11 @@
   </Layout>
   <SubComponents>
     <Container class="javax.swing.JDesktopPane" name="escritorio">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="f5" green="f7" red="e6" type="rgb"/>
+        </Property>
+      </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="escritorioMouseClicked"/>
       </Events>

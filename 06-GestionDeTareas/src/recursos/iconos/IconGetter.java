@@ -13,6 +13,9 @@ public class IconGetter {
     public static Icon modify_user_JOP_icon = null;
     public static Icon delete_account_JOP_icon = null;
     public static Icon delete_task_JOP_icon = null;
+    public static Icon nuevo_JOP_icon = null;
+    public static Icon pendiente_JOP_icon = null;
+    public static Icon finalizado_JOP_icon = null;
     
     static {
         try {
@@ -68,6 +71,27 @@ public class IconGetter {
             delete_task_JOP_icon = new ImageIcon(Util.class.getResource("/recursos/iconos/delete_task_JOP.png"));
         } catch (Exception e) {
             throw new ExceptionInInitializerError("No se pudo cargar el ícono delete_task_JOP.png");
+        }
+    }
+    static {
+        try {
+            nuevo_JOP_icon = new ImageIcon(Util.class.getResource("/recursos/iconos/started_task.png"));
+        } catch (Exception e) {
+            throw new ExceptionInInitializerError("No se pudo cargar el ícono pendiente_JOP.png");
+        }
+    }
+    static {
+        try {
+            pendiente_JOP_icon = new ImageIcon(Util.class.getResource("/recursos/iconos/pending_task.png"));
+        } catch (Exception e) {
+            throw new ExceptionInInitializerError("No se pudo cargar el ícono pending_task.png");
+        }
+    }
+    static {
+        try {
+            finalizado_JOP_icon = new ImageIcon(Util.class.getResource("/recursos/iconos/completed_task.png"));
+        } catch (Exception e) {
+            throw new ExceptionInInitializerError("No se pudo cargar el ícono completed_task.png");
         }
     }
 }
