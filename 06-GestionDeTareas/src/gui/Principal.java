@@ -487,6 +487,9 @@ public class Principal extends javax.swing.JFrame {
 
     private void menu_opc_eliminar_tareaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_opc_eliminar_tareaActionPerformed
         eliminarTarea(tareaSeleccionada);
+        updateTabletareas();
+        this.tareaSeleccionada = null;
+        updateDetallesTarea(null);
     }//GEN-LAST:event_menu_opc_eliminar_tareaActionPerformed
 
     private void menu_opc_filtrar_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menu_opc_filtrar_nuevoActionPerformed
@@ -763,6 +766,5 @@ public class Principal extends javax.swing.JFrame {
                         delete_task_JOP_icon);
             }
         }
-        updateTabletareas();
     }
 }

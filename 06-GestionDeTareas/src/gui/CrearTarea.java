@@ -9,7 +9,7 @@ public class CrearTarea extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(parent);
-        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/new_task_JOP.png")).getImage());
+        this.setIconImage(new javax.swing.ImageIcon(getClass().getResource("/recursos/iconos/new_task_menu.png")).getImage());
     }
 
     /**
